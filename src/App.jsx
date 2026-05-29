@@ -97,8 +97,22 @@ function Header({ view, setView }) {
   );
 }
 
+// 각 부위의 SVG 오버레이 타원 좌표 (viewBox 0 0 100 100, preserveAspectRatio=none)
+// anatomy-stage 컬럼 기준 — 인체 실루엣이 세로로 가득 차는 위치에 맞춤
+const BODY_REGIONS = {
+  head:     { cx: 50, cy:  8, rx:  9, ry:  8 },
+  chest:    { cx: 50, cy: 23, rx: 13, ry:  9 },
+  shoulder: { cx: 50, cy: 37, rx: 19, ry: 12 },
+  digest:   { cx: 50, cy: 46, rx: 11, ry: 10 },
+  lower:    { cx: 50, cy: 57, rx: 10, ry:  9 },
+  leg:      { cx: 50, cy: 78, rx: 13, ry: 17 },
+};
+
 function StartPage() {
   const [selected, setSelected] = useState(["피로감"]);
+  const [hoveredRegion, setHoveredRegion] = useState(null);
+  const hover = (region) => ({ onMouseEnter: () => setHoveredRegion(region), onMouseLeave: () => setHoveredRegion(null) });
+
   const symptoms = [
     ["피로감", Activity],
     ["소화불량", Waves],
@@ -122,12 +136,30 @@ function StartPage() {
       <div className="anatomy-stage" aria-hidden="true">
         <div className="orbit orbit-a" /><div className="orbit orbit-b" /><div className="orbit orbit-c" />
         <div className="spark s1" /><div className="spark s2" /><div className="spark s3" />
-        <button className="body-tag tag-head" type="button"><span />머리/정신 <b>＋</b></button>
-        <button className="body-tag tag-chest" type="button"><span />가슴 <b>＋</b></button>
-        <button className="body-tag tag-shoulder" type="button"><span />어깨/허리 <b>＋</b></button>
-        <button className="body-tag tag-digest" type="button"><span />소화기 <b>＋</b></button>
-        <button className="body-tag tag-lower" type="button"><span />하복부 <b>＋</b></button>
-        <button className="body-tag tag-leg" type="button"><span />다리/하체 <b>＋</b></button>
+
+        {/* 부위 하이라이트 SVG 오버레이 */}
+        <svg className="body-overlay" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+          <defs>
+            <filter id="body-glow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="2.8" result="blur" />
+            </filter>
+          </defs>
+          {Object.entries(BODY_REGIONS).map(([key, r]) => (
+            <ellipse key={key}
+              cx={r.cx} cy={r.cy} rx={r.rx} ry={r.ry}
+              fill="rgba(220, 55, 35, 0.38)"
+              filter="url(#body-glow)"
+              className={`body-region ${hoveredRegion === key ? "active" : ""}`}
+            />
+          ))}
+        </svg>
+
+        <button className="body-tag tag-head"     type="button" {...hover("head")}    ><span />머리/정신 <b>＋</b></button>
+        <button className="body-tag tag-chest"    type="button" {...hover("chest")}   ><span />가슴 <b>＋</b></button>
+        <button className="body-tag tag-shoulder" type="button" {...hover("shoulder")}><span />어깨/허리 <b>＋</b></button>
+        <button className="body-tag tag-digest"   type="button" {...hover("digest")}  ><span />소화기 <b>＋</b></button>
+        <button className="body-tag tag-lower"    type="button" {...hover("lower")}   ><span />하복부 <b>＋</b></button>
+        <button className="body-tag tag-leg"      type="button" {...hover("leg")}     ><span />다리/하체 <b>＋</b></button>
       </div>
 
       <aside className="diagnosis" aria-label="증상 선택">
