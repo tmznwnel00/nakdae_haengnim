@@ -1,0 +1,1103 @@
+[
+  {
+    "id": "sym_감기",
+    "traditionalTerm": "감모풍한(感冒風寒)·상한(傷寒)·상한결흉(傷寒結胸)·상한괴증(傷寒壞症)",
+    "plain": "감기",
+    "category": "respiratory",
+    "categories": [
+      "respiratory"
+    ],
+    "ucodes": []
+  },
+  {
+    "id": "sym_갱년기",
+    "traditionalTerm": "갱년기증후군·음허·음허화왕",
+    "plain": "갱년기",
+    "category": "womens",
+    "categories": [
+      "womens"
+    ],
+    "ucodes": []
+  },
+  {
+    "id": "sym_곽란토사",
+    "traditionalTerm": "곽란토사(霍亂吐瀉)",
+    "plain": "곽란토사",
+    "category": "digestive",
+    "categories": [
+      "digestive"
+    ],
+    "ucodes": [
+      "U730"
+    ]
+  },
+  {
+    "id": "sym_구련",
+    "traditionalTerm": "구련(拘攣)",
+    "plain": "구련",
+    "category": "musculoskeletal",
+    "categories": [
+      "musculoskeletal",
+      "head"
+    ],
+    "ucodes": [
+      "U234",
+      "U236",
+      "U303",
+      "U306"
+    ]
+  },
+  {
+    "id": "sym_근비",
+    "traditionalTerm": "근비(筋痺)",
+    "plain": "근비",
+    "category": "musculoskeletal",
+    "categories": [
+      "musculoskeletal"
+    ],
+    "ucodes": [
+      "U238",
+      "U302",
+      "U304",
+      "U306"
+    ]
+  },
+  {
+    "id": "sym_기단천급",
+    "traditionalTerm": "기단천급(氣短喘急)",
+    "plain": "기단천급",
+    "category": "respiratory",
+    "categories": [
+      "respiratory",
+      "fatigue"
+    ],
+    "ucodes": [
+      "U600"
+    ]
+  },
+  {
+    "id": "sym_기약",
+    "traditionalTerm": "기약(氣弱)",
+    "plain": "기약",
+    "category": "fatigue",
+    "categories": [
+      "fatigue"
+    ],
+    "ucodes": [
+      "U204",
+      "U600"
+    ]
+  },
+  {
+    "id": "sym_기육중착",
+    "traditionalTerm": "기육중착(肌肉重着)",
+    "plain": "기육중착",
+    "category": "musculoskeletal",
+    "categories": [
+      "musculoskeletal"
+    ],
+    "ucodes": [
+      "U234",
+      "U241"
+    ]
+  },
+  {
+    "id": "sym_기침",
+    "traditionalTerm": "노인해수천급(老人咳嗽喘急)·담음적취(痰飮積聚)·상기천식(上氣喘息)·폐허해수(肺虛咳嗽)",
+    "plain": "기침",
+    "category": "respiratory",
+    "categories": [
+      "respiratory"
+    ],
+    "ucodes": []
+  },
+  {
+    "id": "sym_기탈",
+    "traditionalTerm": "기탈(氣脫)",
+    "plain": "기탈",
+    "category": "fatigue",
+    "categories": [
+      "fatigue"
+    ],
+    "ucodes": [
+      "U204",
+      "U600",
+      "U710"
+    ]
+  },
+  {
+    "id": "sym_기혈구허",
+    "traditionalTerm": "기혈구허(氣血俱虛)",
+    "plain": "기혈구허",
+    "category": "fatigue",
+    "categories": [
+      "fatigue",
+      "womens"
+    ],
+    "ucodes": [
+      "U204",
+      "U600",
+      "U640"
+    ]
+  },
+  {
+    "id": "sym_내상",
+    "traditionalTerm": "내상(內傷)",
+    "plain": "내상",
+    "category": "fatigue",
+    "categories": [
+      "fatigue"
+    ],
+    "ucodes": [
+      "U204"
+    ]
+  },
+  {
+    "id": "sym_단기",
+    "traditionalTerm": "단기(短氣)",
+    "plain": "단기",
+    "category": "fatigue",
+    "categories": [
+      "fatigue"
+    ],
+    "ucodes": [
+      "U600"
+    ]
+  },
+  {
+    "id": "sym_담",
+    "traditionalTerm": "담(痰)",
+    "plain": "담",
+    "category": "respiratory",
+    "categories": [
+      "respiratory"
+    ],
+    "ucodes": []
+  },
+  {
+    "id": "sym_담수",
+    "traditionalTerm": "담수(痰嗽)",
+    "plain": "담수",
+    "category": "respiratory",
+    "categories": [
+      "respiratory"
+    ],
+    "ucodes": []
+  },
+  {
+    "id": "sym_도한",
+    "traditionalTerm": "도한(盜汗)",
+    "plain": "도한",
+    "category": "fatigue",
+    "categories": [
+      "fatigue"
+    ],
+    "ucodes": [
+      "U204",
+      "U784"
+    ]
+  },
+  {
+    "id": "sym_두동",
+    "traditionalTerm": "두동(頭疼)",
+    "plain": "두동",
+    "category": "head",
+    "categories": [
+      "head"
+    ],
+    "ucodes": [
+      "U230",
+      "U650"
+    ]
+  },
+  {
+    "id": "sym_두목현훈",
+    "traditionalTerm": "두목현훈(頭目眩暈)",
+    "plain": "두목현훈",
+    "category": "head",
+    "categories": [
+      "head"
+    ],
+    "ucodes": [
+      "U230",
+      "U233",
+      "U650"
+    ]
+  },
+  {
+    "id": "sym_두진",
+    "traditionalTerm": "두진(痘疹)",
+    "plain": "두진",
+    "category": "skin",
+    "categories": [
+      "skin"
+    ],
+    "ucodes": []
+  },
+  {
+    "id": "sym_두한",
+    "traditionalTerm": "두한(頭汗)",
+    "plain": "두한",
+    "category": "head",
+    "categories": [
+      "head"
+    ],
+    "ucodes": [
+      "U230"
+    ]
+  },
+  {
+    "id": "sym_번갈",
+    "traditionalTerm": "번갈(煩渴)",
+    "plain": "번갈",
+    "category": "mind",
+    "categories": [
+      "mind"
+    ],
+    "ucodes": [
+      "U222",
+      "U670"
+    ]
+  },
+  {
+    "id": "sym_번열",
+    "traditionalTerm": "번열(煩熱)",
+    "plain": "번열",
+    "category": "mind",
+    "categories": [
+      "mind"
+    ],
+    "ucodes": [
+      "U222",
+      "U332",
+      "U670"
+    ]
+  },
+  {
+    "id": "sym_복창만",
+    "traditionalTerm": "복창만(腹脹滿)",
+    "plain": "복창만",
+    "category": "digestive",
+    "categories": [
+      "digestive"
+    ],
+    "ucodes": [
+      "U260",
+      "U280"
+    ]
+  },
+  {
+    "id": "sym_부종",
+    "traditionalTerm": "부종(浮腫)",
+    "plain": "부종",
+    "category": "musculoskeletal",
+    "categories": [
+      "musculoskeletal",
+      "respiratory",
+      "fatigue"
+    ],
+    "ucodes": [
+      "U305",
+      "U680",
+      "U794"
+    ]
+  },
+  {
+    "id": "sym_불하식",
+    "traditionalTerm": "불하식(不下食)",
+    "plain": "불하식",
+    "category": "digestive",
+    "categories": [
+      "digestive",
+      "respiratory"
+    ],
+    "ucodes": [
+      "U280",
+      "U680",
+      "U730"
+    ]
+  },
+  {
+    "id": "sym_사리",
+    "traditionalTerm": "사리(瀉痢)",
+    "plain": "사리",
+    "category": "digestive",
+    "categories": [
+      "digestive"
+    ],
+    "ucodes": [
+      "U730"
+    ]
+  },
+  {
+    "id": "sym_사지마목",
+    "traditionalTerm": "사지마목(四肢麻木)",
+    "plain": "사지마목",
+    "category": "musculoskeletal",
+    "categories": [
+      "musculoskeletal",
+      "head"
+    ],
+    "ucodes": [
+      "U233",
+      "U234",
+      "U238",
+      "U240",
+      "U241"
+    ]
+  },
+  {
+    "id": "sym_산후출혈부지",
+    "traditionalTerm": "산후출혈부지(産後出血不止)",
+    "plain": "산후출혈부지",
+    "category": "womens",
+    "categories": [
+      "womens"
+    ],
+    "ucodes": []
+  },
+  {
+    "id": "sym_상습",
+    "traditionalTerm": "상습(傷濕)",
+    "plain": "상습",
+    "category": "respiratory",
+    "categories": [
+      "respiratory"
+    ],
+    "ucodes": []
+  },
+  {
+    "id": "sym_상풍",
+    "traditionalTerm": "상풍(傷風)",
+    "plain": "상풍",
+    "category": "respiratory",
+    "categories": [
+      "respiratory"
+    ],
+    "ucodes": []
+  },
+  {
+    "id": "sym_생리통",
+    "traditionalTerm": "경폐·붕루·생리·월경",
+    "plain": "생리통",
+    "category": "womens",
+    "categories": [
+      "womens"
+    ],
+    "ucodes": [
+      "U640"
+    ]
+  },
+  {
+    "id": "sym_설사",
+    "traditionalTerm": "설사(泄瀉)",
+    "plain": "설사",
+    "category": "digestive",
+    "categories": [
+      "digestive",
+      "respiratory",
+      "fatigue"
+    ],
+    "ucodes": [
+      "U680",
+      "U730",
+      "U794"
+    ]
+  },
+  {
+    "id": "sym_소양",
+    "traditionalTerm": "소양(瘙痒)",
+    "plain": "소양",
+    "category": "skin",
+    "categories": [
+      "skin"
+    ],
+    "ucodes": []
+  },
+  {
+    "id": "sym_소화불량",
+    "traditionalTerm": "건구토(乾嘔吐)·구역(嘔逆)·구토(嘔吐)·구토부지(嘔吐不止)",
+    "plain": "소화불량",
+    "category": "digestive",
+    "categories": [
+      "digestive"
+    ],
+    "ucodes": [
+      "U280",
+      "U730"
+    ]
+  },
+  {
+    "id": "sym_수면장애",
+    "traditionalTerm": "번조(煩燥)·번조(煩躁)·번조구갈(煩躁口渴)",
+    "plain": "수면장애",
+    "category": "mind",
+    "categories": [
+      "mind"
+    ],
+    "ucodes": [
+      "U332",
+      "U670"
+    ]
+  },
+  {
+    "id": "sym_수종",
+    "traditionalTerm": "수종(水腫)",
+    "plain": "수종",
+    "category": "fatigue",
+    "categories": [
+      "fatigue"
+    ],
+    "ucodes": [
+      "U794"
+    ]
+  },
+  {
+    "id": "sym_식결",
+    "traditionalTerm": "식결(食結)",
+    "plain": "식결",
+    "category": "digestive",
+    "categories": [
+      "digestive"
+    ],
+    "ucodes": [
+      "U280"
+    ]
+  },
+  {
+    "id": "sym_식포",
+    "traditionalTerm": "식포(息胞)",
+    "plain": "식포",
+    "category": "digestive",
+    "categories": [
+      "digestive",
+      "respiratory"
+    ],
+    "ucodes": [
+      "U280",
+      "U680",
+      "U730"
+    ]
+  },
+  {
+    "id": "sym_신중",
+    "traditionalTerm": "신중(身重)",
+    "plain": "신중",
+    "category": "musculoskeletal",
+    "categories": [
+      "musculoskeletal"
+    ],
+    "ucodes": [
+      "U302"
+    ]
+  },
+  {
+    "id": "sym_심계",
+    "traditionalTerm": "심계(心悸)",
+    "plain": "심계",
+    "category": "mind",
+    "categories": [
+      "mind"
+    ],
+    "ucodes": [
+      "U221",
+      "U222",
+      "U332",
+      "U651",
+      "U670"
+    ]
+  },
+  {
+    "id": "sym_심계정충",
+    "traditionalTerm": "심계정충(心悸怔忡)",
+    "plain": "심계정충",
+    "category": "mind",
+    "categories": [
+      "mind"
+    ],
+    "ucodes": [
+      "U221",
+      "U332",
+      "U670"
+    ]
+  },
+  {
+    "id": "sym_심비통",
+    "traditionalTerm": "심비통(心脾痛)",
+    "plain": "심비통",
+    "category": "musculoskeletal",
+    "categories": [
+      "musculoskeletal",
+      "digestive"
+    ],
+    "ucodes": [
+      "U260",
+      "U301"
+    ]
+  },
+  {
+    "id": "sym_안화",
+    "traditionalTerm": "안화(眼花)",
+    "plain": "안화",
+    "category": "head",
+    "categories": [
+      "head",
+      "fatigue",
+      "womens"
+    ],
+    "ucodes": [
+      "U640",
+      "U650",
+      "U784"
+    ]
+  },
+  {
+    "id": "sym_양허",
+    "traditionalTerm": "양허(陽虛)",
+    "plain": "양허",
+    "category": "fatigue",
+    "categories": [
+      "fatigue"
+    ],
+    "ucodes": [
+      "U600",
+      "U710",
+      "U794"
+    ]
+  },
+  {
+    "id": "sym_언어섬란",
+    "traditionalTerm": "언어섬란(言語譫亂)",
+    "plain": "언어섬란",
+    "category": "musculoskeletal",
+    "categories": [
+      "musculoskeletal"
+    ],
+    "ucodes": [
+      "U234"
+    ]
+  },
+  {
+    "id": "sym_열비",
+    "traditionalTerm": "열비(熱秘)",
+    "plain": "열비",
+    "category": "musculoskeletal",
+    "categories": [
+      "musculoskeletal"
+    ],
+    "ucodes": [
+      "U238"
+    ]
+  },
+  {
+    "id": "sym_유뇨",
+    "traditionalTerm": "유뇨(遺尿)",
+    "plain": "유뇨",
+    "category": "fatigue",
+    "categories": [
+      "fatigue"
+    ],
+    "ucodes": [
+      "U710"
+    ]
+  },
+  {
+    "id": "sym_음식불하",
+    "traditionalTerm": "음식불하(飮食不下)",
+    "plain": "음식불하",
+    "category": "digestive",
+    "categories": [
+      "digestive"
+    ],
+    "ucodes": [
+      "U280",
+      "U730"
+    ]
+  },
+  {
+    "id": "sym_인건",
+    "traditionalTerm": "인건(咽乾)",
+    "plain": "인건",
+    "category": "respiratory",
+    "categories": [
+      "respiratory"
+    ],
+    "ucodes": []
+  },
+  {
+    "id": "sym_인통",
+    "traditionalTerm": "인통(咽痛)",
+    "plain": "인통",
+    "category": "respiratory",
+    "categories": [
+      "respiratory"
+    ],
+    "ucodes": []
+  },
+  {
+    "id": "sym_인후종통",
+    "traditionalTerm": "인후종통(咽喉腫痛)",
+    "plain": "인후종통",
+    "category": "respiratory",
+    "categories": [
+      "respiratory"
+    ],
+    "ucodes": []
+  },
+  {
+    "id": "sym_잉부통",
+    "traditionalTerm": "잉부통(孕婦痛)",
+    "plain": "잉부통",
+    "category": "womens",
+    "categories": [
+      "womens"
+    ],
+    "ucodes": []
+  },
+  {
+    "id": "sym_자한",
+    "traditionalTerm": "자한(自汗)",
+    "plain": "자한",
+    "category": "fatigue",
+    "categories": [
+      "fatigue"
+    ],
+    "ucodes": [
+      "U204",
+      "U600"
+    ]
+  },
+  {
+    "id": "sym_자한도한",
+    "traditionalTerm": "자한도한(自汗盜汗)",
+    "plain": "자한도한",
+    "category": "fatigue",
+    "categories": [
+      "fatigue"
+    ],
+    "ucodes": [
+      "U204"
+    ]
+  },
+  {
+    "id": "sym_정신권핍",
+    "traditionalTerm": "정신권핍(精神倦乏)",
+    "plain": "정신권핍",
+    "category": "fatigue",
+    "categories": [
+      "fatigue"
+    ],
+    "ucodes": [
+      "U204"
+    ]
+  },
+  {
+    "id": "sym_정신단소",
+    "traditionalTerm": "정신단소(精神短少)",
+    "plain": "정신단소",
+    "category": "fatigue",
+    "categories": [
+      "fatigue"
+    ],
+    "ucodes": [
+      "U204"
+    ]
+  },
+  {
+    "id": "sym_정충",
+    "traditionalTerm": "정충(怔忡)",
+    "plain": "정충",
+    "category": "mind",
+    "categories": [
+      "mind"
+    ],
+    "ucodes": [
+      "U221",
+      "U332"
+    ]
+  },
+  {
+    "id": "sym_조갈",
+    "traditionalTerm": "조갈(燥渴)",
+    "plain": "조갈",
+    "category": "mind",
+    "categories": [
+      "mind"
+    ],
+    "ucodes": [
+      "U222",
+      "U670"
+    ]
+  },
+  {
+    "id": "sym_지절종통",
+    "traditionalTerm": "지절종통(肢節腫痛)",
+    "plain": "지절종통",
+    "category": "musculoskeletal",
+    "categories": [
+      "musculoskeletal",
+      "head"
+    ],
+    "ucodes": [
+      "U236",
+      "U238",
+      "U301",
+      "U303",
+      "U304",
+      "U305"
+    ]
+  },
+  {
+    "id": "sym_진원부족",
+    "traditionalTerm": "진원부족(眞元不足)",
+    "plain": "진원부족",
+    "category": "fatigue",
+    "categories": [
+      "fatigue"
+    ],
+    "ucodes": [
+      "U204",
+      "U710"
+    ]
+  },
+  {
+    "id": "sym_진음휴손",
+    "traditionalTerm": "진음휴손(眞陰虧損)",
+    "plain": "진음휴손",
+    "category": "fatigue",
+    "categories": [
+      "fatigue"
+    ],
+    "ucodes": [
+      "U204",
+      "U784"
+    ]
+  },
+  {
+    "id": "sym_착비",
+    "traditionalTerm": "착비(着痺)",
+    "plain": "착비",
+    "category": "musculoskeletal",
+    "categories": [
+      "musculoskeletal"
+    ],
+    "ucodes": [
+      "U238",
+      "U240",
+      "U302",
+      "U303",
+      "U304",
+      "U305",
+      "U306"
+    ]
+  },
+  {
+    "id": "sym_천급",
+    "traditionalTerm": "천급(喘急)",
+    "plain": "천급",
+    "category": "respiratory",
+    "categories": [
+      "respiratory"
+    ],
+    "ucodes": []
+  },
+  {
+    "id": "sym_천촉",
+    "traditionalTerm": "천촉(喘促)",
+    "plain": "천촉",
+    "category": "respiratory",
+    "categories": [
+      "respiratory"
+    ],
+    "ucodes": []
+  },
+  {
+    "id": "sym_칠정내상",
+    "traditionalTerm": "칠정내상(七情內傷)",
+    "plain": "칠정내상",
+    "category": "mind",
+    "categories": [
+      "mind"
+    ],
+    "ucodes": [
+      "U221"
+    ]
+  },
+  {
+    "id": "sym_칠정울결",
+    "traditionalTerm": "칠정울결(七情鬱結)",
+    "plain": "칠정울결",
+    "category": "mind",
+    "categories": [
+      "mind"
+    ],
+    "ucodes": [
+      "U221",
+      "U222",
+      "U651"
+    ]
+  },
+  {
+    "id": "sym_타박통",
+    "traditionalTerm": "타박통(打撲痛)",
+    "plain": "타박통",
+    "category": "musculoskeletal",
+    "categories": [
+      "musculoskeletal"
+    ],
+    "ucodes": [
+      "U301"
+    ]
+  },
+  {
+    "id": "sym_태동",
+    "traditionalTerm": "태동(胎動)",
+    "plain": "태동",
+    "category": "womens",
+    "categories": [
+      "womens"
+    ],
+    "ucodes": []
+  },
+  {
+    "id": "sym_토사",
+    "traditionalTerm": "토사(吐瀉)",
+    "plain": "토사",
+    "category": "digestive",
+    "categories": [
+      "digestive"
+    ],
+    "ucodes": [
+      "U730"
+    ]
+  },
+  {
+    "id": "sym_토역",
+    "traditionalTerm": "토역(吐逆)",
+    "plain": "토역",
+    "category": "digestive",
+    "categories": [
+      "digestive"
+    ],
+    "ucodes": [
+      "U730"
+    ]
+  },
+  {
+    "id": "sym_통증",
+    "traditionalTerm": "근골동통(筋骨疼痛)·동통(疼痛)·두통(頭痛)·두통무한(頭痛無汗)",
+    "plain": "통증",
+    "category": "musculoskeletal",
+    "categories": [
+      "musculoskeletal"
+    ],
+    "ucodes": [
+      "U238",
+      "U301",
+      "U302"
+    ]
+  },
+  {
+    "id": "sym_폐위",
+    "traditionalTerm": "폐위(肺痿)",
+    "plain": "폐위",
+    "category": "respiratory",
+    "categories": [
+      "respiratory"
+    ],
+    "ucodes": []
+  },
+  {
+    "id": "sym_풍양",
+    "traditionalTerm": "풍양(風痒)",
+    "plain": "풍양",
+    "category": "skin",
+    "categories": [
+      "skin"
+    ],
+    "ucodes": []
+  },
+  {
+    "id": "sym_풍열상기",
+    "traditionalTerm": "풍열상기(風熱上氣)",
+    "plain": "풍열상기",
+    "category": "respiratory",
+    "categories": [
+      "respiratory"
+    ],
+    "ucodes": []
+  },
+  {
+    "id": "sym_피로",
+    "traditionalTerm": "기허(氣虛)·기허혈탈(氣虛血脫)·신기허약(腎氣虛弱)·원기허약(元氣虛弱)",
+    "plain": "피로",
+    "category": "respiratory",
+    "categories": [
+      "respiratory",
+      "fatigue"
+    ],
+    "ucodes": [
+      "U204",
+      "U600",
+      "U680"
+    ]
+  },
+  {
+    "id": "sym_피부불인",
+    "traditionalTerm": "피부불인(皮膚不仁)",
+    "plain": "피부불인",
+    "category": "musculoskeletal",
+    "categories": [
+      "musculoskeletal"
+    ],
+    "ucodes": [
+      "U234",
+      "U240",
+      "U241"
+    ]
+  },
+  {
+    "id": "sym_하리",
+    "traditionalTerm": "하리(下痢)",
+    "plain": "하리",
+    "category": "digestive",
+    "categories": [
+      "digestive",
+      "respiratory",
+      "fatigue"
+    ],
+    "ucodes": [
+      "U680",
+      "U730",
+      "U794"
+    ]
+  },
+  {
+    "id": "sym_하리적백",
+    "traditionalTerm": "하리적백(下痢赤白)",
+    "plain": "하리적백",
+    "category": "fatigue",
+    "categories": [
+      "fatigue"
+    ],
+    "ucodes": [
+      "U794"
+    ]
+  },
+  {
+    "id": "sym_하유즙",
+    "traditionalTerm": "하유즙(下乳汁)",
+    "plain": "하유즙",
+    "category": "womens",
+    "categories": [
+      "womens"
+    ],
+    "ucodes": []
+  },
+  {
+    "id": "sym_한천",
+    "traditionalTerm": "한천(寒喘)",
+    "plain": "한천",
+    "category": "respiratory",
+    "categories": [
+      "respiratory"
+    ],
+    "ucodes": []
+  },
+  {
+    "id": "sym_허한",
+    "traditionalTerm": "허한(虛汗)",
+    "plain": "허한",
+    "category": "fatigue",
+    "categories": [
+      "fatigue"
+    ],
+    "ucodes": [
+      "U204",
+      "U784"
+    ]
+  },
+  {
+    "id": "sym_현훈",
+    "traditionalTerm": "현훈(眩暈)",
+    "plain": "현훈",
+    "category": "head",
+    "categories": [
+      "head"
+    ],
+    "ucodes": [
+      "U233",
+      "U650"
+    ]
+  },
+  {
+    "id": "sym_혈비",
+    "traditionalTerm": "혈비(血痺)",
+    "plain": "혈비",
+    "category": "musculoskeletal",
+    "categories": [
+      "musculoskeletal",
+      "womens"
+    ],
+    "ucodes": [
+      "U238",
+      "U640"
+    ]
+  },
+  {
+    "id": "sym_혈약",
+    "traditionalTerm": "혈약(血弱)",
+    "plain": "혈약",
+    "category": "fatigue",
+    "categories": [
+      "fatigue",
+      "womens"
+    ],
+    "ucodes": [
+      "U204",
+      "U640"
+    ]
+  },
+  {
+    "id": "sym_흉격불관",
+    "traditionalTerm": "흉격불관(胸膈不寬)",
+    "plain": "흉격불관",
+    "category": "digestive",
+    "categories": [
+      "digestive",
+      "mind"
+    ],
+    "ucodes": [
+      "U260",
+      "U651"
+    ]
+  },
+  {
+    "id": "sym_흉만",
+    "traditionalTerm": "흉만(胸滿)",
+    "plain": "흉만",
+    "category": "digestive",
+    "categories": [
+      "digestive",
+      "mind"
+    ],
+    "ucodes": [
+      "U260",
+      "U651"
+    ]
+  },
+  {
+    "id": "sym_흉복협통",
+    "traditionalTerm": "흉복협통(胸腹脇痛)",
+    "plain": "흉복협통",
+    "category": "musculoskeletal",
+    "categories": [
+      "musculoskeletal",
+      "digestive"
+    ],
+    "ucodes": [
+      "U260",
+      "U301"
+    ]
+  }
+]

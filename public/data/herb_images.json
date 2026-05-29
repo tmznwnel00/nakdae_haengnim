@@ -1,0 +1,147 @@
+{
+  "herb_감초": {
+    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Glycyrrhizauralensis.jpg/330px-Glycyrrhizauralensis.jpg",
+    "title": "감초",
+    "page": "https://ko.wikipedia.org/wiki/%EA%B0%90%EC%B4%88"
+  },
+  "herb_당귀": {
+    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Gigas3UME.jpg/330px-Gigas3UME.jpg",
+    "title": "참당귀",
+    "page": "https://ko.wikipedia.org/wiki/%EC%B0%B8%EB%8B%B9%EA%B7%80"
+  },
+  "herb_반하": {
+    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Pinellia_ternata_2.JPG/330px-Pinellia_ternata_2.JPG",
+    "title": "반하",
+    "page": "https://ko.wikipedia.org/wiki/%EB%B0%98%ED%95%98"
+  },
+  "herb_백출": {
+    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Baizhu_roots.jpg/330px-Baizhu_roots.jpg",
+    "title": "큰꽃삽주",
+    "page": "https://ko.wikipedia.org/wiki/%ED%81%B0%EA%BD%83%EC%82%BD%EC%A3%BC"
+  },
+  "herb_인삼": {
+    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Ginsengpflanze.jpg/330px-Ginsengpflanze.jpg",
+    "title": "인삼",
+    "page": "https://ko.wikipedia.org/wiki/%EC%9D%B8%EC%82%BC"
+  },
+  "herb_생강": {
+    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Zingiber_officinale_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-146.jpg/330px-Zingiber_officinale_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-146.jpg",
+    "title": "생강",
+    "page": "https://ko.wikipedia.org/wiki/%EC%83%9D%EA%B0%95"
+  },
+  "herb_천궁": {
+    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Angelica_polymorpha_1.JPG/330px-Angelica_polymorpha_1.JPG",
+    "title": "궁궁이",
+    "page": "https://ko.wikipedia.org/wiki/%EA%B6%81%EA%B6%81%EC%9D%B4"
+  },
+  "herb_마황": {
+    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Homebirth.webp/330px-Homebirth.webp.png",
+    "title": "마황속",
+    "page": "https://ko.wikipedia.org/wiki/%EB%A7%88%ED%99%A9%EC%86%8D"
+  },
+  "herb_진피": {
+    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Starr_061105-1370_Citrus_reticulata.jpg/330px-Starr_061105-1370_Citrus_reticulata.jpg",
+    "title": "감귤나무",
+    "page": "https://ko.wikipedia.org/wiki/%EA%B0%90%EA%B7%A4%EB%82%98%EB%AC%B4"
+  },
+  "herb_오미자": {
+    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Schisandra_sinensis.jpg/330px-Schisandra_sinensis.jpg",
+    "title": "오미자",
+    "page": "https://ko.wikipedia.org/wiki/%EC%98%A4%EB%AF%B8%EC%9E%90"
+  },
+  "herb_맥문동": {
+    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Liriope_muscari1.jpg/330px-Liriope_muscari1.jpg",
+    "title": "맥문동",
+    "page": "https://ko.wikipedia.org/wiki/%EB%A7%A5%EB%AC%B8%EB%8F%99"
+  },
+  "herb_계피": {
+    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Cinnamomum_verum_vs_Cinnamomum_burmanni.jpg/330px-Cinnamomum_verum_vs_Cinnamomum_burmanni.jpg",
+    "title": "계피",
+    "page": "https://ko.wikipedia.org/wiki/%EA%B3%84%ED%94%BC"
+  },
+  "herb_오매": {
+    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Ubai20190901_001.jpg/330px-Ubai20190901_001.jpg",
+    "title": "오매",
+    "page": "https://ko.wikipedia.org/wiki/%EC%98%A4%EB%A7%A4"
+  },
+  "herb_방풍": {
+    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Peucedanum_japonicum_-_University_of_California_Botanical_Garden_-_DSC08900.JPG/330px-Peucedanum_japonicum_-_University_of_California_Botanical_Garden_-_DSC08900.JPG",
+    "title": "갯기름나물",
+    "page": "https://ko.wikipedia.org/wiki/%EA%B0%AF%EA%B8%B0%EB%A6%84%EB%82%98%EB%AC%BC"
+  },
+  "herb_행인": {
+    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Apricot_fruits_on_tree%2C_Ni%C4%9Fde_2017-08-05_01-1.jpg/330px-Apricot_fruits_on_tree%2C_Ni%C4%9Fde_2017-08-05_01-1.jpg",
+    "title": "살구나무",
+    "page": "https://ko.wikipedia.org/wiki/%EC%82%B4%EA%B5%AC%EB%82%98%EB%AC%B4"
+  },
+  "herb_건강": {
+    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Zingiber_officinale_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-146.jpg/330px-Zingiber_officinale_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-146.jpg",
+    "title": "생강",
+    "page": "https://ko.wikipedia.org/wiki/%EC%83%9D%EA%B0%95"
+  },
+  "herb_계지": {
+    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Cinnamomum_verum_vs_Cinnamomum_burmanni.jpg/330px-Cinnamomum_verum_vs_Cinnamomum_burmanni.jpg",
+    "title": "계피",
+    "page": "https://ko.wikipedia.org/wiki/%EA%B3%84%ED%94%BC"
+  },
+  "herb_오수유": {
+    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Tetradium_daniellii.JPG/330px-Tetradium_daniellii.JPG",
+    "title": "쉬나무",
+    "page": "https://ko.wikipedia.org/wiki/%EC%89%AC%EB%82%98%EB%AC%B4"
+  },
+  "herb_창출": {
+    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/%E3%83%9B%E3%82%BD%E3%83%90%E3%82%AA%E3%82%B1%E3%83%A92.JPG/330px-%E3%83%9B%E3%82%BD%E3%83%90%E3%82%AA%E3%82%B1%E3%83%A92.JPG",
+    "title": "삽주",
+    "page": "https://ko.wikipedia.org/wiki/%EC%82%BD%EC%A3%BC"
+  },
+  "herb_적복령": {
+    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Tuckahoe.jpg/330px-Tuckahoe.jpg",
+    "title": "복령",
+    "page": "https://ko.wikipedia.org/wiki/%EB%B3%B5%EB%A0%B9"
+  },
+  "herb_길경": {
+    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Platycodon_grandiflorus%2C_Seoul.jpg/330px-Platycodon_grandiflorus%2C_Seoul.jpg",
+    "title": "도라지",
+    "page": "https://ko.wikipedia.org/wiki/%EB%8F%84%EB%9D%BC%EC%A7%80"
+  },
+  "herb_백복령": {
+    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Tuckahoe.jpg/330px-Tuckahoe.jpg",
+    "title": "복령",
+    "page": "https://ko.wikipedia.org/wiki/%EB%B3%B5%EB%A0%B9"
+  },
+  "herb_육계": {
+    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Cinnamomum_verum_vs_Cinnamomum_burmanni.jpg/330px-Cinnamomum_verum_vs_Cinnamomum_burmanni.jpg",
+    "title": "계피",
+    "page": "https://ko.wikipedia.org/wiki/%EA%B3%84%ED%94%BC"
+  },
+  "herb_숙지황": {
+    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Rehmannia.JPG/330px-Rehmannia.JPG",
+    "title": "지황",
+    "page": "https://ko.wikipedia.org/wiki/%EC%A7%80%ED%99%A9"
+  },
+  "herb_자감초": {
+    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Glycyrrhizauralensis.jpg/330px-Glycyrrhizauralensis.jpg",
+    "title": "감초",
+    "page": "https://ko.wikipedia.org/wiki/%EA%B0%90%EC%B4%88"
+  },
+  "herb_갈근": {
+    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Pueraria_lobata_in_Shangrao.JPG/330px-Pueraria_lobata_in_Shangrao.JPG",
+    "title": "칡",
+    "page": "https://ko.wikipedia.org/wiki/%EC%B9%A1"
+  },
+  "herb_곽향": {
+    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Agastache_rugosa_01.JPG/330px-Agastache_rugosa_01.JPG",
+    "title": "배초향",
+    "page": "https://ko.wikipedia.org/wiki/%EB%B0%B0%EC%B4%88%ED%96%A5"
+  },
+  "herb_귤홍": {
+    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Starr_061105-1370_Citrus_reticulata.jpg/330px-Starr_061105-1370_Citrus_reticulata.jpg",
+    "title": "감귤나무",
+    "page": "https://ko.wikipedia.org/wiki/%EA%B0%90%EA%B7%A4%EB%82%98%EB%AC%B4"
+  },
+  "herb_녹용": {
+    "img": "https://upload.wikimedia.org/wikipedia/commons/f/f1/%D0%9F%D0%B0%D0%BD%D1%82%D1%8B.jpg",
+    "title": "녹용",
+    "page": "https://ko.wikipedia.org/wiki/%EB%85%B9%EC%9A%A9"
+  }
+}

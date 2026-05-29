@@ -1,0 +1,686 @@
+[
+  {
+    "id": "U238",
+    "name": "비증",
+    "hanja": "痺證",
+    "category": "musculoskeletal",
+    "plain": "저리고 아픈 증상의 총칭",
+    "symptoms": [
+      "sym_통증",
+      "sym_근비",
+      "sym_혈비",
+      "sym_열비",
+      "sym_사지마목",
+      "sym_지절종통",
+      "sym_착비"
+    ],
+    "everyday": "여기저기 쑤시고 저려요",
+    "herbs": [
+      "herb_백출",
+      "herb_계피",
+      "herb_백작약",
+      "herb_적복령",
+      "herb_백복령",
+      "herb_강활",
+      "herb_상백피",
+      "herb_서각",
+      "herb_다",
+      "herb_독활",
+      "herb_승마",
+      "herb_영양각",
+      "herb_복신",
+      "herb_총백"
+    ],
+    "herbCount": 14
+  },
+  {
+    "id": "U240",
+    "name": "저림증",
+    "hanja": "麻木",
+    "category": "musculoskeletal",
+    "plain": "팔·다리·손·발이 저린 증상",
+    "symptoms": [
+      "sym_사지마목",
+      "sym_피부불인",
+      "sym_착비"
+    ],
+    "everyday": "손발이 저릿저릿해요",
+    "herbs": [
+      "herb_백출",
+      "herb_계피",
+      "herb_백작약",
+      "herb_적복령",
+      "herb_백복령",
+      "herb_상백피"
+    ],
+    "herbCount": 6
+  },
+  {
+    "id": "U241",
+    "name": "불인",
+    "hanja": "不仁",
+    "category": "musculoskeletal",
+    "plain": "감각이 둔하거나 마비된 느낌",
+    "symptoms": [
+      "sym_피부불인",
+      "sym_사지마목",
+      "sym_기육중착"
+    ],
+    "everyday": "감각이 둔하고 먹먹해요",
+    "herbs": [
+      "herb_백출",
+      "herb_계피",
+      "herb_백작약",
+      "herb_적복령",
+      "herb_백복령",
+      "herb_상백피"
+    ],
+    "herbCount": 6
+  },
+  {
+    "id": "U301",
+    "name": "통비",
+    "hanja": "痛痺",
+    "category": "musculoskeletal",
+    "plain": "쑤시고 찌르는 통증",
+    "symptoms": [
+      "sym_통증",
+      "sym_타박통",
+      "sym_지절종통",
+      "sym_흉복협통",
+      "sym_심비통"
+    ],
+    "everyday": "콕콕 쑤시고 아파요",
+    "herbs": [
+      "herb_백출",
+      "herb_계피",
+      "herb_백작약",
+      "herb_대황",
+      "herb_향부자",
+      "herb_백복령",
+      "herb_오약",
+      "herb_도인",
+      "herb_당귀미",
+      "herb_다",
+      "herb_독활",
+      "herb_소목",
+      "herb_영양각",
+      "herb_총백",
+      "herb_홍화"
+    ],
+    "herbCount": 15
+  },
+  {
+    "id": "U302",
+    "name": "착비",
+    "hanja": "着痺",
+    "category": "musculoskeletal",
+    "plain": "한 자리에 고정된 무겁고 둔한 통증",
+    "symptoms": [
+      "sym_착비",
+      "sym_근비",
+      "sym_신중",
+      "sym_통증"
+    ],
+    "everyday": "한 곳이 무겁고 뻐근해요",
+    "herbs": [
+      "herb_백출",
+      "herb_계피",
+      "herb_백작약",
+      "herb_창출",
+      "herb_적복령",
+      "herb_백복령",
+      "herb_귤홍",
+      "herb_후박",
+      "herb_상백피",
+      "herb_다",
+      "herb_독활",
+      "herb_영양각",
+      "herb_총백"
+    ],
+    "herbCount": 13
+  },
+  {
+    "id": "U303",
+    "name": "목 경직",
+    "hanja": "項强",
+    "category": "musculoskeletal",
+    "plain": "목이 뻣뻣하고 굳음",
+    "symptoms": [
+      "sym_구련",
+      "sym_지절종통",
+      "sym_착비"
+    ],
+    "everyday": "목·어깨가 뻣뻣하게 굳어요",
+    "herbs": [
+      "herb_계피",
+      "herb_백작약",
+      "herb_적복령",
+      "herb_상백피",
+      "herb_독활",
+      "herb_영양각"
+    ],
+    "herbCount": 6
+  },
+  {
+    "id": "U304",
+    "name": "주절풍",
+    "hanja": "肘節風",
+    "category": "musculoskeletal",
+    "plain": "팔꿈치·손목 관절의 풍사 통증",
+    "symptoms": [
+      "sym_지절종통",
+      "sym_근비",
+      "sym_착비"
+    ],
+    "everyday": "팔꿈치·손목이 시큰해요",
+    "herbs": [
+      "herb_계피",
+      "herb_백작약",
+      "herb_적복령",
+      "herb_상백피",
+      "herb_독활",
+      "herb_영양각"
+    ],
+    "herbCount": 6
+  },
+  {
+    "id": "U305",
+    "name": "학슬풍",
+    "hanja": "鶴膝風",
+    "category": "musculoskeletal",
+    "plain": "무릎이 붓고 아픈 증상",
+    "symptoms": [
+      "sym_지절종통",
+      "sym_부종",
+      "sym_착비"
+    ],
+    "everyday": "무릎이 붓고 아파요",
+    "herbs": [
+      "herb_계피",
+      "herb_백작약",
+      "herb_적복령",
+      "herb_상백피",
+      "herb_독활",
+      "herb_영양각"
+    ],
+    "herbCount": 6
+  },
+  {
+    "id": "U306",
+    "name": "근경련",
+    "hanja": "筋攣",
+    "category": "musculoskeletal",
+    "plain": "근육이 당기고 경련",
+    "symptoms": [
+      "sym_구련",
+      "sym_근비",
+      "sym_착비"
+    ],
+    "everyday": "근육이 당기고 쥐가 나요",
+    "herbs": [
+      "herb_계피",
+      "herb_백작약",
+      "herb_적복령",
+      "herb_상백피",
+      "herb_독활",
+      "herb_영양각"
+    ],
+    "herbCount": 6
+  },
+  {
+    "id": "U234",
+    "name": "중풍 후유증",
+    "hanja": "中風後遺",
+    "category": "musculoskeletal",
+    "plain": "뇌혈관 사고 후의 마비·언어 장애",
+    "symptoms": [
+      "sym_사지마목",
+      "sym_피부불인",
+      "sym_구련",
+      "sym_언어섬란",
+      "sym_기육중착"
+    ],
+    "everyday": "마비·저림이 남아 있어요",
+    "herbs": [
+      "herb_백출",
+      "herb_계피",
+      "herb_백작약",
+      "herb_적복령",
+      "herb_백복령",
+      "herb_상백피"
+    ],
+    "herbCount": 6
+  },
+  {
+    "id": "U230",
+    "name": "두풍",
+    "hanja": "頭風",
+    "category": "head",
+    "plain": "오래 반복되는 두통",
+    "symptoms": [
+      "sym_두동",
+      "sym_두목현훈",
+      "sym_두한"
+    ],
+    "everyday": "두통이 자주 반복돼요",
+    "herbs": [],
+    "herbCount": 0
+  },
+  {
+    "id": "U650",
+    "name": "간양상항",
+    "hanja": "肝陽上亢",
+    "category": "head",
+    "plain": "간의 양기가 위로 솟구쳐 어지럽고 머리가 아픔",
+    "symptoms": [
+      "sym_두목현훈",
+      "sym_현훈",
+      "sym_안화",
+      "sym_두동"
+    ],
+    "everyday": "어지럽고 머리가 띵해요",
+    "herbs": [
+      "herb_천궁",
+      "herb_부자"
+    ],
+    "herbCount": 2
+  },
+  {
+    "id": "U233",
+    "name": "중풍 전조",
+    "hanja": "中風前兆",
+    "category": "head",
+    "plain": "어지럼·저림 등 중풍을 예고하는 증상",
+    "symptoms": [
+      "sym_사지마목",
+      "sym_현훈",
+      "sym_두목현훈"
+    ],
+    "everyday": "어지럽고 손발이 저려요",
+    "herbs": [
+      "herb_천궁",
+      "herb_마황",
+      "herb_부자",
+      "herb_방풍",
+      "herb_적복령",
+      "herb_상백피"
+    ],
+    "herbCount": 6
+  },
+  {
+    "id": "U236",
+    "name": "진전",
+    "hanja": "振顫",
+    "category": "head",
+    "plain": "손·머리가 떨림",
+    "symptoms": [
+      "sym_구련",
+      "sym_지절종통"
+    ],
+    "everyday": "손·머리가 떨려요",
+    "herbs": [
+      "herb_천궁",
+      "herb_마황",
+      "herb_작약",
+      "herb_부자",
+      "herb_방풍",
+      "herb_적복령",
+      "herb_상백피",
+      "herb_독활",
+      "herb_영양각"
+    ],
+    "herbCount": 9
+  },
+  {
+    "id": "U280",
+    "name": "식적",
+    "hanja": "食積",
+    "category": "digestive",
+    "plain": "음식이 정체되어 더부룩하고 답답함",
+    "symptoms": [
+      "sym_소화불량",
+      "sym_식포",
+      "sym_식결",
+      "sym_불하식",
+      "sym_음식불하",
+      "sym_복창만"
+    ],
+    "everyday": "체해서 더부룩하고 답답해요",
+    "herbs": [
+      "herb_감초",
+      "herb_반하",
+      "herb_진피",
+      "herb_오미자",
+      "herb_오매",
+      "herb_건강",
+      "herb_오수유",
+      "herb_창출",
+      "herb_대조",
+      "herb_후박",
+      "herb_귤피"
+    ],
+    "herbCount": 11
+  },
+  {
+    "id": "U260",
+    "name": "흉비",
+    "hanja": "胸痞",
+    "category": "digestive",
+    "plain": "가슴이 답답하고 막힌 느낌",
+    "symptoms": [
+      "sym_흉만",
+      "sym_흉격불관",
+      "sym_흉복협통",
+      "sym_심비통",
+      "sym_복창만"
+    ],
+    "everyday": "명치·가슴이 막힌 듯 답답해요",
+    "herbs": [
+      "herb_감초",
+      "herb_진피",
+      "herb_향부자",
+      "herb_오약",
+      "herb_당귀미",
+      "herb_소목",
+      "herb_홍화"
+    ],
+    "herbCount": 7
+  },
+  {
+    "id": "U730",
+    "name": "위기허",
+    "hanja": "胃氣虛",
+    "category": "digestive",
+    "plain": "위의 소화 기능 저하",
+    "symptoms": [
+      "sym_소화불량",
+      "sym_식포",
+      "sym_불하식",
+      "sym_음식불하",
+      "sym_토역",
+      "sym_토사",
+      "sym_곽란토사",
+      "sym_사리",
+      "sym_하리",
+      "sym_설사"
+    ],
+    "everyday": "속이 차고 소화력이 약해요",
+    "herbs": [
+      "herb_감초",
+      "herb_반하",
+      "herb_진피",
+      "herb_오미자",
+      "herb_오매",
+      "herb_건강",
+      "herb_오수유",
+      "herb_창출",
+      "herb_육계",
+      "herb_곽향",
+      "herb_대조",
+      "herb_후박",
+      "herb_활석",
+      "herb_흑두",
+      "herb_귤피",
+      "herb_목향"
+    ],
+    "herbCount": 16
+  },
+  {
+    "id": "U204",
+    "name": "허로",
+    "hanja": "虛勞",
+    "category": "fatigue",
+    "plain": "오래 누적된 만성 피로·소모성 쇠약",
+    "symptoms": [
+      "sym_피로",
+      "sym_기탈",
+      "sym_기약",
+      "sym_혈약",
+      "sym_기혈구허",
+      "sym_진원부족",
+      "sym_진음휴손",
+      "sym_정신권핍",
+      "sym_정신단소",
+      "sym_내상",
+      "sym_도한",
+      "sym_허한",
+      "sym_자한",
+      "sym_자한도한"
+    ],
+    "everyday": "늘 피곤하고 기운이 없어요",
+    "herbs": [
+      "herb_당귀",
+      "herb_인삼",
+      "herb_오수유"
+    ],
+    "herbCount": 3
+  },
+  {
+    "id": "U600",
+    "name": "기허",
+    "hanja": "氣虛",
+    "category": "fatigue",
+    "plain": "기력이 부족한 상태",
+    "symptoms": [
+      "sym_기탈",
+      "sym_기약",
+      "sym_피로",
+      "sym_단기",
+      "sym_기단천급",
+      "sym_기혈구허",
+      "sym_자한",
+      "sym_양허"
+    ],
+    "everyday": "조금만 해도 쉽게 지쳐요",
+    "herbs": [
+      "herb_당귀",
+      "herb_인삼",
+      "herb_오수유"
+    ],
+    "herbCount": 3
+  },
+  {
+    "id": "U710",
+    "name": "신기허",
+    "hanja": "腎氣虛",
+    "category": "fatigue",
+    "plain": "콩팥의 정기 부족 — 허리·다리 무력, 성기능 저하",
+    "symptoms": [
+      "sym_기탈",
+      "sym_양허",
+      "sym_진원부족",
+      "sym_유뇨"
+    ],
+    "everyday": "허리·다리에 힘이 없어요",
+    "herbs": [
+      "herb_인삼"
+    ],
+    "herbCount": 1
+  },
+  {
+    "id": "U784",
+    "name": "간신음허",
+    "hanja": "肝腎陰虛",
+    "category": "fatigue",
+    "plain": "간·콩팥의 음액 부족 — 어지럼·이명·식은땀",
+    "symptoms": [
+      "sym_진음휴손",
+      "sym_도한",
+      "sym_허한",
+      "sym_안화"
+    ],
+    "everyday": "어지럽고 식은땀이 나요",
+    "herbs": [
+      "herb_인삼"
+    ],
+    "herbCount": 1
+  },
+  {
+    "id": "U794",
+    "name": "비신양허",
+    "hanja": "脾腎陽虛",
+    "category": "fatigue",
+    "plain": "비장·콩팥의 양기 부족 — 추위·설사·부종",
+    "symptoms": [
+      "sym_양허",
+      "sym_설사",
+      "sym_하리",
+      "sym_부종",
+      "sym_수종",
+      "sym_하리적백"
+    ],
+    "everyday": "몸이 차고 잘 붓고 설사해요",
+    "herbs": [
+      "herb_당귀",
+      "herb_인삼",
+      "herb_곽향",
+      "herb_흑두",
+      "herb_목향"
+    ],
+    "herbCount": 5
+  },
+  {
+    "id": "U680",
+    "name": "비기허",
+    "hanja": "脾氣虛",
+    "category": "respiratory",
+    "plain": "비장 기능 저하 — 면역·소화 약화, 알레르기 체질",
+    "symptoms": [
+      "sym_피로",
+      "sym_식포",
+      "sym_불하식",
+      "sym_부종",
+      "sym_설사",
+      "sym_하리"
+    ],
+    "everyday": "기운 없고 자주 감기·알레르기",
+    "herbs": [
+      "herb_대조"
+    ],
+    "herbCount": 1
+  },
+  {
+    "id": "U221",
+    "name": "우울/우수",
+    "hanja": "憂愁",
+    "category": "mind",
+    "plain": "기분이 가라앉고 의욕 저하",
+    "symptoms": [
+      "sym_칠정내상",
+      "sym_칠정울결",
+      "sym_심계",
+      "sym_정충",
+      "sym_심계정충"
+    ],
+    "everyday": "기분이 가라앉고 의욕이 없어요",
+    "herbs": [
+      "herb_계지",
+      "herb_반하국",
+      "herb_백강"
+    ],
+    "herbCount": 3
+  },
+  {
+    "id": "U222",
+    "name": "화병",
+    "hanja": "火病",
+    "category": "mind",
+    "plain": "오랜 스트레스로 가슴이 답답하고 열감",
+    "symptoms": [
+      "sym_칠정울결",
+      "sym_번열",
+      "sym_번갈",
+      "sym_심계",
+      "sym_조갈"
+    ],
+    "everyday": "가슴이 답답하고 열이 올라요",
+    "herbs": [
+      "herb_계지",
+      "herb_숙지황"
+    ],
+    "herbCount": 2
+  },
+  {
+    "id": "U332",
+    "name": "야제",
+    "hanja": "夜啼",
+    "category": "mind",
+    "plain": "밤에 잠을 못 이루고 불안",
+    "symptoms": [
+      "sym_수면장애",
+      "sym_심계",
+      "sym_정충",
+      "sym_심계정충",
+      "sym_번열"
+    ],
+    "everyday": "밤에 잠들기 어렵고 불안해요",
+    "herbs": [
+      "herb_건강",
+      "herb_계지",
+      "herb_반하국",
+      "herb_백강"
+    ],
+    "herbCount": 4
+  },
+  {
+    "id": "U651",
+    "name": "간기울결",
+    "hanja": "肝氣鬱結",
+    "category": "mind",
+    "plain": "스트레스로 간의 기 흐름이 막힘",
+    "symptoms": [
+      "sym_칠정울결",
+      "sym_흉만",
+      "sym_흉격불관",
+      "sym_심계"
+    ],
+    "everyday": "스트레스로 가슴이 막혀요",
+    "herbs": [
+      "herb_계지"
+    ],
+    "herbCount": 1
+  },
+  {
+    "id": "U670",
+    "name": "심화염상",
+    "hanja": "心火炎上",
+    "category": "mind",
+    "plain": "심장에 열이 올라 가슴 두근·불면",
+    "symptoms": [
+      "sym_번열",
+      "sym_번갈",
+      "sym_수면장애",
+      "sym_심계",
+      "sym_조갈",
+      "sym_심계정충"
+    ],
+    "everyday": "가슴이 두근거리고 잠이 안 와요",
+    "herbs": [
+      "herb_건강",
+      "herb_계지",
+      "herb_숙지황"
+    ],
+    "herbCount": 3
+  },
+  {
+    "id": "U640",
+    "name": "간혈허",
+    "hanja": "肝血虛",
+    "category": "womens",
+    "plain": "간이 저장한 혈액 부족 — 어지럼·생리 이상",
+    "symptoms": [
+      "sym_혈약",
+      "sym_혈비",
+      "sym_기혈구허",
+      "sym_안화",
+      "sym_생리통"
+    ],
+    "everyday": "어지럽고 생리가 불규칙해요",
+    "herbs": [
+      "herb_황기",
+      "herb_백작약"
+    ],
+    "herbCount": 2
+  }
+]

@@ -1,0 +1,1180 @@
+.library-shell {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 78% 20%, rgba(255, 255, 255, 0.9), transparent 30%),
+    radial-gradient(circle at 18% 16%, rgba(218, 238, 242, 0.88), transparent 32%),
+    linear-gradient(135deg, #e9f0f2 0%, #f8f8f6 48%, #dce8ea 100%);
+}
+
+.library-shell::before {
+  opacity: 0.42;
+}
+
+.glass-panel {
+  background: rgba(255, 255, 255, 0.42);
+  border: 1px solid rgba(255, 255, 255, 0.78);
+  box-shadow: var(--shadow), inset 0 1px 0 rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(26px);
+}
+
+.library-page {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.62fr) minmax(460px, 1.42fr) minmax(300px, 0.88fr);
+  grid-template-areas: "left center detail";
+  gap: 18px;
+  width: min(100%, 1600px);
+  margin: 0 auto;
+  padding: 48px 40px 56px;
+}
+
+.library-left {
+  grid-area: left;
+  padding: 26px 26px 22px;
+  border-radius: 28px;
+}
+
+.library-left h1 {
+  font-size: clamp(22px, 1.9vw, 30px);
+  line-height: 1.38;
+}
+
+.library-left .copy {
+  margin: 14px 0 18px;
+  font-size: 12px;
+  line-height: 1.65;
+  color: #667581;
+}
+
+.library-search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 44px;
+  padding: 0 16px;
+  color: #71808d;
+  background: rgba(255, 255, 255, 0.56);
+  border: 1px solid rgba(255, 255, 255, 0.76);
+  border-radius: 22px;
+  font-size: 13px;
+}
+
+.library-search input {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  color: #26323c;
+  background: transparent;
+  font-size: 13px;
+}
+
+.browse-block {
+  margin-top: 18px;
+}
+
+.browse-block h3,
+.detail-section h3,
+.insight-card h3 {
+  margin: 0 0 10px;
+  color: #26313b;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  color: #8a98a3;
+}
+
+.chip-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.category-chip,
+.material-list button {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  height: 36px;
+  padding: 0 11px;
+  color: #4f5c66;
+  background: rgba(255, 255, 255, 0.44);
+  border: 1px solid rgba(255, 255, 255, 0.64);
+  border-radius: 18px;
+  font-size: 12.5px;
+}
+
+.category-chip.selected {
+  color: #13202a;
+  background: rgba(232, 244, 247, 0.82);
+  box-shadow: inset 0 0 0 1px rgba(117, 150, 165, 0.16);
+}
+
+.material-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.herb-results {
+  display: grid;
+  gap: 10px;
+}
+
+.herb-results button {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 3px 10px;
+  align-items: center;
+  padding: 10px 13px;
+  color: #1f2b35;
+  font-size: 13px;
+  background: rgba(255, 255, 255, 0.42);
+  border: 1px solid rgba(255, 255, 255, 0.58);
+  border-radius: 12px;
+  text-align: left;
+}
+
+.herb-results small {
+  grid-column: 1;
+  color: #70808d;
+}
+
+.library-center {
+  grid-area: center;
+  align-self: stretch;
+}
+
+.network {
+  position: relative;
+  min-height: 700px;
+  padding: 22px;
+  border-radius: 38px;
+  overflow: hidden;
+}
+
+.network::before {
+  content: "";
+  position: absolute;
+  inset: 6% 8%;
+  border: 1px solid rgba(255, 255, 255, 0.62);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.network-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 4px 6px 8px;
+  color: #61707d;
+  font-size: 13px;
+}
+
+.network-title strong {
+  color: #2d3a45;
+}
+
+.network svg {
+  width: 100%;
+  height: 640px;
+}
+
+.network line {
+  stroke: rgba(111, 136, 153, 0.2);
+}
+
+.network line.active {
+  stroke: rgba(88, 126, 149, 0.74);
+}
+
+.node {
+  cursor: pointer;
+}
+
+.node circle {
+  fill: rgba(255, 255, 255, 0.86);
+  stroke: rgba(103, 136, 154, 0.38);
+  stroke-width: 1.5;
+}
+
+.node.symptom rect {
+  fill: rgba(228, 242, 247, 0.86);
+  stroke: rgba(103, 136, 154, 0.35);
+}
+
+.node.active circle,
+.node.active rect {
+  fill: #f7fbfc;
+  stroke: #6f97aa;
+  stroke-width: 2.4;
+  filter: drop-shadow(0 10px 18px rgba(91, 122, 140, 0.22));
+}
+
+.node text {
+  fill: #33414c;
+  font-size: 13px;
+  font-weight: 700;
+  text-anchor: middle;
+  pointer-events: none;
+}
+
+.library-detail {
+  grid-area: detail;
+  padding: 28px 28px 24px;
+  border-radius: 28px;
+}
+
+.detail-heading span {
+  color: #6d7c88;
+  font-size: 11.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.detail-heading h2 {
+  margin: 6px 0 6px;
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 1.3;
+}
+
+.detail-heading small {
+  margin-left: 6px;
+  color: #6b7883;
+  font-size: 14px;
+}
+
+.detail-heading p,
+.disclaimer {
+  margin: 0;
+  color: #667581;
+  font-size: 12.5px;
+  line-height: 1.65;
+}
+
+.source-card {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 6px 10px;
+  margin: 16px 0;
+  padding: 14px;
+  background: rgba(255, 255, 255, 0.44);
+  border-radius: 14px;
+}
+
+.source-card svg {
+  grid-row: span 3;
+  color: #6f8fa2;
+}
+
+.source-card p {
+  margin: 0;
+  color: #52616d;
+  font-size: 12.5px;
+}
+
+.source-card strong {
+  display: inline-block;
+  min-width: 54px;
+  color: #1f2b35;
+}
+
+.detail-section {
+  margin-top: 20px;
+}
+
+.strength-list {
+  display: grid;
+  gap: 7px;
+}
+
+.strength-list button {
+  display: grid;
+  grid-template-columns: 80px 1fr auto;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  font-size: 12.5px;
+  color: #2c3843;
+  background: rgba(255, 255, 255, 0.44);
+  border-radius: 12px;
+}
+
+.strength-list i {
+  display: block;
+  height: 8px;
+  max-width: 100%;
+  background: linear-gradient(90deg, #83a7ba, #dce9ee);
+  border-radius: 99px;
+}
+
+.strength-list small {
+  color: #6b7985;
+}
+
+.pill-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pill-list span {
+  padding: 5px 10px;
+  color: #43515d;
+  font-size: 12px;
+  background: rgba(255, 255, 255, 0.46);
+  border-radius: 14px;
+}
+
+.plain-effects {
+  margin: 10px 0 0;
+  color: #61707d;
+  font-size: 12.5px;
+  line-height: 1.75;
+}
+
+.rx-list {
+  display: grid;
+  gap: 7px;
+}
+
+.rx-list article {
+  padding: 11px 13px;
+  background: rgba(255, 255, 255, 0.42);
+  border-radius: 12px;
+}
+
+.rx-list strong {
+  display: block;
+  margin-bottom: 3px;
+  font-size: 13px;
+}
+
+.rx-list p {
+  margin: 0;
+  color: #667581;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.disclaimer {
+  margin-top: 20px;
+  padding-top: 14px;
+  font-size: 11.5px;
+  border-top: 1px solid rgba(139, 158, 171, 0.2);
+}
+
+@media (max-width: 1280px) {
+  .library-page {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "left detail"
+      "center center";
+  }
+}
+
+/* ===== View Toggle ===== */
+.view-toggle {
+  display: inline-flex;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 999px;
+  margin-bottom: 16px;
+  width: fit-content;
+}
+.view-toggle button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 18px;
+  border: 0;
+  background: transparent;
+  border-radius: 999px;
+  color: #5a6772;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+.view-toggle button.active {
+  background: rgba(38, 70, 83, 0.92);
+  color: #fff;
+  box-shadow: 0 6px 18px rgba(38, 70, 83, 0.22);
+}
+
+/* ===== Card view ===== */
+.card-view {
+  padding: 20px;
+  border-radius: 28px;
+  min-height: 640px;
+}
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 9px;
+  margin-bottom: 20px;
+}
+.cat-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px 14px 12px;
+  border: 1.5px solid rgba(255, 255, 255, 0.78);
+  border-radius: 16px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.18s ease;
+}
+.cat-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(60, 80, 95, 0.1);
+}
+.cat-card.active {
+  box-shadow: 0 10px 24px rgba(60, 80, 95, 0.16);
+}
+.cat-card-icon {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+}
+.cat-card-body {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+.cat-card-body strong {
+  color: #1d2832;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+.cat-card-body small {
+  color: #7a8893;
+  font-size: 11px;
+  margin-top: 3px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.45;
+}
+.cat-card-counts {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+.cat-card-counts em {
+  font-style: normal;
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--cat-color, #26313b);
+}
+.cat-card-counts span {
+  font-size: 10px;
+  color: #8a98a3;
+}
+
+.cat-detail {
+  border-top: 1px solid rgba(139, 158, 171, 0.16);
+  padding-top: 16px;
+}
+.cat-detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.cat-detail-header .eyebrow {
+  margin: 0;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+}
+.cat-detail-stats {
+  display: flex;
+  gap: 14px;
+  font-size: 11.5px;
+  color: #6c7a85;
+  white-space: nowrap;
+}
+.cat-detail-stats strong {
+  color: #1d2832;
+  font-size: 14px;
+  margin-right: 3px;
+}
+
+.ucode-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.ucode-chip {
+  padding: 5px 11px;
+  background: rgba(255, 255, 255, 0.58);
+  border: 1px solid rgba(160, 175, 188, 0.32);
+  border-radius: 999px;
+  color: #4f5c66;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.13s ease;
+}
+.ucode-chip:hover { background: rgba(255, 255, 255, 0.85); }
+.ucode-chip.active {
+  background: rgba(255, 255, 255, 0.92);
+  border-width: 1.5px;
+}
+.ucode-chip small {
+  color: #98a3ad;
+  margin-left: 3px;
+  font-size: 10.5px;
+}
+
+.herb-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 8px;
+}
+.herb-card {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.62);
+  border: 1.5px solid rgba(255, 255, 255, 0.78);
+  border-radius: 12px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.13s ease;
+}
+.herb-card:hover {
+  background: rgba(255, 255, 255, 0.88);
+  transform: translateY(-1px);
+}
+.herb-card.selected {
+  background: #fff;
+  box-shadow: 0 8px 18px rgba(60, 80, 95, 0.14);
+}
+.herb-name {
+  color: #1d2832;
+  font-size: 13.5px;
+  font-weight: 700;
+}
+.herb-hanja {
+  color: #8a98a3;
+  font-size: 11px;
+  margin-top: 2px;
+}
+.herb-ucodes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  margin-top: 7px;
+}
+.herb-ucodes span {
+  padding: 2px 6px;
+  border-radius: 5px;
+  font-size: 10px;
+  color: #3a4651;
+  font-weight: 600;
+  background: rgba(180, 200, 210, 0.22);
+}
+
+/* ===== Center shared panel ===== */
+.center-panel {
+  padding: 20px;
+  border-radius: 28px;
+  min-height: 640px;
+}
+.center-panel .card-grid {
+  margin-bottom: 18px;
+}
+
+/* ===== Guided view (유형으로 좁혀가기) ===== */
+.guide-view {
+  border-top: 1px solid rgba(139, 158, 171, 0.16);
+  padding-top: 16px;
+}
+.guide-context .guide-q {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: #1d2832;
+}
+.guide-context .guide-sub {
+  margin: 6px 0 0;
+  font-size: 12.5px;
+  color: #6c7a85;
+}
+.type-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 10px;
+  margin-top: 16px;
+}
+.type-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 16px 16px 14px;
+  text-align: left;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1.5px solid rgba(255, 255, 255, 0.8);
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.16s ease;
+}
+.type-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--cat-color, #6f97aa);
+  box-shadow: 0 10px 24px rgba(60, 80, 95, 0.12);
+}
+.type-everyday {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #1d2832;
+  line-height: 1.4;
+}
+.type-meta {
+  font-size: 11.5px;
+  color: #8a98a3;
+}
+
+.guide-result-head {
+  margin-bottom: 16px;
+}
+.guide-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  margin-bottom: 12px;
+  padding: 6px 12px 6px 8px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #5a6772;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(160, 175, 188, 0.3);
+  border-radius: 999px;
+  cursor: pointer;
+}
+.guide-back:hover { background: #fff; }
+.guide-context-card {
+  padding: 16px 18px;
+  border: 1.5px solid;
+  border-radius: 16px;
+}
+.guide-context-everyday {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: #1d2832;
+}
+.guide-context-desc {
+  margin: 6px 0 0;
+  font-size: 12.5px;
+  color: #5a6772;
+  line-height: 1.5;
+}
+.guide-rec-label {
+  margin: 16px 0 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: #8a98a3;
+}
+
+/* ===== Organ map (귀경 장부 지도) ===== */
+.organ-map {
+  display: flex;
+  flex-direction: column;
+}
+.organ-legend {
+  margin-bottom: 6px;
+}
+.legend-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+  color: #6c7a85;
+}
+.legend-row .lg-title {
+  font-weight: 700;
+  color: #8a98a3;
+}
+.lens-toggle {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 3px;
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(160, 175, 188, 0.3);
+  border-radius: 999px;
+}
+.lens-knob {
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  left: 3px;
+  width: calc(50% - 3px);
+  background: rgba(38, 70, 83, 0.92);
+  border-radius: 999px;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(38, 70, 83, 0.22);
+}
+.lens-toggle.compound .lens-knob {
+  transform: translateX(100%);
+}
+.lens-toggle button {
+  position: relative;
+  z-index: 1;
+  padding: 5px 14px;
+  border: 0;
+  background: transparent;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #6c7a85;
+  cursor: pointer;
+  transition: color 0.25s ease;
+}
+.lens-toggle button.on {
+  color: #fff;
+}
+.lg-divider {
+  width: 1px;
+  height: 16px;
+  background: rgba(150, 165, 178, 0.35);
+  margin: 0 4px;
+}
+.legend-row .lg-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.legend-row .lg-item i {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.organ-hint {
+  margin: 8px 0 0;
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: #5a6772;
+  min-height: 34px;
+}
+.organ-hint strong { color: #2d3a45; }
+.organ-hint b { color: #3a4a55; }
+.organ-map svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.universe-svg {
+  touch-action: none;            /* 드래그 시 스크롤 방지 */
+  user-select: none;
+  -webkit-user-select: none;
+}
+.universe-svg text { user-select: none; }
+.meridian-pill {
+  padding: 5px 11px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #3a4a55;
+  background: rgba(58, 74, 85, 0.1);
+  border-radius: 14px;
+}
+
+/* 약재 사진(좌) + 설명(우) 히어로 */
+.herb-hero {
+  display: flex;
+  gap: 14px;
+  margin: 14px 0 0;
+  align-items: flex-start;
+}
+.herb-photo {
+  margin: 0;
+  flex: 0 0 47%;
+  min-width: 0;
+}
+.herb-photo img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 14px;
+  display: block;
+}
+.herb-photo figcaption {
+  margin-top: 6px;
+  font-size: 11px;
+  color: #97a3ad;
+  line-height: 1.4;
+}
+.herb-hero-text {
+  flex: 1;
+  margin: 0;
+  padding: 12px 14px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: #5a6772;
+  background: rgba(150, 165, 178, 0.1);
+  border-radius: 12px;
+}
+.herb-photo figcaption a {
+  color: #6f97aa;
+  text-decoration: underline;
+}
+.compound-pill {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 5px 11px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #2f5d45;
+  background: rgba(108, 160, 130, 0.14);
+  border-radius: 14px;
+}
+.compound-pill i {
+  font-style: normal;
+  font-size: 10.5px;
+  font-weight: 600;
+  color: #6c9a82;
+}
+.related-compound {
+  margin-top: 12px;
+}
+.related-label {
+  margin: 0 0 8px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #8a98a3;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 1400px) {
+  .library-page {
+    grid-template-columns: minmax(240px, 0.6fr) minmax(420px, 1.5fr) minmax(280px, 0.85fr);
+    padding: 40px 30px 48px;
+    gap: 14px;
+  }
+}
+
+@media (max-width: 1100px) {
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .library-page {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "left detail"
+      "center center";
+  }
+}
+
+/* ===== New: redesigned copy / entry blocks ===== */
+.center-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 16px;
+  margin-bottom: 14px;
+  padding: 0 4px;
+}
+.center-head-text h2 {
+  margin: 0;
+  font-size: 19px;
+  font-weight: 700;
+  color: #1d2832;
+}
+.center-head-text p {
+  margin: 4px 0 0;
+  font-size: 12.5px;
+  color: #6c7a85;
+}
+
+.left-foot {
+  margin-top: 22px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(139, 158, 171, 0.18);
+  font-size: 11px;
+  line-height: 1.55;
+  color: #97a3ad;
+}
+.muted-hint {
+  font-size: 12.5px;
+  color: #8a98a3;
+  margin: 2px 0;
+}
+.material-list button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.ucode-filter {
+  margin-bottom: 16px;
+}
+.ucode-filter-label {
+  margin: 0 0 8px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  color: #8a98a3;
+}
+
+.pill-button {
+  padding: 6px 12px;
+  border: 0;
+  border-radius: 14px;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.12s ease;
+}
+.pill-button:hover {
+  transform: translateY(-1px);
+}
+
+.herb-chip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.herb-chip-list button {
+  padding: 7px 12px;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(160, 175, 188, 0.28);
+  border-radius: 12px;
+  font-size: 12.5px;
+  color: #2c3843;
+  cursor: pointer;
+  transition: all 0.13s ease;
+}
+.herb-chip-list button:hover {
+  background: #fff;
+  transform: translateY(-1px);
+}
+.herb-chip-list small {
+  color: #98a3ad;
+  margin-left: 3px;
+  font-size: 11px;
+}
+
+/* ===== Herb sections (특징 / 기본) ===== */
+.herb-section + .herb-section {
+  margin-top: 20px;
+}
+.herb-section-label {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin: 0 0 10px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #3a4651;
+}
+.herb-section-label em {
+  font-style: normal;
+  font-size: 12px;
+  font-weight: 700;
+  color: #8a98a3;
+}
+.herb-section-label.muted {
+  color: #8a98a3;
+}
+.herb-section-label .label-hint {
+  font-size: 11px;
+  font-weight: 400;
+  color: #a3aeb7;
+}
+.herb-name {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.harm-badge {
+  font-style: normal;
+  font-size: 9.5px;
+  font-weight: 700;
+  color: #8a98a3;
+  background: rgba(150, 165, 178, 0.16);
+  border-radius: 5px;
+  padding: 1px 5px;
+}
+.herb-card.harmonizer {
+  background: rgba(248, 250, 251, 0.5);
+  border-style: dashed;
+  border-color: rgba(160, 175, 188, 0.4);
+}
+.herb-card.harmonizer .herb-name {
+  color: #56636d;
+}
+.harm-note {
+  margin: 14px 0 0;
+  padding: 12px 14px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: #5a6772;
+  background: rgba(150, 165, 178, 0.1);
+  border-radius: 12px;
+}
+
+/* ============================================================
+   SELF-DIAGNOSIS refinements — 미니멀화 + 맥북 14" 최적화
+   (root styles.css 이후 로드되어 오버라이드)
+   ============================================================ */
+.hero {
+  gap: clamp(20px, 2.2vw, 40px);
+  min-height: calc(100vh - 72px);
+  padding: 52px 44px 48px;
+}
+.intro {
+  padding-bottom: 6vh;
+}
+.intro .eyebrow {
+  margin: 0 0 20px;
+  font-size: 12px;
+  letter-spacing: 1.6px;
+}
+.intro h1 {
+  font-size: clamp(26px, 2.3vw, 40px);
+  line-height: 1.4;
+}
+.intro .copy {
+  margin: 20px 0 32px;
+  font-size: 13.5px;
+  line-height: 1.75;
+}
+.start {
+  width: min(264px, 100%);
+  height: 58px;
+  padding: 0 16px 0 30px;
+  font-size: 14.5px;
+}
+.arrow,
+.complete b {
+  width: 38px;
+  height: 38px;
+  font-size: 20px;
+}
+.joined {
+  gap: 24px;
+  margin-top: 36px;
+  font-size: 13px;
+}
+.joined .faces span {
+  width: 32px;
+  height: 32px;
+  margin-left: -8px;
+}
+
+/* 우측 진단 패널 */
+.panel {
+  padding: 32px 28px 28px;
+  border-radius: 28px;
+}
+.panel h2 {
+  font-size: clamp(19px, 1.5vw, 25px);
+}
+.panel > p {
+  font-size: 13px;
+}
+.progress-row {
+  margin: 0 20px 22px;
+  font-size: 12.5px;
+  gap: 16px;
+}
+.diagnosis .search {
+  height: 46px;
+  margin: 22px 4px 30px;
+  padding: 0 18px;
+  font-size: 13px;
+}
+.section-label {
+  margin-bottom: 14px !important;
+  font-size: 12.5px !important;
+}
+.symptoms {
+  gap: 10px;
+}
+.symptom {
+  min-height: 92px;
+  padding: 16px 6px 14px;
+  border-radius: 14px;
+  font-size: 12.5px;
+}
+.sym-icon {
+  width: 26px;
+  height: 26px;
+  margin-bottom: 10px;
+}
+.check {
+  width: 28px;
+  height: 28px;
+  top: -8px;
+  font-size: 13px;
+}
+.all {
+  height: 56px;
+  margin: 22px -28px 20px;
+  padding: 0 30px;
+}
+.all b {
+  font-size: 19px;
+}
+.complete {
+  height: 56px;
+  border-radius: 28px;
+}
+.complete span {
+  font-size: 14px;
+}
+
+/* 배경 해부 스테이지 — 톤 다운 */
+.anatomy-stage {
+  min-height: 560px;
+}
+.figure-img {
+  width: min(38vw, 520px);
+  opacity: 0.82;
+}
+.orbit-a { width: min(40vw, 540px); height: min(40vw, 540px); }
+.orbit-b { width: min(31vw, 420px); height: min(31vw, 420px); }
+.orbit-c { width: min(23vw, 320px); height: min(23vw, 320px); }
+
+/* 좌하단 스코어 카드 */
+.score-card {
+  left: 52px;
+  bottom: 78px;
+  width: 264px;
+  padding: 20px 26px 24px;
+  border-radius: 22px;
+}
+.score-card p {
+  margin: 0 0 18px;
+  font-size: 12px;
+}
+.score-body { gap: 20px; }
+.orb { width: 58px; height: 58px; }
+.score-body strong { font-size: 24px; }
+.score-body em { font-size: 14px; }
+.score-body i { width: 110px; }
+
+/* 하단 스텝 바 */
+.steps {
+  bottom: 38px;
+  height: 58px;
+  gap: 14px;
+  border-radius: 30px;
+}
+.steps button {
+  font-size: 12px;
+}
