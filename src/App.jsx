@@ -114,13 +114,9 @@ function StartPage() {
     <section className="hero" aria-label="Self diagnosis">
       <div className="intro">
         <p className="eyebrow">SELF-DIAGNOSIS</p>
-        <h1>지금, 당신의<br />몸은 어떤 신호를<br />보내고 있나요?</h1>
+        <h1>당신의 몸은 지금,<br />어떤 신호를<br />보내고 있나요?</h1>
         <p className="copy">몸이 보내는 작은 신호들을 놓치지 마세요.<br />AI가 당신의 컨디션을 분석하고, 균형 회복을 위한<br />맞춤 솔루션을 제안해드려요.</p>
         <button className="start" type="button"><span>진단 시작하기</span><span className="arrow"><ArrowRight size={22} /></span></button>
-        <div className="joined">
-          <div className="faces" aria-hidden="true"><span /><span /><span /><span /></div>
-          <p><strong>124,392명</strong>이<br />이용하고 있어요</p>
-        </div>
       </div>
 
       <div className="anatomy-stage" aria-hidden="true">
@@ -158,10 +154,6 @@ function StartPage() {
         </div>
       </aside>
 
-      <div className="score-card">
-        <p>AI 예측 컨디션</p>
-        <div className="score-body"><div className="orb" /><div><span>에너지 밸런스</span><strong>45<em>/100</em></strong><small>보통 낮음</small><i /></div></div>
-      </div>
       <div className="steps"><button className="current" type="button">01 증상 선택</button><button type="button">02 문진</button><button type="button">03 분석 중</button><button type="button">04 결과 확인</button></div>
     </section>
   );
