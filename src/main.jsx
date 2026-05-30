@@ -4,6 +4,7 @@ import App from "./App.jsx";
 import "leaflet/dist/leaflet.css";
 import "../styles.css";
 import "./styles.css";
+import "./lens.css";
 
 createRoot(document.getElementById("root")).render(
   <React.StrictMode>
