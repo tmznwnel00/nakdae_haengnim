@@ -241,15 +241,12 @@ const labelOf = (c) => LABEL_BY_COMPLAINT[c] || c;
 const iconOf = (c) => ICON_BY_COMPLAINT[c] || Leaf;
 
 function StartPage({ setView, onDiagnose }) {
-  const [selected, setSelected] = useState(["만성피로"]); // 선택된 한방 호소(enum)
+  const [selected, setSelected] = useState("만성피로"); // 선택된 한방 호소(enum)
   const [activeBody, setActiveBody] = useState(null);     // 신체부위 필터
   const [showAll, setShowAll] = useState(false);          // 전체 증상 보기
   const [query, setQuery] = useState("");                 // 검색어
-  const primary = selected[0] || null;
+  const primary = selected || null;
   const goDiagnose = () => onDiagnose && onDiagnose(primary);
-
-  const toggleComplaint = (c) =>
-    setSelected((cur) => (cur.includes(c) ? cur.filter((x) => x !== c) : [...cur, c]));
   const resetView = () => { setShowAll(false); setActiveBody(null); setQuery(""); };
   const pickBody = (part) => { setQuery(""); setShowAll(false); setActiveBody((p) => (p === part ? null : part)); };
 
@@ -286,7 +283,7 @@ function StartPage({ setView, onDiagnose }) {
         <div className="spark s1" aria-hidden="true" /><div className="spark s2" aria-hidden="true" /><div className="spark s3" aria-hidden="true" />
         {BODY_PARTS.map((b) => {
           const on = activeBody === b.part;
-          const cnt = b.complaints.filter((c) => selected.includes(c)).length;
+          const cnt = b.complaints.filter((c) => selected === c).length;
           return (
             <button key={b.part} data-part={b.part} type="button"
               className={`body-tag ${on ? "active" : ""} ${cnt ? "has-selection" : ""}`}
@@ -312,9 +309,9 @@ function StartPage({ setView, onDiagnose }) {
             ) : (
               items.map((complaint) => {
                 const Icon = iconOf(complaint);
-                const isSelected = selected.includes(complaint);
+                const isSelected = selected === complaint;
                 return (
-                  <button key={complaint} className={`symptom ${isSelected ? "selected" : ""}`} type="button" onClick={() => toggleComplaint(complaint)}>
+                  <button key={complaint} className={`symptom ${isSelected ? "selected" : ""}`} type="button" onClick={() => setSelected(complaint)}>
                     {isSelected && <i className="check">✓</i>}
                     <Icon className="sym-icon" />
                     {labelOf(complaint)}
@@ -326,7 +323,7 @@ function StartPage({ setView, onDiagnose }) {
           <button className="all" type="button" onClick={() => { setShowAll((v) => !v); setActiveBody(null); setQuery(""); }}>
             <span>{showAll ? "자주 본 증상만" : "전체 증상 보기"}</span><b>{showAll ? "－" : "＋"}</b>
           </button>
-          <button className="complete" type="button" onClick={goDiagnose} disabled={!primary}><span>선택 완료</span><small>{selected.length}</small><b><ArrowRight size={20} /></b></button>
+          <button className="complete" type="button" onClick={goDiagnose} disabled={!primary}><span>선택 완료</span><b><ArrowRight size={20} /></b></button>
         </div>
       </aside>
 
