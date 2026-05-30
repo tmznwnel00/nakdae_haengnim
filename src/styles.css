@@ -2299,8 +2299,7 @@
   grid-template-columns: 1fr 1fr;
   align-items: center;
   gap: 56px;
-  min-height: calc(100vh - 56px);
-  padding: clamp(32px, 6vh, 72px) clamp(24px, 6vw, 80px);
+  padding: clamp(36px, 5vh, 56px) clamp(24px, 6vw, 80px) clamp(16px, 2vh, 28px);
 }
 
 .persona-left {
@@ -2441,4 +2440,180 @@
     grid-template-columns: 1fr;
     gap: 32px;
   }
+}
+
+/* ===== 대표 한약 카드뉴스 섹션 ===== */
+.herb-cards-section {
+  padding: clamp(24px, 3vh, 36px) clamp(24px, 6vw, 80px) clamp(48px, 6vh, 80px);
+  border-top: 1px solid rgba(160, 175, 188, 0.22);
+  margin-top: 8px;
+}
+
+.herb-cards-head {
+  margin-bottom: 32px;
+}
+
+.herb-cards-head h2 {
+  margin: 8px 0 10px;
+  font-size: clamp(20px, 1.8vw, 28px);
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.35;
+}
+
+.herb-cards-lead {
+  font-size: 13.5px;
+  color: var(--muted);
+  line-height: 1.7;
+  max-width: 780px;
+  white-space: nowrap;
+}
+
+.herb-card-scroll {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  padding-bottom: 12px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  user-select: none;
+}
+
+.herb-card-scroll::-webkit-scrollbar { height: 4px; }
+.herb-card-scroll::-webkit-scrollbar-track { background: transparent; }
+.herb-card-scroll::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.12); border-radius: 2px; }
+
+.herb-news-card {
+  flex: none;
+  width: clamp(220px, 22vw, 280px);
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.82);
+  border-radius: 20px;
+  overflow: hidden;
+  text-align: left;
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  box-shadow: 0 4px 16px rgba(60, 80, 95, 0.07);
+}
+
+.herb-news-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(60, 80, 95, 0.13);
+}
+
+.herb-news-card-top {
+  position: relative;
+  height: 140px;
+  background: linear-gradient(135deg, rgba(220, 235, 242, 0.7), rgba(240, 245, 235, 0.7));
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.herb-news-img {
+  width: 88px;
+  height: 88px;
+  object-fit: contain;
+}
+
+.herb-news-img-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.herb-placeholder-char {
+  font-size: 52px;
+  font-weight: 700;
+  line-height: 1;
+  opacity: 0.7;
+}
+
+.herb-placeholder-form {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  opacity: 0.55;
+}
+
+.herb-news-tag {
+  position: absolute;
+  bottom: 10px;
+  left: 12px;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  color: #4a6b7c;
+  background: rgba(255, 255, 255, 0.82);
+  border-radius: 999px;
+  padding: 3px 10px;
+}
+
+.herb-news-card-body {
+  padding: 16px 18px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.herb-news-name {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.herb-news-name strong {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.herb-news-name small {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.herb-news-summary {
+  font-size: 12.5px;
+  line-height: 1.65;
+  color: #45525d;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.herb-news-ingredients {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 2px;
+}
+
+.herb-news-chip {
+  font-size: 11px;
+  padding: 2px 8px;
+  background: rgba(111, 151, 170, 0.12);
+  color: #3a5a6c;
+  border-radius: 999px;
+  font-weight: 500;
+}
+
+.herb-news-chip.muted {
+  background: rgba(0, 0, 0, 0.05);
+  color: var(--muted);
+}
+
+.herb-news-cta {
+  margin-top: auto;
+  padding-top: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #4a6b7c;
 }

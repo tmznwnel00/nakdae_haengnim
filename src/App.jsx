@@ -253,56 +253,93 @@ function PersonaGuide({ setView }) {
   );
 }
 
+const FORM_STYLE = {
+  "탕": { bg: "linear-gradient(135deg,#dceef5,#eaf4f0)", color: "#2e6b78", label: "탕약" },
+  "환": { bg: "linear-gradient(135deg,#f5e8d0,#fdf3e3)", color: "#7a4e1e", label: "환약" },
+  "원": { bg: "linear-gradient(135deg,#f5e8d0,#fdf3e3)", color: "#7a4e1e", label: "원약" },
+  "고": { bg: "linear-gradient(135deg,#f5e0d0,#fdf0e6)", color: "#8a3a1a", label: "고약" },
+  "산": { bg: "linear-gradient(135deg,#e8f0e0,#f3f8ee)", color: "#3a6830", label: "산제" },
+};
+function getFormKey(name) {
+  for (const k of ["탕", "환", "원", "고", "산"]) if (name.includes(k)) return k;
+  return null;
+}
+
 function HomePage({ setView, onDiagnose, commercialProducts, onSelectProduct }) {
+  const dragRef = useRef(null);
+  const onCardScrollMouseDown = (e) => {
+    const el = e.currentTarget;
+    dragRef.current = { x: e.clientX, left: el.scrollLeft };
+    const onMove = (mv) => { el.scrollLeft = dragRef.current.left - (mv.clientX - dragRef.current.x); };
+    const onUp = () => { window.removeEventListener("mousemove", onMove); window.removeEventListener("mouseup", onUp); };
+    window.addEventListener("mousemove", onMove);
+    window.addEventListener("mouseup", onUp);
+  };
+
+  const cards = commercialProducts?.length > 0
+    ? commercialProducts
+    : [];
+
   return (
     <>
-      <section className="hero" aria-label="Start page">
-        <div className="intro">
-          <p className="eyebrow">TRADITIONAL HERBAL GUIDE</p>
-          <h1>대표 상호명 한약을 한눈에<br />보고, 체계적으로 이해하세요</h1>
-          <p className="copy">
-            한의학은 약재의 기혈 조합과 오장육부 상호작용을 과학적으로 해석합니다.
-            대표 상호명은 이러한 처방 논리를 압축한 이름으로, 핵심 성분과 주된 적응증을 빠르게 파악할 수 있게 합니다.
-          </p>
-          <div className="home-cta">
-            <button className="start" type="button" onClick={() => setView("diagnosis")}>증상 자가 체크 시작</button>
-            <button className="start outline" type="button" onClick={() => setView("library")}>Herb Library에서 보기</button>
-          </div>
-          <div className="home-meta">
-            <p>대표 제품을 선택하면 Herb Library에서 구성 약재와 과학적 연관 정보를 즉시 확인할 수 있습니다.</p>
-          </div>
-        </div>
-      </section>
+      {/* 1. 페르소나 토글 — 어디서부터 보면 좋을까요 */}
+      <PersonaGuide setView={setView} />
 
-      {commercialProducts?.length > 0 && (
-        <section className="start-products" aria-label="대표 상호명 한약">
-          <div className="start-products-head">
-            <p className="eyebrow">대표 상호명 한약</p>
-            <h2>기력, 원기, 기혈 조화를 위한 네 가지 처방</h2>
-            <p className="copy">핵심 약재 조합과 임상적 쓰임새를 중심으로, 한의학의 전통 처방을 쉽고 흥미롭게 살펴보세요.</p>
+      {/* 2. 대표 상호명 한약 카드뉴스 */}
+      {cards.length > 0 && (
+        <section className="herb-cards-section" aria-label="대표 상호명 한약 소개">
+          <div className="herb-cards-head">
+            <h2>이런 한약, 한 번쯤 들어보셨나요?</h2>
+            <p className="herb-cards-lead">이름은 들어봤지만 정확히 뭔지 몰랐던 한약들. 핵심 약재와 쓰임을 카드로 간단히 소개해 드려요.</p>
           </div>
-          <div className="product-grid">
-            {POPULAR_COMMERCIAL_PRODUCT_IDS.map((id) => {
-              const product = commercialProducts.find((p) => p.id === id);
-              if (!product) return null;
-              return (
-                <button key={product.id} type="button" className="product-card" onClick={() => onSelectProduct(product.id)}>
-                  <div className="product-card-image">
-                    {product.image ? <img src={product.image} alt={product.name} /> : <span>{product.name}</span>}
+          <div className="herb-card-scroll" onMouseDown={onCardScrollMouseDown} style={{ cursor: "grab" }}>
+            {cards.map((product) => (
+              <button key={product.id} type="button" className="herb-news-card" onClick={() => onSelectProduct(product.id)}>
+                <div className="herb-news-card-top" style={
+                  !product.image && getFormKey(product.name)
+                    ? { background: FORM_STYLE[getFormKey(product.name)].bg }
+                    : {}
+                }>
+                  {product.image
+                    ? <img src={product.image} alt={product.name} className="herb-news-img" />
+                    : (() => {
+                        const fk = getFormKey(product.name);
+                        const fs = fk ? FORM_STYLE[fk] : null;
+                        return (
+                          <div className="herb-news-img-placeholder">
+                            <span className="herb-placeholder-char" style={fs ? { color: fs.color } : {}}>
+                              {product.name.charAt(0)}
+                            </span>
+                            {fs && <span className="herb-placeholder-form" style={{ color: fs.color }}>{fs.label}</span>}
+                          </div>
+                        );
+                      })()
+                  }
+                  <span className="herb-news-tag">{product.tagline}</span>
+                </div>
+                <div className="herb-news-card-body">
+                  <div className="herb-news-name">
+                    <strong>{product.name}</strong>
+                    {product.nameHanja && <small>{product.nameHanja}</small>}
                   </div>
-                  <div className="product-card-body">
-                    <h3>{product.name}</h3>
-                    <small>{product.tagline}</small>
-                    <p>{product.summary}</p>
-                  </div>
-                </button>
-              );
-            })}
+                  <p className="herb-news-summary">{product.summary}</p>
+                  {product.ingredients?.length > 0 && (
+                    <div className="herb-news-ingredients">
+                      {product.ingredients.slice(0, 5).map((ing) => (
+                        <span key={ing} className="herb-news-chip">{ing}</span>
+                      ))}
+                      {product.ingredients.length > 5 && (
+                        <span className="herb-news-chip muted">+{product.ingredients.length - 5}</span>
+                      )}
+                    </div>
+                  )}
+                  <span className="herb-news-cta">약재 구성 보기 →</span>
+                </div>
+              </button>
+            ))}
           </div>
         </section>
       )}
-
-      <PersonaGuide setView={setView} />
     </>
   );
 }
