@@ -1,0 +1,134 @@
+[
+  {
+    "id": "musculoskeletal",
+    "name": "근골격 통증",
+    "tagline": "근육·관절·허리·목·어깨의 통증과 저림",
+    "icon": "Activity",
+    "color": "#e76f51",
+    "ucodes": [
+      "U238",
+      "U240",
+      "U241",
+      "U301",
+      "U302",
+      "U303",
+      "U304",
+      "U305",
+      "U306",
+      "U234"
+    ],
+    "herbCount": 27,
+    "featCount": 25,
+    "harmCount": 2,
+    "ucodeCount": 10
+  },
+  {
+    "id": "head",
+    "name": "두통 / 현훈",
+    "tagline": "두통·어지럼·머리 무거움",
+    "icon": "Brain",
+    "color": "#9b5de5",
+    "ucodes": [
+      "U230",
+      "U650",
+      "U233",
+      "U236"
+    ],
+    "herbCount": 9,
+    "featCount": 5,
+    "harmCount": 4,
+    "ucodeCount": 4
+  },
+  {
+    "id": "digestive",
+    "name": "소화",
+    "tagline": "소화불량·체기·복부 불편",
+    "icon": "Waves",
+    "color": "#06a77d",
+    "ucodes": [
+      "U280",
+      "U260",
+      "U730"
+    ],
+    "herbCount": 21,
+    "featCount": 16,
+    "harmCount": 5,
+    "ucodeCount": 3
+  },
+  {
+    "id": "respiratory",
+    "name": "호흡기 / 알레르기",
+    "tagline": "감기·기침·비염·인후 증상",
+    "icon": "Sparkles",
+    "color": "#4cc9f0",
+    "ucodes": [
+      "U680"
+    ],
+    "herbCount": 13,
+    "featCount": 12,
+    "harmCount": 1,
+    "ucodeCount": 1
+  },
+  {
+    "id": "fatigue",
+    "name": "피로 / 허증",
+    "tagline": "만성 피로·기력 저하·체질 보강",
+    "icon": "Sprout",
+    "color": "#f4a261",
+    "ucodes": [
+      "U204",
+      "U600",
+      "U710",
+      "U784",
+      "U794"
+    ],
+    "herbCount": 6,
+    "featCount": 4,
+    "harmCount": 2,
+    "ucodeCount": 5
+  },
+  {
+    "id": "mind",
+    "name": "수면 / 정신",
+    "tagline": "불면·우울·불안·스트레스",
+    "icon": "Moon",
+    "color": "#264653",
+    "ucodes": [
+      "U221",
+      "U222",
+      "U332",
+      "U651",
+      "U670"
+    ],
+    "herbCount": 5,
+    "featCount": 5,
+    "harmCount": 0,
+    "ucodeCount": 5
+  },
+  {
+    "id": "womens",
+    "name": "여성 건강",
+    "tagline": "갱년기·월경통·산후 회복",
+    "icon": "CircleDot",
+    "color": "#e63946",
+    "ucodes": [
+      "U640"
+    ],
+    "herbCount": 9,
+    "featCount": 7,
+    "harmCount": 2,
+    "ucodeCount": 1
+  },
+  {
+    "id": "skin",
+    "name": "피부",
+    "tagline": "가려움·발진·아토피",
+    "icon": "Leaf",
+    "color": "#588157",
+    "ucodes": [],
+    "herbCount": 7,
+    "featCount": 6,
+    "harmCount": 1,
+    "ucodeCount": 0
+  }
+]

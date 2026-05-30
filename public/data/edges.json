@@ -1,0 +1,2844 @@
+{
+  "herbSymptom": [
+    {
+      "source": "herb_감초",
+      "target": "sym_소화불량",
+      "weight": 3.0,
+      "prescriptionCount": 4
+    },
+    {
+      "source": "herb_감초",
+      "target": "sym_인통",
+      "weight": 2.732050807568877,
+      "prescriptionCount": 3
+    },
+    {
+      "source": "herb_감초",
+      "target": "sym_유뇨",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_감초",
+      "target": "sym_수면장애",
+      "weight": 2.732050807568877,
+      "prescriptionCount": 3
+    },
+    {
+      "source": "herb_감초",
+      "target": "sym_감기",
+      "weight": 2.732050807568877,
+      "prescriptionCount": 3
+    },
+    {
+      "source": "herb_감초",
+      "target": "sym_인건",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_감초",
+      "target": "sym_토역",
+      "weight": 2.414213562373095,
+      "prescriptionCount": 2
+    },
+    {
+      "source": "herb_감초",
+      "target": "sym_심계",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_감초",
+      "target": "sym_담수",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_감초",
+      "target": "sym_곽란토사",
+      "weight": 2.414213562373095,
+      "prescriptionCount": 2
+    },
+    {
+      "source": "herb_감초",
+      "target": "sym_사리",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_감초",
+      "target": "sym_토사",
+      "weight": 2.414213562373095,
+      "prescriptionCount": 2
+    },
+    {
+      "source": "herb_감초",
+      "target": "sym_하리적백",
+      "weight": 2.414213562373095,
+      "prescriptionCount": 2
+    },
+    {
+      "source": "herb_감초",
+      "target": "sym_하유즙",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_감초",
+      "target": "sym_기혈구허",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_감초",
+      "target": "sym_내상",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_감초",
+      "target": "sym_도한",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_감초",
+      "target": "sym_두한",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_감초",
+      "target": "sym_자한",
+      "weight": 2.414213562373095,
+      "prescriptionCount": 2
+    },
+    {
+      "source": "herb_감초",
+      "target": "sym_피로",
+      "weight": 2.414213562373095,
+      "prescriptionCount": 2
+    },
+    {
+      "source": "herb_감초",
+      "target": "sym_식포",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_감초",
+      "target": "sym_인후종통",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_감초",
+      "target": "sym_풍열상기",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_감초",
+      "target": "sym_폐위",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_감초",
+      "target": "sym_수종",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_감초",
+      "target": "sym_통증",
+      "weight": 2.414213562373095,
+      "prescriptionCount": 2
+    },
+    {
+      "source": "herb_감초",
+      "target": "sym_현훈",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_감초",
+      "target": "sym_한천",
+      "weight": 2.414213562373095,
+      "prescriptionCount": 2
+    },
+    {
+      "source": "herb_감초",
+      "target": "sym_정충",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_감초",
+      "target": "sym_기육중착",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_감초",
+      "target": "sym_피부불인",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_감초",
+      "target": "sym_상습",
+      "weight": 2.414213562373095,
+      "prescriptionCount": 2
+    },
+    {
+      "source": "herb_감초",
+      "target": "sym_신중",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_감초",
+      "target": "sym_두진",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_감초",
+      "target": "sym_소양",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_감초",
+      "target": "sym_구련",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_감초",
+      "target": "sym_부종",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_감초",
+      "target": "sym_사지마목",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_감초",
+      "target": "sym_착비",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_감초",
+      "target": "sym_설사",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_감초",
+      "target": "sym_하리",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_감초",
+      "target": "sym_흉복협통",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_당귀",
+      "target": "sym_번갈",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_당귀",
+      "target": "sym_산후출혈부지",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_당귀",
+      "target": "sym_구련",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_당귀",
+      "target": "sym_부종",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_당귀",
+      "target": "sym_사지마목",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_당귀",
+      "target": "sym_착비",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_당귀",
+      "target": "sym_설사",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_당귀",
+      "target": "sym_자한",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_당귀",
+      "target": "sym_피로",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_당귀",
+      "target": "sym_기약",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_당귀",
+      "target": "sym_통증",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_당귀",
+      "target": "sym_심비통",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_반하",
+      "target": "sym_소화불량",
+      "weight": 2.414213562373095,
+      "prescriptionCount": 2
+    },
+    {
+      "source": "herb_반하",
+      "target": "sym_음식불하",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_반하",
+      "target": "sym_담",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_반하",
+      "target": "sym_두목현훈",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_반하",
+      "target": "sym_심계정충",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_반하",
+      "target": "sym_칠정울결",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_반하",
+      "target": "sym_기침",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_반하",
+      "target": "sym_감기",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_반하",
+      "target": "sym_상습",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_반하",
+      "target": "sym_하리",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_백출",
+      "target": "sym_통증",
+      "weight": 2.732050807568877,
+      "prescriptionCount": 3
+    },
+    {
+      "source": "herb_백출",
+      "target": "sym_현훈",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_백출",
+      "target": "sym_정충",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_백출",
+      "target": "sym_기육중착",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_백출",
+      "target": "sym_피부불인",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_백출",
+      "target": "sym_소화불량",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_백출",
+      "target": "sym_상습",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_백출",
+      "target": "sym_신중",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_백출",
+      "target": "sym_설사",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_백출",
+      "target": "sym_심비통",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_인삼",
+      "target": "sym_통증",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_인삼",
+      "target": "sym_기육중착",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_인삼",
+      "target": "sym_피부불인",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_인삼",
+      "target": "sym_번갈",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_인삼",
+      "target": "sym_산후출혈부지",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_인삼",
+      "target": "sym_열비",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_인삼",
+      "target": "sym_설사",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_인삼",
+      "target": "sym_조갈",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_인삼",
+      "target": "sym_감기",
+      "weight": 2.414213562373095,
+      "prescriptionCount": 2
+    },
+    {
+      "source": "herb_인삼",
+      "target": "sym_기탈",
+      "weight": 2.414213562373095,
+      "prescriptionCount": 2
+    },
+    {
+      "source": "herb_인삼",
+      "target": "sym_피로",
+      "weight": 4.464101615137754,
+      "prescriptionCount": 12
+    },
+    {
+      "source": "herb_인삼",
+      "target": "sym_소화불량",
+      "weight": 2.732050807568877,
+      "prescriptionCount": 3
+    },
+    {
+      "source": "herb_인삼",
+      "target": "sym_천촉",
+      "weight": 2.414213562373095,
+      "prescriptionCount": 2
+    },
+    {
+      "source": "herb_인삼",
+      "target": "sym_수면장애",
+      "weight": 2.414213562373095,
+      "prescriptionCount": 2
+    },
+    {
+      "source": "herb_인삼",
+      "target": "sym_언어섬란",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_인삼",
+      "target": "sym_정신단소",
+      "weight": 3.23606797749979,
+      "prescriptionCount": 5
+    },
+    {
+      "source": "herb_인삼",
+      "target": "sym_칠정내상",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_인삼",
+      "target": "sym_기침",
+      "weight": 2.414213562373095,
+      "prescriptionCount": 2
+    },
+    {
+      "source": "herb_인삼",
+      "target": "sym_천급",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_인삼",
+      "target": "sym_정신권핍",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_인삼",
+      "target": "sym_기단천급",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_인삼",
+      "target": "sym_기약",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_인삼",
+      "target": "sym_진원부족",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_인삼",
+      "target": "sym_잉부통",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_인삼",
+      "target": "sym_단기",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_인삼",
+      "target": "sym_안화",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_인삼",
+      "target": "sym_자한도한",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_인삼",
+      "target": "sym_진음휴손",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_인삼",
+      "target": "sym_양허",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_생강",
+      "target": "sym_통증",
+      "weight": 3.449489742783178,
+      "prescriptionCount": 6
+    },
+    {
+      "source": "herb_생강",
+      "target": "sym_풍양",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_생강",
+      "target": "sym_기침",
+      "weight": 2.732050807568877,
+      "prescriptionCount": 3
+    },
+    {
+      "source": "herb_생강",
+      "target": "sym_감기",
+      "weight": 3.23606797749979,
+      "prescriptionCount": 5
+    },
+    {
+      "source": "herb_생강",
+      "target": "sym_식결",
+      "weight": 2.414213562373095,
+      "prescriptionCount": 2
+    },
+    {
+      "source": "herb_생강",
+      "target": "sym_소화불량",
+      "weight": 3.23606797749979,
+      "prescriptionCount": 5
+    },
+    {
+      "source": "herb_생강",
+      "target": "sym_번열",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_생강",
+      "target": "sym_복창만",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_생강",
+      "target": "sym_불하식",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_생강",
+      "target": "sym_두동",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_생강",
+      "target": "sym_흉격불관",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_생강",
+      "target": "sym_음식불하",
+      "weight": 2.414213562373095,
+      "prescriptionCount": 2
+    },
+    {
+      "source": "herb_생강",
+      "target": "sym_흉만",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_생강",
+      "target": "sym_타박통",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_생강",
+      "target": "sym_담",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_생강",
+      "target": "sym_두목현훈",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_생강",
+      "target": "sym_심계정충",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_생강",
+      "target": "sym_칠정울결",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_생강",
+      "target": "sym_상풍",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_황기",
+      "target": "sym_기혈구허",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_황기",
+      "target": "sym_내상",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_황기",
+      "target": "sym_도한",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_황기",
+      "target": "sym_두한",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_황기",
+      "target": "sym_소화불량",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_황기",
+      "target": "sym_자한",
+      "weight": 2.414213562373095,
+      "prescriptionCount": 2
+    },
+    {
+      "source": "herb_황기",
+      "target": "sym_피로",
+      "weight": 2.414213562373095,
+      "prescriptionCount": 2
+    },
+    {
+      "source": "herb_황기",
+      "target": "sym_혈비",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_천궁",
+      "target": "sym_통증",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_천궁",
+      "target": "sym_현훈",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_천궁",
+      "target": "sym_구련",
+      "weight": 2.414213562373095,
+      "prescriptionCount": 2
+    },
+    {
+      "source": "herb_천궁",
+      "target": "sym_부종",
+      "weight": 2.414213562373095,
+      "prescriptionCount": 2
+    },
+    {
+      "source": "herb_천궁",
+      "target": "sym_근비",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_천궁",
+      "target": "sym_지절종통",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_천궁",
+      "target": "sym_사지마목",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_천궁",
+      "target": "sym_착비",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_천궁",
+      "target": "sym_설사",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_천궁",
+      "target": "sym_자한",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_천궁",
+      "target": "sym_피로",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_마황",
+      "target": "sym_수종",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_마황",
+      "target": "sym_한천",
+      "weight": 2.414213562373095,
+      "prescriptionCount": 2
+    },
+    {
+      "source": "herb_마황",
+      "target": "sym_구련",
+      "weight": 2.414213562373095,
+      "prescriptionCount": 2
+    },
+    {
+      "source": "herb_마황",
+      "target": "sym_부종",
+      "weight": 2.414213562373095,
+      "prescriptionCount": 2
+    },
+    {
+      "source": "herb_마황",
+      "target": "sym_상풍",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_마황",
+      "target": "sym_사지마목",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_마황",
+      "target": "sym_착비",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_마황",
+      "target": "sym_감기",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_작약",
+      "target": "sym_구련",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_작약",
+      "target": "sym_부종",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_작약",
+      "target": "sym_상풍",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_작약",
+      "target": "sym_감기",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_황금",
+      "target": "sym_감기",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_진피",
+      "target": "sym_음식불하",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_진피",
+      "target": "sym_흉만",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_진피",
+      "target": "sym_한천",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_진피",
+      "target": "sym_상습",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_진피",
+      "target": "sym_하리",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_오미자",
+      "target": "sym_소화불량",
+      "weight": 2.414213562373095,
+      "prescriptionCount": 2
+    },
+    {
+      "source": "herb_오미자",
+      "target": "sym_한천",
+      "weight": 2.414213562373095,
+      "prescriptionCount": 2
+    },
+    {
+      "source": "herb_맥문동",
+      "target": "sym_번갈",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_맥문동",
+      "target": "sym_산후출혈부지",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_계피",
+      "target": "sym_허한",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_계피",
+      "target": "sym_혈약",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_계피",
+      "target": "sym_혈비",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_계피",
+      "target": "sym_기침",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_계피",
+      "target": "sym_태동",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_계피",
+      "target": "sym_감기",
+      "weight": 2.414213562373095,
+      "prescriptionCount": 2
+    },
+    {
+      "source": "herb_계피",
+      "target": "sym_통증",
+      "weight": 2.414213562373095,
+      "prescriptionCount": 2
+    },
+    {
+      "source": "herb_계피",
+      "target": "sym_현훈",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_계피",
+      "target": "sym_한천",
+      "weight": 2.414213562373095,
+      "prescriptionCount": 2
+    },
+    {
+      "source": "herb_계피",
+      "target": "sym_정충",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_계피",
+      "target": "sym_기육중착",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_계피",
+      "target": "sym_피부불인",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_계피",
+      "target": "sym_소화불량",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_계피",
+      "target": "sym_상습",
+      "weight": 2.414213562373095,
+      "prescriptionCount": 2
+    },
+    {
+      "source": "herb_계피",
+      "target": "sym_신중",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_계피",
+      "target": "sym_번갈",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_계피",
+      "target": "sym_산후출혈부지",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_계피",
+      "target": "sym_구련",
+      "weight": 2.414213562373095,
+      "prescriptionCount": 2
+    },
+    {
+      "source": "herb_계피",
+      "target": "sym_부종",
+      "weight": 2.414213562373095,
+      "prescriptionCount": 2
+    },
+    {
+      "source": "herb_계피",
+      "target": "sym_상풍",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_계피",
+      "target": "sym_두진",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_계피",
+      "target": "sym_소양",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_계피",
+      "target": "sym_열비",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_계피",
+      "target": "sym_근비",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_계피",
+      "target": "sym_지절종통",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_계피",
+      "target": "sym_사지마목",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_계피",
+      "target": "sym_착비",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_계피",
+      "target": "sym_설사",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_계피",
+      "target": "sym_자한",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_계피",
+      "target": "sym_피로",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_계피",
+      "target": "sym_하리",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_계피",
+      "target": "sym_흉복협통",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_오매",
+      "target": "sym_소화불량",
+      "weight": 2.414213562373095,
+      "prescriptionCount": 2
+    },
+    {
+      "source": "herb_부자",
+      "target": "sym_허한",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_부자",
+      "target": "sym_혈약",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_부자",
+      "target": "sym_통증",
+      "weight": 2.414213562373095,
+      "prescriptionCount": 2
+    },
+    {
+      "source": "herb_부자",
+      "target": "sym_현훈",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_부자",
+      "target": "sym_기육중착",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_부자",
+      "target": "sym_피부불인",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_부자",
+      "target": "sym_근비",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_부자",
+      "target": "sym_지절종통",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_부자",
+      "target": "sym_진원부족",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_부자",
+      "target": "sym_단기",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_부자",
+      "target": "sym_안화",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_부자",
+      "target": "sym_자한도한",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_부자",
+      "target": "sym_진음휴손",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_부자",
+      "target": "sym_기침",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_부자",
+      "target": "sym_양허",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_방풍",
+      "target": "sym_구련",
+      "weight": 2.414213562373095,
+      "prescriptionCount": 2
+    },
+    {
+      "source": "herb_방풍",
+      "target": "sym_부종",
+      "weight": 2.414213562373095,
+      "prescriptionCount": 2
+    },
+    {
+      "source": "herb_방풍",
+      "target": "sym_두진",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_방풍",
+      "target": "sym_소양",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_방풍",
+      "target": "sym_열비",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_방풍",
+      "target": "sym_근비",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_방풍",
+      "target": "sym_지절종통",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_방풍",
+      "target": "sym_사지마목",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_방풍",
+      "target": "sym_착비",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_행인",
+      "target": "sym_한천",
+      "weight": 2.414213562373095,
+      "prescriptionCount": 2
+    },
+    {
+      "source": "herb_건강",
+      "target": "sym_수면장애",
+      "weight": 2.414213562373095,
+      "prescriptionCount": 2
+    },
+    {
+      "source": "herb_건강",
+      "target": "sym_감기",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_건강",
+      "target": "sym_인건",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_건강",
+      "target": "sym_토역",
+      "weight": 2.414213562373095,
+      "prescriptionCount": 2
+    },
+    {
+      "source": "herb_건강",
+      "target": "sym_폐위",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_건강",
+      "target": "sym_소화불량",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_건강",
+      "target": "sym_상습",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_건강",
+      "target": "sym_신중",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_백작약",
+      "target": "sym_혈비",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_백작약",
+      "target": "sym_통증",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_백작약",
+      "target": "sym_기육중착",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_백작약",
+      "target": "sym_피부불인",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_백작약",
+      "target": "sym_번갈",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_백작약",
+      "target": "sym_산후출혈부지",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_백작약",
+      "target": "sym_근비",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_백작약",
+      "target": "sym_지절종통",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_백작약",
+      "target": "sym_설사",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_백작약",
+      "target": "sym_자한",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_백작약",
+      "target": "sym_피로",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_대황",
+      "target": "sym_타박통",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_계지",
+      "target": "sym_심계",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_오수유",
+      "target": "sym_피로",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_오수유",
+      "target": "sym_소화불량",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_적작약",
+      "target": "sym_태동",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_적작약",
+      "target": "sym_두진",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_적작약",
+      "target": "sym_소양",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_적작약",
+      "target": "sym_구련",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_적작약",
+      "target": "sym_부종",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_적작약",
+      "target": "sym_사지마목",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_적작약",
+      "target": "sym_착비",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_적작약",
+      "target": "sym_흉복협통",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_창출",
+      "target": "sym_소화불량",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_창출",
+      "target": "sym_상습",
+      "weight": 2.414213562373095,
+      "prescriptionCount": 2
+    },
+    {
+      "source": "herb_창출",
+      "target": "sym_신중",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_창출",
+      "target": "sym_하리",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_적복령",
+      "target": "sym_태동",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_적복령",
+      "target": "sym_정충",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_적복령",
+      "target": "sym_소화불량",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_적복령",
+      "target": "sym_상습",
+      "weight": 2.414213562373095,
+      "prescriptionCount": 2
+    },
+    {
+      "source": "herb_적복령",
+      "target": "sym_신중",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_적복령",
+      "target": "sym_구련",
+      "weight": 2.414213562373095,
+      "prescriptionCount": 2
+    },
+    {
+      "source": "herb_적복령",
+      "target": "sym_부종",
+      "weight": 2.414213562373095,
+      "prescriptionCount": 2
+    },
+    {
+      "source": "herb_적복령",
+      "target": "sym_사지마목",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_적복령",
+      "target": "sym_착비",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_적복령",
+      "target": "sym_설사",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_적복령",
+      "target": "sym_하리",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_길경",
+      "target": "sym_인통",
+      "weight": 2.414213562373095,
+      "prescriptionCount": 2
+    },
+    {
+      "source": "herb_길경",
+      "target": "sym_인후종통",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_길경",
+      "target": "sym_풍열상기",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_길경",
+      "target": "sym_감기",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_향부자",
+      "target": "sym_흉복협통",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_백복령",
+      "target": "sym_통증",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_백복령",
+      "target": "sym_기육중착",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_백복령",
+      "target": "sym_피부불인",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_오약",
+      "target": "sym_흉복협통",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_육계",
+      "target": "sym_곽란토사",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_숙지황",
+      "target": "sym_번갈",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_숙지황",
+      "target": "sym_산후출혈부지",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_숙지황",
+      "target": "sym_자한",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_숙지황",
+      "target": "sym_피로",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_자감초",
+      "target": "sym_상풍",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_자감초",
+      "target": "sym_감기",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_갈근",
+      "target": "sym_상풍",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_갈근",
+      "target": "sym_두진",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_갈근",
+      "target": "sym_소양",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_갈근",
+      "target": "sym_감기",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_곽향",
+      "target": "sym_상습",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_곽향",
+      "target": "sym_하리",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_귤홍",
+      "target": "sym_소화불량",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_귤홍",
+      "target": "sym_상습",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_귤홍",
+      "target": "sym_신중",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_귤홍",
+      "target": "sym_한천",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_녹용",
+      "target": "sym_잉부통",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_대조",
+      "target": "sym_식포",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_대조",
+      "target": "sym_상풍",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_대조",
+      "target": "sym_감기",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_도인",
+      "target": "sym_태동",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_도인",
+      "target": "sym_흉복협통",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_후박",
+      "target": "sym_소화불량",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_후박",
+      "target": "sym_상습",
+      "weight": 2.414213562373095,
+      "prescriptionCount": 2
+    },
+    {
+      "source": "herb_후박",
+      "target": "sym_신중",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_후박",
+      "target": "sym_하리",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_강활",
+      "target": "sym_열비",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_당귀미",
+      "target": "sym_흉복협통",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_상백피",
+      "target": "sym_구련",
+      "weight": 2.414213562373095,
+      "prescriptionCount": 2
+    },
+    {
+      "source": "herb_상백피",
+      "target": "sym_부종",
+      "weight": 2.414213562373095,
+      "prescriptionCount": 2
+    },
+    {
+      "source": "herb_상백피",
+      "target": "sym_사지마목",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_상백피",
+      "target": "sym_착비",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_서각",
+      "target": "sym_열비",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_시호",
+      "target": "sym_감기",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_활석",
+      "target": "sym_곽란토사",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_활석",
+      "target": "sym_사리",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_활석",
+      "target": "sym_토사",
+      "weight": 2.414213562373095,
+      "prescriptionCount": 2
+    },
+    {
+      "source": "herb_활석",
+      "target": "sym_하리적백",
+      "weight": 2.414213562373095,
+      "prescriptionCount": 2
+    },
+    {
+      "source": "herb_활석",
+      "target": "sym_하유즙",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_활석",
+      "target": "sym_수면장애",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_흑두",
+      "target": "sym_상습",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_흑두",
+      "target": "sym_하리",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_귤피",
+      "target": "sym_담수",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_귤피",
+      "target": "sym_소화불량",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_남성",
+      "target": "sym_기침",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_다",
+      "target": "sym_통증",
+      "weight": 2.414213562373095,
+      "prescriptionCount": 2
+    },
+    {
+      "source": "herb_독활",
+      "target": "sym_근비",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_독활",
+      "target": "sym_지절종통",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_목향",
+      "target": "sym_상습",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_목향",
+      "target": "sym_하리",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_소목",
+      "target": "sym_흉복협통",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_승마",
+      "target": "sym_두진",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_승마",
+      "target": "sym_소양",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_승마",
+      "target": "sym_열비",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_영양각",
+      "target": "sym_열비",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_영양각",
+      "target": "sym_근비",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_영양각",
+      "target": "sym_지절종통",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_건생강",
+      "target": "sym_한천",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_담두시",
+      "target": "sym_두진",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_담두시",
+      "target": "sym_소양",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_목단피",
+      "target": "sym_태동",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_반하국",
+      "target": "sym_정충",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_백강",
+      "target": "sym_정충",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_복신",
+      "target": "sym_열비",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_천화분",
+      "target": "sym_감기",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_총백",
+      "target": "sym_통증",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    },
+    {
+      "source": "herb_홍화",
+      "target": "sym_흉복협통",
+      "weight": 2.0,
+      "prescriptionCount": 1
+    }
+  ],
+  "herbUcode": [
+    {
+      "source": "herb_감초",
+      "target": "U260"
+    },
+    {
+      "source": "herb_감초",
+      "target": "U280"
+    },
+    {
+      "source": "herb_감초",
+      "target": "U730"
+    },
+    {
+      "source": "herb_당귀",
+      "target": "U204"
+    },
+    {
+      "source": "herb_당귀",
+      "target": "U600"
+    },
+    {
+      "source": "herb_당귀",
+      "target": "U794"
+    },
+    {
+      "source": "herb_반하",
+      "target": "U280"
+    },
+    {
+      "source": "herb_반하",
+      "target": "U730"
+    },
+    {
+      "source": "herb_백출",
+      "target": "U234"
+    },
+    {
+      "source": "herb_백출",
+      "target": "U238"
+    },
+    {
+      "source": "herb_백출",
+      "target": "U240"
+    },
+    {
+      "source": "herb_백출",
+      "target": "U241"
+    },
+    {
+      "source": "herb_백출",
+      "target": "U301"
+    },
+    {
+      "source": "herb_백출",
+      "target": "U302"
+    },
+    {
+      "source": "herb_인삼",
+      "target": "U204"
+    },
+    {
+      "source": "herb_인삼",
+      "target": "U600"
+    },
+    {
+      "source": "herb_인삼",
+      "target": "U710"
+    },
+    {
+      "source": "herb_인삼",
+      "target": "U784"
+    },
+    {
+      "source": "herb_인삼",
+      "target": "U794"
+    },
+    {
+      "source": "herb_황기",
+      "target": "U640"
+    },
+    {
+      "source": "herb_천궁",
+      "target": "U233"
+    },
+    {
+      "source": "herb_천궁",
+      "target": "U236"
+    },
+    {
+      "source": "herb_천궁",
+      "target": "U650"
+    },
+    {
+      "source": "herb_마황",
+      "target": "U233"
+    },
+    {
+      "source": "herb_마황",
+      "target": "U236"
+    },
+    {
+      "source": "herb_작약",
+      "target": "U236"
+    },
+    {
+      "source": "herb_진피",
+      "target": "U260"
+    },
+    {
+      "source": "herb_진피",
+      "target": "U280"
+    },
+    {
+      "source": "herb_진피",
+      "target": "U730"
+    },
+    {
+      "source": "herb_오미자",
+      "target": "U280"
+    },
+    {
+      "source": "herb_오미자",
+      "target": "U730"
+    },
+    {
+      "source": "herb_계피",
+      "target": "U234"
+    },
+    {
+      "source": "herb_계피",
+      "target": "U238"
+    },
+    {
+      "source": "herb_계피",
+      "target": "U240"
+    },
+    {
+      "source": "herb_계피",
+      "target": "U241"
+    },
+    {
+      "source": "herb_계피",
+      "target": "U301"
+    },
+    {
+      "source": "herb_계피",
+      "target": "U302"
+    },
+    {
+      "source": "herb_계피",
+      "target": "U303"
+    },
+    {
+      "source": "herb_계피",
+      "target": "U304"
+    },
+    {
+      "source": "herb_계피",
+      "target": "U305"
+    },
+    {
+      "source": "herb_계피",
+      "target": "U306"
+    },
+    {
+      "source": "herb_오매",
+      "target": "U280"
+    },
+    {
+      "source": "herb_오매",
+      "target": "U730"
+    },
+    {
+      "source": "herb_부자",
+      "target": "U233"
+    },
+    {
+      "source": "herb_부자",
+      "target": "U236"
+    },
+    {
+      "source": "herb_부자",
+      "target": "U650"
+    },
+    {
+      "source": "herb_방풍",
+      "target": "U233"
+    },
+    {
+      "source": "herb_방풍",
+      "target": "U236"
+    },
+    {
+      "source": "herb_건강",
+      "target": "U280"
+    },
+    {
+      "source": "herb_건강",
+      "target": "U332"
+    },
+    {
+      "source": "herb_건강",
+      "target": "U670"
+    },
+    {
+      "source": "herb_건강",
+      "target": "U730"
+    },
+    {
+      "source": "herb_백작약",
+      "target": "U234"
+    },
+    {
+      "source": "herb_백작약",
+      "target": "U238"
+    },
+    {
+      "source": "herb_백작약",
+      "target": "U240"
+    },
+    {
+      "source": "herb_백작약",
+      "target": "U241"
+    },
+    {
+      "source": "herb_백작약",
+      "target": "U301"
+    },
+    {
+      "source": "herb_백작약",
+      "target": "U302"
+    },
+    {
+      "source": "herb_백작약",
+      "target": "U303"
+    },
+    {
+      "source": "herb_백작약",
+      "target": "U304"
+    },
+    {
+      "source": "herb_백작약",
+      "target": "U305"
+    },
+    {
+      "source": "herb_백작약",
+      "target": "U306"
+    },
+    {
+      "source": "herb_백작약",
+      "target": "U640"
+    },
+    {
+      "source": "herb_대황",
+      "target": "U301"
+    },
+    {
+      "source": "herb_계지",
+      "target": "U221"
+    },
+    {
+      "source": "herb_계지",
+      "target": "U222"
+    },
+    {
+      "source": "herb_계지",
+      "target": "U332"
+    },
+    {
+      "source": "herb_계지",
+      "target": "U651"
+    },
+    {
+      "source": "herb_계지",
+      "target": "U670"
+    },
+    {
+      "source": "herb_오수유",
+      "target": "U204"
+    },
+    {
+      "source": "herb_오수유",
+      "target": "U280"
+    },
+    {
+      "source": "herb_오수유",
+      "target": "U600"
+    },
+    {
+      "source": "herb_오수유",
+      "target": "U730"
+    },
+    {
+      "source": "herb_창출",
+      "target": "U280"
+    },
+    {
+      "source": "herb_창출",
+      "target": "U302"
+    },
+    {
+      "source": "herb_창출",
+      "target": "U730"
+    },
+    {
+      "source": "herb_적복령",
+      "target": "U233"
+    },
+    {
+      "source": "herb_적복령",
+      "target": "U234"
+    },
+    {
+      "source": "herb_적복령",
+      "target": "U236"
+    },
+    {
+      "source": "herb_적복령",
+      "target": "U238"
+    },
+    {
+      "source": "herb_적복령",
+      "target": "U240"
+    },
+    {
+      "source": "herb_적복령",
+      "target": "U241"
+    },
+    {
+      "source": "herb_적복령",
+      "target": "U302"
+    },
+    {
+      "source": "herb_적복령",
+      "target": "U303"
+    },
+    {
+      "source": "herb_적복령",
+      "target": "U304"
+    },
+    {
+      "source": "herb_적복령",
+      "target": "U305"
+    },
+    {
+      "source": "herb_적복령",
+      "target": "U306"
+    },
+    {
+      "source": "herb_향부자",
+      "target": "U260"
+    },
+    {
+      "source": "herb_향부자",
+      "target": "U301"
+    },
+    {
+      "source": "herb_백복령",
+      "target": "U234"
+    },
+    {
+      "source": "herb_백복령",
+      "target": "U238"
+    },
+    {
+      "source": "herb_백복령",
+      "target": "U240"
+    },
+    {
+      "source": "herb_백복령",
+      "target": "U241"
+    },
+    {
+      "source": "herb_백복령",
+      "target": "U301"
+    },
+    {
+      "source": "herb_백복령",
+      "target": "U302"
+    },
+    {
+      "source": "herb_오약",
+      "target": "U260"
+    },
+    {
+      "source": "herb_오약",
+      "target": "U301"
+    },
+    {
+      "source": "herb_육계",
+      "target": "U730"
+    },
+    {
+      "source": "herb_숙지황",
+      "target": "U222"
+    },
+    {
+      "source": "herb_숙지황",
+      "target": "U670"
+    },
+    {
+      "source": "herb_곽향",
+      "target": "U730"
+    },
+    {
+      "source": "herb_곽향",
+      "target": "U794"
+    },
+    {
+      "source": "herb_귤홍",
+      "target": "U302"
+    },
+    {
+      "source": "herb_대조",
+      "target": "U280"
+    },
+    {
+      "source": "herb_대조",
+      "target": "U680"
+    },
+    {
+      "source": "herb_대조",
+      "target": "U730"
+    },
+    {
+      "source": "herb_도인",
+      "target": "U301"
+    },
+    {
+      "source": "herb_후박",
+      "target": "U280"
+    },
+    {
+      "source": "herb_후박",
+      "target": "U302"
+    },
+    {
+      "source": "herb_후박",
+      "target": "U730"
+    },
+    {
+      "source": "herb_강활",
+      "target": "U238"
+    },
+    {
+      "source": "herb_당귀미",
+      "target": "U260"
+    },
+    {
+      "source": "herb_당귀미",
+      "target": "U301"
+    },
+    {
+      "source": "herb_상백피",
+      "target": "U233"
+    },
+    {
+      "source": "herb_상백피",
+      "target": "U234"
+    },
+    {
+      "source": "herb_상백피",
+      "target": "U236"
+    },
+    {
+      "source": "herb_상백피",
+      "target": "U238"
+    },
+    {
+      "source": "herb_상백피",
+      "target": "U240"
+    },
+    {
+      "source": "herb_상백피",
+      "target": "U241"
+    },
+    {
+      "source": "herb_상백피",
+      "target": "U302"
+    },
+    {
+      "source": "herb_상백피",
+      "target": "U303"
+    },
+    {
+      "source": "herb_상백피",
+      "target": "U304"
+    },
+    {
+      "source": "herb_상백피",
+      "target": "U305"
+    },
+    {
+      "source": "herb_상백피",
+      "target": "U306"
+    },
+    {
+      "source": "herb_서각",
+      "target": "U238"
+    },
+    {
+      "source": "herb_활석",
+      "target": "U730"
+    },
+    {
+      "source": "herb_흑두",
+      "target": "U730"
+    },
+    {
+      "source": "herb_흑두",
+      "target": "U794"
+    },
+    {
+      "source": "herb_귤피",
+      "target": "U280"
+    },
+    {
+      "source": "herb_귤피",
+      "target": "U730"
+    },
+    {
+      "source": "herb_다",
+      "target": "U238"
+    },
+    {
+      "source": "herb_다",
+      "target": "U301"
+    },
+    {
+      "source": "herb_다",
+      "target": "U302"
+    },
+    {
+      "source": "herb_독활",
+      "target": "U236"
+    },
+    {
+      "source": "herb_독활",
+      "target": "U238"
+    },
+    {
+      "source": "herb_독활",
+      "target": "U301"
+    },
+    {
+      "source": "herb_독활",
+      "target": "U302"
+    },
+    {
+      "source": "herb_독활",
+      "target": "U303"
+    },
+    {
+      "source": "herb_독활",
+      "target": "U304"
+    },
+    {
+      "source": "herb_독활",
+      "target": "U305"
+    },
+    {
+      "source": "herb_독활",
+      "target": "U306"
+    },
+    {
+      "source": "herb_목향",
+      "target": "U730"
+    },
+    {
+      "source": "herb_목향",
+      "target": "U794"
+    },
+    {
+      "source": "herb_소목",
+      "target": "U260"
+    },
+    {
+      "source": "herb_소목",
+      "target": "U301"
+    },
+    {
+      "source": "herb_승마",
+      "target": "U238"
+    },
+    {
+      "source": "herb_영양각",
+      "target": "U236"
+    },
+    {
+      "source": "herb_영양각",
+      "target": "U238"
+    },
+    {
+      "source": "herb_영양각",
+      "target": "U301"
+    },
+    {
+      "source": "herb_영양각",
+      "target": "U302"
+    },
+    {
+      "source": "herb_영양각",
+      "target": "U303"
+    },
+    {
+      "source": "herb_영양각",
+      "target": "U304"
+    },
+    {
+      "source": "herb_영양각",
+      "target": "U305"
+    },
+    {
+      "source": "herb_영양각",
+      "target": "U306"
+    },
+    {
+      "source": "herb_반하국",
+      "target": "U221"
+    },
+    {
+      "source": "herb_반하국",
+      "target": "U332"
+    },
+    {
+      "source": "herb_백강",
+      "target": "U221"
+    },
+    {
+      "source": "herb_백강",
+      "target": "U332"
+    },
+    {
+      "source": "herb_복신",
+      "target": "U238"
+    },
+    {
+      "source": "herb_총백",
+      "target": "U238"
+    },
+    {
+      "source": "herb_총백",
+      "target": "U301"
+    },
+    {
+      "source": "herb_총백",
+      "target": "U302"
+    },
+    {
+      "source": "herb_홍화",
+      "target": "U260"
+    },
+    {
+      "source": "herb_홍화",
+      "target": "U301"
+    }
+  ],
+  "ucodeCategory": [
+    {
+      "source": "U238",
+      "target": "musculoskeletal"
+    },
+    {
+      "source": "U240",
+      "target": "musculoskeletal"
+    },
+    {
+      "source": "U241",
+      "target": "musculoskeletal"
+    },
+    {
+      "source": "U301",
+      "target": "musculoskeletal"
+    },
+    {
+      "source": "U302",
+      "target": "musculoskeletal"
+    },
+    {
+      "source": "U303",
+      "target": "musculoskeletal"
+    },
+    {
+      "source": "U304",
+      "target": "musculoskeletal"
+    },
+    {
+      "source": "U305",
+      "target": "musculoskeletal"
+    },
+    {
+      "source": "U306",
+      "target": "musculoskeletal"
+    },
+    {
+      "source": "U234",
+      "target": "musculoskeletal"
+    },
+    {
+      "source": "U230",
+      "target": "head"
+    },
+    {
+      "source": "U650",
+      "target": "head"
+    },
+    {
+      "source": "U233",
+      "target": "head"
+    },
+    {
+      "source": "U236",
+      "target": "head"
+    },
+    {
+      "source": "U280",
+      "target": "digestive"
+    },
+    {
+      "source": "U260",
+      "target": "digestive"
+    },
+    {
+      "source": "U730",
+      "target": "digestive"
+    },
+    {
+      "source": "U204",
+      "target": "fatigue"
+    },
+    {
+      "source": "U600",
+      "target": "fatigue"
+    },
+    {
+      "source": "U710",
+      "target": "fatigue"
+    },
+    {
+      "source": "U784",
+      "target": "fatigue"
+    },
+    {
+      "source": "U794",
+      "target": "fatigue"
+    },
+    {
+      "source": "U680",
+      "target": "respiratory"
+    },
+    {
+      "source": "U221",
+      "target": "mind"
+    },
+    {
+      "source": "U222",
+      "target": "mind"
+    },
+    {
+      "source": "U332",
+      "target": "mind"
+    },
+    {
+      "source": "U651",
+      "target": "mind"
+    },
+    {
+      "source": "U670",
+      "target": "mind"
+    },
+    {
+      "source": "U640",
+      "target": "womens"
+    }
+  ]
+}
