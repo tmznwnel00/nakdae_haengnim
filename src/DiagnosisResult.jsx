@@ -403,19 +403,6 @@ export default function DiagnosisResult({ complaint, setView }) {
                         <span className="meta">{p.content.clinic?.name ?? "?"} · {p.content.clinic?.district ?? "?"} · {p.content.written_at ?? ""} · {p.source}</span>
                       </div>
                       <div className={`body ${open ? "open" : ""}`}>{p.content.content || ""}</div>
-                      <button
-                        className="more"
-                        type="button"
-                        onClick={() =>
-                          setExpanded((prev) => {
-                            const next = new Set(prev);
-                            next.has(i) ? next.delete(i) : next.add(i);
-                            return next;
-                          })
-                        }
-                      >
-                        {open ? "접기" : "더보기"}
-                      </button>
                       {p.outcome_evidence ? <div className="evidence">LLM 추출 경과 근거: "{p.outcome_evidence}"</div> : null}
                     </div>
                   );
