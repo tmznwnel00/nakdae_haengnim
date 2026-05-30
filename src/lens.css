@@ -274,7 +274,16 @@
 
 /* ============ Reviews ============ */
 .lens-view .reviews-panel { grid-column: 1 / -1; }
-.lens-view .review-list { display: flex; flex-direction: column; gap: 14px; }
+.lens-view .review-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-height: 520px;
+  overflow-y: auto;
+  cursor: grab;
+  padding-right: 4px;
+}
+.lens-view .review-list:active { cursor: grabbing; }
 .lens-view .review {
   border: 1px solid var(--line);
   border-radius: 4px;
@@ -417,6 +426,14 @@
 }
 .lens-view .bridge-col .item.u-link:hover .u-go,
 .lens-view .bridge-col .item.u-link:focus-visible .u-go { opacity: 1; }
+
+/* 하단 2컬럼 레이아웃 */
+.lens-view .bottom-row {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 24px;
+  margin-top: 24px;
+}
 
 /* 다음 단계 패널 */
 .lens-view .lens-next-lede { font-size: 12.5px; color: var(--text-2); margin: 0 0 14px; }
