@@ -117,9 +117,9 @@ function App() {
     setView("diagnosis-result");
   };
 
-  // 진단 결과의 변증(U코드) → 라이브러리에서 연결 약재 보기
-  const openLibraryUcode = (uid) => {
-    setLibTarget(uid);
+  // 라이브러리에서 특정 항목을 미리 선택해서 열기
+  const openLibraryTarget = (targetId) => {
+    setLibTarget(targetId);
     setView("library");
   };
 
@@ -129,11 +129,11 @@ function App() {
     <main className={`shell ${shellExtra}`}>
       <Header view={view} setView={setView} />
       {view === "navigation" ? <PersonaGuide setView={setView} /> :
-       view === "library" ? <HerbLibrary data={data} initialSelectedId={libTarget} onConsumeInitial={() => setLibTarget(null)} /> :
+       view === "library" ? <HerbLibrary data={data} initialSelectedId={libTarget} onConsumeInitial={() => setLibTarget(null)} onNavigate={setView} /> :
        view === "clinics" ? <ClinicsPage clinics={clinicsData} /> :
        view === "sasang" ? <SasangPage setView={setView} /> :
-       view === "diagnosis-result" && complaint ? <DiagnosisResult complaint={complaint} setView={setView} onOpenLibrary={openLibraryUcode} ucodeIds={ucodeIdSet} /> :
-       <StartPage setView={setView} onDiagnose={startDiagnosis} />}
+       view === "diagnosis-result" && complaint ? <DiagnosisResult complaint={complaint} setView={setView} onOpenLibrary={openLibraryTarget} ucodeIds={ucodeIdSet} /> :
+       <StartPage setView={setView} onDiagnose={startDiagnosis} commercialProducts={data.commercialProducts} onSelectProduct={openLibraryTarget} />}
     </main>
   );
 }
@@ -281,7 +281,7 @@ const ICON_BY_COMPLAINT = Object.fromEntries(SYMPTOMS.map(([, Icon, c]) => [c, I
 const labelOf = (c) => LABEL_BY_COMPLAINT[c] || c;
 const iconOf = (c) => ICON_BY_COMPLAINT[c] || Leaf;
 
-function StartPage({ setView, onDiagnose }) {
+function StartPage({ setView, onDiagnose, commercialProducts, onSelectProduct }) {
   const [selected, setSelected] = useState("만성피로"); // 선택된 한방 호소(enum)
   const [activeBody, setActiveBody] = useState(null);     // 신체부위 필터
   const [showAll, setShowAll] = useState(false);          // 전체 증상 보기
@@ -346,6 +346,33 @@ function StartPage({ setView, onDiagnose }) {
         <h1>당신의 몸은 지금,<br />어떤 신호를<br />보내고 있나요?</h1>
         <p className="copy">몸이 보내는 작은 신호들을 놓치지 마세요.<br />AI가 당신의 컨디션을 분석하고, 균형 회복을 위한<br />맞춤 솔루션을 제안해드려요.</p>
       </div>
+
+      {commercialProducts?.length > 0 && (
+        <section className="start-products" aria-label="대표 상호명 한약">
+          <div className="start-products-head">
+            <p className="eyebrow">대표 상호명 한약</p>
+            <h2>많이 알려진 한약을 바로 확인해보세요</h2>
+            <p className="copy">아래 제품을 누르면 해당 한약의 주요 재료와 연관 정보를 Herb Library에서 바로 확인할 수 있어요.</p>
+          </div>
+          <div className="product-grid">
+            {POPULAR_COMMERCIAL_PRODUCT_IDS.map((id) => {
+              const product = commercialProducts.find((p) => p.id === id);
+              if (!product) return null;
+              return (
+                <button key={product.id} type="button" className="product-card" onClick={() => onSelectProduct(product.id)}>
+                  <div className="product-card-image">
+                    {product.image ? <img src={product.image} alt={product.name} /> : <span>{product.name}</span>}
+                  </div>
+                  <div className="product-card-body">
+                    <strong>{product.name}</strong>
+                    <small>{product.tagline}</small>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+        </section>
+      )}
 
       <div className="anatomy-stage" aria-label="신체 부위">
         <div className="orbit orbit-a" aria-hidden="true" /><div className="orbit orbit-b" aria-hidden="true" /><div className="orbit orbit-c" aria-hidden="true" />
