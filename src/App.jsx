@@ -89,8 +89,9 @@ function App() {
   };
 
   const isAltView = view === "library" || view === "clinics" || view === "sasang";
+  const shellExtra = view === "library" ? "library-shell" : view === "clinics" ? "clinics-shell" : view === "sasang" ? "sasang-shell" : "";
   return (
-    <main className={`shell ${isAltView ? "library-shell" : ""}`}>
+    <main className={`shell ${shellExtra}`}>
       <Header view={view} setView={setView} />
       {view === "library" ? <HerbLibrary data={data} /> :
        view === "clinics" ? <ClinicsPage clinics={clinicsData} /> :
