@@ -2115,7 +2115,7 @@ function SasangResult({ result, onReset, setView }) {
           </div>
         </div>
 
-        <div className="sas-section sas-section-center">
+        <div className="sas-section">
           <h3>어울리는 약재</h3>
           <p className="sas-hint">클릭하면 Herb Library에서 자세히 볼 수 있어요</p>
           <div className="jd-pills">
