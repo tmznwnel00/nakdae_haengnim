@@ -300,7 +300,7 @@ function StartPage({ setView, onDiagnose }) {
       <aside className="diagnosis" aria-label="증상 선택">
         <div className="panel">
           <h2>어떤 증상이 느껴지나요?</h2>
-          <p>해당하는 증상을 선택해주세요. (복수 선택 가능)</p>
+          <p>해당하는 증상을 선택해주세요.</p>
           <label className="search"><Search size={18} /><input type="search" placeholder="증상을 검색해보세요" value={query} onChange={(e) => { setQuery(e.target.value); setShowAll(false); setActiveBody(null); }} /></label>
           <p className="section-label">
             <span>{headerLabel}</span>
