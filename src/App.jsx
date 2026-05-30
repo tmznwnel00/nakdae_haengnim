@@ -35,6 +35,26 @@ const ICONS = {
   Activity, Brain, Waves, Sparkles, Sprout, Moon, CircleDot, Leaf,
 };
 
+const DEFAULT_BODY_TAGS = [
+  { id: "head_skin",    label: "머리/얼굴/피부", count: 2858, tag: { x: 6,  y:  9 }, zone: "ellipse(10% 8%  at 50% 11%)", gradient: "radial-gradient(ellipse 62% 78% at 50% 11%, rgba(185,70,60,0.54), transparent 72%)" },
+  { id: "neck_shoulder",label: "목/어깨",        count: 1628, tag: { x: 72, y: 20 }, zone: "ellipse(30% 5%  at 50% 22%)", gradient: "radial-gradient(ellipse 92% 44% at 50% 22%, rgba(185,70,60,0.48), transparent 70%)" },
+  { id: "whole",        label: "전신",           count: 2560, tag: { x: 82, y: 32 }, zone: "inset(0% 0% 0% 0%)",           gradient: "radial-gradient(ellipse 80% 90% at 50% 50%, rgba(185,70,60,0.28), transparent 72%)" },
+  { id: "digestive",    label: "소화기",         count:  297, tag: { x: 82, y: 44 }, zone: "ellipse(10% 9%  at 50% 39%)", gradient: "radial-gradient(ellipse 55% 84% at 50% 39%, rgba(185,70,60,0.52), transparent 72%)" },
+  { id: "waist",        label: "허리",           count:  909, tag: { x: 6,  y: 48 }, zone: "ellipse(28% 4%  at 50% 47%)", gradient: "radial-gradient(ellipse 92% 42% at 50% 47%, rgba(185,70,60,0.50), transparent 68%)" },
+  { id: "leg_knee",     label: "다리/무릎",      count:  390, tag: { x: 82, y: 72 }, zone: "inset(60% 32% 16% 32%)",      gradient: "radial-gradient(ellipse 32% 13% at 50% 72%, rgba(185,70,60,0.54), transparent 90%)" },
+];
+
+function useBodyTags() {
+  const [bodyTags, setBodyTags] = useState(DEFAULT_BODY_TAGS);
+  useEffect(() => {
+    fetch("/data/body_tags.json")
+      .then((res) => res.json())
+      .then(setBodyTags)
+      .catch(() => {});
+  }, []);
+  return bodyTags;
+}
+
 function useKnowledgeData() {
   const [data, setData] = useState({
     herbs: [], symptoms: [], prescriptions: [],
@@ -253,8 +273,20 @@ function StartPage({ setView, onDiagnose }) {
   const [activeBody, setActiveBody] = useState(null);     // 신체부위 필터
   const [showAll, setShowAll] = useState(false);          // 전체 증상 보기
   const [query, setQuery] = useState("");                 // 검색어
+  const [activeBodyTag, setActiveBodyTag] = useState(null);
+  const [debugPos, setDebugPos] = useState(null);
+  const bodyTags = useBodyTags();
+  const bodyDebug = new URLSearchParams(window.location.search).has("bodyDebug");
   const primary = selected[0] || null;
   const goDiagnose = () => onDiagnose && onDiagnose(primary);
+
+  const handleFigureMouseMove = bodyDebug ? (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = Math.round((e.clientX - rect.left) / rect.width * 100);
+    const y = Math.round((e.clientY - rect.top) / rect.height * 100);
+    setDebugPos({ x, y });
+  } : undefined;
+  const handleFigureMouseLeave = bodyDebug ? () => setDebugPos(null) : undefined;
 
   const toggleComplaint = (c) =>
     setSelected((cur) => (cur.includes(c) ? cur.filter((x) => x !== c) : [...cur, c]));
@@ -288,20 +320,53 @@ function StartPage({ setView, onDiagnose }) {
         <p className="copy">몸이 보내는 작은 신호들을 놓치지 마세요.<br />AI가 당신의 컨디션을 분석하고, 균형 회복을 위한<br />맞춤 솔루션을 제안해드려요.</p>
       </div>
 
-      <div className="anatomy-stage">
+      <div className="anatomy-stage" aria-label="신체 부위">
         <div className="orbit orbit-a" aria-hidden="true" /><div className="orbit orbit-b" aria-hidden="true" /><div className="orbit orbit-c" aria-hidden="true" />
         <div className="spark s1" aria-hidden="true" /><div className="spark s2" aria-hidden="true" /><div className="spark s3" aria-hidden="true" />
-        {BODY_PARTS.map((b) => {
-          const on = activeBody === b.part;
-          const cnt = b.complaints.filter((c) => selected.includes(c)).length;
-          return (
-            <button key={b.part} data-part={b.part} type="button"
-              className={`body-tag ${on ? "active" : ""} ${cnt ? "has-selection" : ""}`}
-              aria-pressed={on} onClick={() => pickBody(b.part)}>
-              <span />{b.label} {cnt ? <span className="count">{cnt}</span> : <b>＋</b>}
+        <div className={`figure-wrap ${bodyDebug ? "debug" : ""}`}
+          onMouseMove={handleFigureMouseMove}
+          onMouseLeave={handleFigureMouseLeave}
+        >
+          <img className="human-figure" src="/assets/images/human-figure-cropped.png" alt="" />
+          <div className="body-heat-layer">
+            {bodyTags.map((part) => (
+              <div key={`${part.id}-heat`}
+                className={`body-heat-zone ${activeBodyTag === part.id ? "active" : ""}`}
+                style={{ clipPath: part.zone, WebkitClipPath: part.zone, background: part.gradient }}
+              />
+            ))}
+          </div>
+          <div className="body-zone-debug" aria-hidden="true">
+            {bodyTags.map((part) => (
+              <div key={`${part.id}-debug`} className="body-zone-guide"
+                style={{ clipPath: part.zone, WebkitClipPath: part.zone }} />
+            ))}
+          </div>
+          {bodyDebug && debugPos && (
+            <>
+              <div className="debug-crosshair-v" style={{ left: `${debugPos.x}%` }} />
+              <div className="debug-crosshair-h" style={{ top: `${debugPos.y}%` }} />
+              <div className="debug-pos-label" style={{
+                left: debugPos.x > 60 ? "auto" : `${debugPos.x}%`,
+                right: debugPos.x > 60 ? `${100 - debugPos.x}%` : "auto",
+                top: debugPos.y > 80 ? "auto" : `${debugPos.y}%`,
+                bottom: debugPos.y > 80 ? `${100 - debugPos.y}%` : "auto",
+              }}>x:{debugPos.x} y:{debugPos.y}</div>
+            </>
+          )}
+          {bodyTags.map((part) => (
+            <button key={part.id}
+              className={`body-tag data-body-tag ${activeBodyTag === part.id ? "active" : ""}`}
+              style={{ left: `${part.tag.x}%`, top: `${part.tag.y}%` }}
+              type="button"
+              onMouseEnter={() => setActiveBodyTag(part.id)}
+              onMouseLeave={() => setActiveBodyTag(null)}
+            >
+              <span />{part.label}
+              <small>{Number(part.count || 0).toLocaleString()}</small>
             </button>
-          );
-        })}
+          ))}
+        </div>
       </div>
 
       <aside className="diagnosis" aria-label="증상 선택">
