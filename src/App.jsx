@@ -1801,6 +1801,7 @@ function PrescriptionView({ prescriptions, herbById, categories, catById, select
 const SASANG_DATA = {
   태양인: {
     color: "#6b8fa8",
+    ratio: "~1%",
     desc: "독립적이고 사회적 정의감이 강한 리더형. 가장 드문 체질(1% 미만)로 창의적이고 혁신적인 사고가 특징입니다.",
     strengths: ["독립심·리더십", "사회적 통찰력", "창의적 사고"],
     weaknesses: ["하체·허리 약함", "소화기 주의", "무리하면 탈진"],
@@ -1810,6 +1811,7 @@ const SASANG_DATA = {
   },
   태음인: {
     color: "#5c8c72",
+    ratio: "~50%",
     desc: "꾸준하고 인내력이 강한 대기만성형. 가장 많은 체질(약 50%)로 묵묵히 노력하며 성과를 쌓아갑니다.",
     strengths: ["지구력·꾸준함", "안정감·신뢰감", "강한 체력"],
     weaknesses: ["호흡기·피부 약함", "땀이 많음", "비만·고혈압 주의"],
@@ -1819,6 +1821,7 @@ const SASANG_DATA = {
   },
   소양인: {
     color: "#c17f40",
+    ratio: "~30%",
     desc: "활발하고 추진력이 넘치는 행동형. 두 번째로 많은 체질(약 30%)로 열정적이고 사교성이 좋습니다.",
     strengths: ["추진력·행동력", "사교성·솔직함", "빠른 판단력"],
     weaknesses: ["신장·하체 약함", "급한 성격", "신장·방광 주의"],
@@ -1828,6 +1831,7 @@ const SASANG_DATA = {
   },
   소음인: {
     color: "#7b6fa8",
+    ratio: "~20%",
     desc: "꼼꼼하고 내면이 풍부한 완벽주의형. 세 번째로 많은 체질(약 20%)로 신중하고 정확성을 중시합니다.",
     strengths: ["세밀함·꼼꼼함", "지적 호기심", "충성심·배려"],
     weaknesses: ["소화기·냉증 약함", "걱정이 많음", "위장·냉대하 주의"],
@@ -1837,8 +1841,17 @@ const SASANG_DATA = {
   },
 };
 
+const SASANG_COMPARE = [
+  { label: "소화력", 태양인: 2, 태음인: 4, 소양인: 4, 소음인: 3 },
+  { label: "체력",   태양인: 2, 태음인: 5, 소양인: 4, 소음인: 3 },
+  { label: "호흡기", 태양인: 3, 태음인: 2, 소양인: 4, 소음인: 4 },
+  { label: "수면질", 태양인: 3, 태음인: 4, 소양인: 3, 소음인: 3 },
+  { label: "면역력", 태양인: 3, 태음인: 4, 소양인: 3, 소음인: 4 },
+];
+
 const SASANG_QUIZ = [
   {
+    category: "체형",
     q: "체형에서 어느 부위가 가장 발달해 있나요?",
     options: [
       { label: "목·어깨가 발달, 허리·하체가 약한 편", scores: { 태양인:3, 태음인:0, 소양인:0, 소음인:0 } },
@@ -1848,6 +1861,7 @@ const SASANG_QUIZ = [
     ],
   },
   {
+    category: "소화",
     q: "평소 소화는 어떤 편인가요?",
     options: [
       { label: "구역감이 잘 생기고 음식 조절이 중요하다", scores: { 태양인:2, 태음인:0, 소양인:1, 소음인:0 } },
@@ -1857,6 +1871,7 @@ const SASANG_QUIZ = [
     ],
   },
   {
+    category: "땀·체온",
     q: "땀과 체온 반응은 어떤가요?",
     options: [
       { label: "땀이 거의 없고 더위·추위 모두 예민하다", scores: { 태양인:3, 태음인:0, 소양인:0, 소음인:1 } },
@@ -1866,6 +1881,7 @@ const SASANG_QUIZ = [
     ],
   },
   {
+    category: "성격",
     q: "성격·행동 방식에서 가장 가까운 것은?",
     options: [
       { label: "독립적·개혁적, 규칙보다 신념을 따른다", scores: { 태양인:3, 태음인:0, 소양인:0, 소음인:0 } },
@@ -1875,6 +1891,7 @@ const SASANG_QUIZ = [
     ],
   },
   {
+    category: "감정",
     q: "감정 표현 방식은?",
     options: [
       { label: "감정보다 원칙·사회 정의를 중시한다", scores: { 태양인:3, 태음인:0, 소양인:0, 소음인:0 } },
@@ -1884,6 +1901,7 @@ const SASANG_QUIZ = [
     ],
   },
   {
+    category: "에너지",
     q: "에너지 패턴이 어떤가요?",
     options: [
       { label: "에너지가 위로 집중되고 하체에 힘이 부족하다", scores: { 태양인:3, 태음인:0, 소양인:0, 소음인:0 } },
@@ -1893,6 +1911,7 @@ const SASANG_QUIZ = [
     ],
   },
   {
+    category: "온도",
     q: "선호하는 기후·온도는?",
     options: [
       { label: "서늘하고 맑은 날씨가 좋다", scores: { 태양인:2, 태음인:0, 소양인:1, 소음인:0 } },
@@ -1902,6 +1921,7 @@ const SASANG_QUIZ = [
     ],
   },
   {
+    category: "음식",
     q: "선호하는 음식 스타일은?",
     options: [
       { label: "담백하고 묽은 음식, 특별히 가리지 않는다", scores: { 태양인:3, 태음인:0, 소양인:0, 소음인:0 } },
@@ -1911,6 +1931,7 @@ const SASANG_QUIZ = [
     ],
   },
   {
+    category: "수면",
     q: "수면 패턴은 어떤가요?",
     options: [
       { label: "잠을 잘 못 자거나 수면이 불규칙하다", scores: { 태양인:2, 태음인:0, 소양인:1, 소음인:0 } },
@@ -1920,6 +1941,7 @@ const SASANG_QUIZ = [
     ],
   },
   {
+    category: "건강",
     q: "자주 생기는 건강 문제는?",
     options: [
       { label: "다리 힘 약함·요도·소변 관련 불편", scores: { 태양인:3, 태음인:0, 소양인:0, 소음인:0 } },
@@ -1958,21 +1980,60 @@ function SasangPage({ setView }) {
   if (step === -1) {
     return (
       <section className="sasang-page">
-        <div className="sasang-card glass-panel">
-          <p className="eyebrow">SASANG · 사상체질</p>
-          <h1 className="sasang-main-title">나는 어떤<br />체질일까요?</h1>
-          <p className="sasang-intro">
-            조선 시대 이제마(李濟馬) 선생이 체계화한 사상의학은 사람을 네 가지 체질로 분류합니다.
-            10가지 질문으로 내 체질을 알아보고, 어울리는 약재와 생활 조언을 확인해보세요.
-          </p>
-          <div className="sasang-type-preview">
+        <div className="sas-landing">
+          <div className="sas-landing-header glass-panel">
+            <p className="eyebrow">SASANG · 사상체질</p>
+            <h1 className="sasang-main-title">나는 어떤<br />체질일까요?</h1>
+            <p className="sasang-intro">
+              조선 시대 이제마(李濟馬) 선생이 체계화한 사상의학은 사람을 네 가지 체질로 분류합니다.
+              10가지 질문으로 내 체질을 알아보고, 어울리는 약재와 생활 조언을 확인해보세요.
+            </p>
+          </div>
+
+          <div className="sas-type-grid">
             {Object.entries(SASANG_DATA).map(([type, d]) => (
-              <div key={type} className="sas-preview-chip" style={{ background: `${d.color}18`, borderColor: `${d.color}40`, color: d.color }}>
-                {type}
+              <div key={type} className="sas-type-card glass-panel">
+                <div className="sas-type-card-bar" style={{ background: d.color }} />
+                <div className="sas-type-card-body">
+                  <div className="sas-type-card-head">
+                    <span className="sas-type-name" style={{ color: d.color }}>{type}</span>
+                    <span className="sas-type-ratio" style={{ background: `${d.color}18`, color: d.color, borderColor: `${d.color}40` }}>{d.ratio}</span>
+                  </div>
+                  <p className="sas-type-card-desc">{d.desc.split('.')[0]}.</p>
+                  <div className="jd-pills sas-type-card-chips">
+                    {d.strengths.slice(0, 2).map((s) => (
+                      <span key={s} className="jd-pill" style={{ background: `${d.color}12`, color: d.color, borderColor: `${d.color}35` }}>{s}</span>
+                    ))}
+                  </div>
+                  <p className="sas-type-card-herbs">약재: {d.herbs.slice(0, 2).join(' · ')}</p>
+                </div>
               </div>
             ))}
           </div>
-          <button type="button" className="start" onClick={() => setStep(0)}>
+
+          <div className="sas-compare-table glass-panel">
+            <p className="sas-compare-title">체질별 강약 비교</p>
+            <div className="sas-compare-header">
+              <div className="sas-compare-label" />
+              {Object.entries(SASANG_DATA).map(([type, d]) => (
+                <div key={type} className="sas-compare-col-head" style={{ color: d.color }}>{type}</div>
+              ))}
+            </div>
+            {SASANG_COMPARE.map((row) => (
+              <div key={row.label} className="sas-compare-row">
+                <div className="sas-compare-label">{row.label}</div>
+                {Object.entries(SASANG_DATA).map(([type, d]) => (
+                  <div key={type} className="sas-compare-cell">
+                    <div className="sas-compare-bar-track">
+                      <div className="sas-compare-bar-fill" style={{ width: `${(row[type] / 5) * 100}%`, background: d.color }} />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+
+          <button type="button" className="start sas-start-btn" onClick={() => setStep(0)}>
             <span>진단 시작하기</span><span className="arrow"><ArrowRight size={22} /></span>
           </button>
         </div>
@@ -1981,18 +2042,29 @@ function SasangPage({ setView }) {
   }
 
   const question = SASANG_QUIZ[step];
+  const ALPHA = ["A", "B", "C", "D"];
   return (
     <section className="sasang-page">
       <div className="sasang-card glass-panel">
         <div className="sasang-progress-wrap">
           <div className="sasang-progress-bar" style={{ width: `${((step + 1) / SASANG_QUIZ.length) * 100}%` }} />
         </div>
-        <p className="sasang-step-label">{step + 1} / {SASANG_QUIZ.length}</p>
+        <div className="sas-step-dots">
+          {SASANG_QUIZ.map((_, i) => (
+            <div key={i} className={`sas-step-dot${i < step ? " done" : i === step ? " active" : ""}`} />
+          ))}
+        </div>
+        <p className="sas-quiz-meta">
+          STEP {step + 1} <span className="sas-quiz-category">· {question.category}</span>
+        </p>
         <h2 className="sasang-q">{question.q}</h2>
         <div className="sasang-options">
           {question.options.map((opt, i) => (
             <button key={i} type="button" className="sasang-option" onClick={() => handleAnswer(opt.scores)}>
-              {opt.label}
+              <span className="sasang-option-inner">
+                <span className="sas-opt-badge">{ALPHA[i]}</span>
+                <span>{opt.label}</span>
+              </span>
             </button>
           ))}
         </div>
@@ -2008,7 +2080,7 @@ function SasangResult({ result, onReset, setView }) {
   return (
     <section className="sasang-page">
       <div className="sasang-result glass-panel">
-        <div className="sas-result-head" style={{ background: `${data.color}0e`, borderColor: `${data.color}30` }}>
+        <div className="sas-result-head" style={{ background: `${data.color}0e` }}>
           <p className="eyebrow">체질 진단 결과</p>
           <div className="sas-type-badge" style={{ color: data.color, borderColor: `${data.color}50`, background: `${data.color}14` }}>
             {result.type}
