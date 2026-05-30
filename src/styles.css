@@ -1170,6 +1170,9 @@
 .panel {
   padding: 32px 28px 28px;
   border-radius: 28px;
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 120px);
 }
 .panel h2 {
   font-size: clamp(19px, 1.5vw, 25px);
@@ -1194,6 +1197,9 @@
 }
 .symptoms {
   gap: 10px;
+  overflow-y: auto;
+  flex: 1;
+  min-height: 0;
 }
 .symptom {
   min-height: 92px;
@@ -1212,12 +1218,10 @@
   top: -8px;
   font-size: 13px;
 }
-/* 전체/검색/부위 확장 모드 — 컴팩트 2열 + 스크롤 */
+/* 전체/검색/부위 확장 모드 — 컴팩트 2열 */
 .symptoms.expanded {
   grid-template-columns: repeat(2, 1fr);
   gap: 8px;
-  max-height: 300px;
-  overflow-y: auto;
   padding-right: 4px;
 }
 .symptoms.expanded .symptom {
