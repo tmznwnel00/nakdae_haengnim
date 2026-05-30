@@ -18,6 +18,7 @@ import {
   Waves,
 } from "lucide-react";
 import { forceSimulation, forceLink, forceManyBody, forceCenter, forceCollide, forceX, forceY } from "d3";
+import L from "leaflet";
 
 const dataFiles = {
   herbs: "/data/herbs.json",
@@ -54,18 +55,37 @@ function useKnowledgeData() {
   return data;
 }
 
+function useClinicsData(active) {
+  const [clinics, setClinics] = useState([]);
+  useEffect(() => {
+    if (!active || clinics.length) return;
+    fetch("/data/clinic_journal.json").then((r) => r.json()).then(setClinics).catch(console.error);
+  }, [active]);
+  return clinics;
+}
+
 function App() {
-  const [view, setViewState] = useState(() => (window.location.hash === "#library" ? "library" : "diagnosis"));
+  const [view, setViewState] = useState(() => {
+    const h = window.location.hash;
+    if (h === "#library") return "library";
+    if (h === "#clinics") return "clinics";
+    return "diagnosis";
+  });
   const data = useKnowledgeData();
+  const clinicsData = useClinicsData(view === "clinics");
+
   const setView = (nextView) => {
     setViewState(nextView);
-    window.location.hash = nextView === "library" ? "library" : "";
+    window.location.hash = nextView === "library" ? "library" : nextView === "clinics" ? "clinics" : "";
   };
 
+  const isAltView = view === "library" || view === "clinics";
   return (
-    <main className={`shell ${view === "library" ? "library-shell" : ""}`}>
+    <main className={`shell ${isAltView ? "library-shell" : ""}`}>
       <Header view={view} setView={setView} />
-      {view === "library" ? <HerbLibrary data={data} /> : <StartPage />}
+      {view === "library" ? <HerbLibrary data={data} /> :
+       view === "clinics" ? <ClinicsPage clinics={clinicsData} /> :
+       <StartPage />}
     </main>
   );
 }
@@ -75,7 +95,7 @@ function Header({ view, setView }) {
     ["about", "ABOUT"],
     ["diagnosis", "SELF-DIAGNOSIS"],
     ["library", "HERB LIBRARY"],
-    ["journal", "JOURNAL"],
+    ["clinics", "CLINICS"],
     ["mypage", "MY PAGE"],
   ];
 
@@ -84,7 +104,7 @@ function Header({ view, setView }) {
       <button className="brand brand-button" type="button" onClick={() => setView("diagnosis")}>MEDVIS</button>
       <nav className="nav" aria-label="Primary">
         {items.map(([key, label]) => (
-          <button key={key} className={view === key ? "active" : ""} type="button" onClick={() => setView(key === "library" ? "library" : "diagnosis")}>
+          <button key={key} className={view === key ? "active" : ""} type="button" onClick={() => setView(["library", "clinics"].includes(key) ? key : "diagnosis")}>
             {label}
           </button>
         ))}
@@ -990,6 +1010,193 @@ function DetailPanel({ selectedId, setSelectedId, herbById, symById, ucodeById, 
         <h2>{symptom.plain}</h2>
       </div>
       <p className="disclaimer">증상 상세는 추후 보강 예정.</p>
+    </aside>
+  );
+}
+
+// ─────────────────────────────────────────────
+// JOURNAL PAGE — 한의원 리뷰 지도
+// ─────────────────────────────────────────────
+
+const OUTCOME_COLORS = {
+  호전: "#5c8c72", 진행중: "#6f97aa", 불명: "#a8b5be",
+  변화없음: "#c0a898", 재발: "#b97070", 악화: "#b97070",
+};
+const OUTCOME_ORDER = ["호전", "진행중", "불명", "변화없음", "재발", "악화"];
+
+function ClinicsPage({ clinics }) {
+  const [selected, setSelected] = useState(null);
+  const [district, setDistrict] = useState(null);
+
+  const districts = useMemo(
+    () => [...new Set(clinics.map((c) => c.district).filter(Boolean))].sort(),
+    [clinics]
+  );
+  const filtered = useMemo(
+    () => (district ? clinics.filter((c) => c.district === district) : clinics),
+    [clinics, district]
+  );
+
+  if (!clinics.length) {
+    return <section className="clinics-page"><div className="clinics-loading"><p>데이터를 불러오는 중…</p></div></section>;
+  }
+
+  return (
+    <section className="clinics-page">
+      <ClinicsLeft districts={districts} district={district} setDistrict={setDistrict} total={clinics.length} shown={filtered.length} />
+      <div className="clinics-map-wrap glass-panel">
+        <ClinicsMap clinics={filtered} selectedId={selected?.id} onSelect={setSelected} />
+      </div>
+      <ClinicsDetail clinic={selected} />
+    </section>
+  );
+}
+
+function ClinicsLeft({ districts, district, setDistrict, total, shown }) {
+  return (
+    <aside className="clinics-left glass-panel">
+      <p className="eyebrow" style={{ margin: "0 0 10px" }}>CLINICS</p>
+      <h2 className="clinics-title">서울 한의원<br />리뷰 지도</h2>
+      <p className="clinics-desc">
+        {total}개 한의원 · {shown}개 표시 중<br />
+        마커 클릭 시 리뷰 분석을 확인해요
+      </p>
+
+      <p className="clinics-section-label">구 필터</p>
+      <div className="district-chips">
+        <button type="button" className={`district-chip ${!district ? "active" : ""}`} onClick={() => setDistrict(null)}>전체</button>
+        {districts.map((d) => (
+          <button key={d} type="button" className={`district-chip ${district === d ? "active" : ""}`} onClick={() => setDistrict(district === d ? null : d)}>{d}</button>
+        ))}
+      </div>
+
+      <p className="clinics-section-label" style={{ marginTop: 22 }}>마커 범례</p>
+      <div className="clinics-legend">
+        <span><i style={{ background: "#5c8c72" }} />긍정 리뷰 많음</span>
+        <span><i style={{ background: "#6f97aa" }} />혼합</span>
+        <span><i style={{ background: "#a07c70" }} />부정 포함</span>
+        <span className="legend-size-hint">마커 크기 = 리뷰 수</span>
+      </div>
+    </aside>
+  );
+}
+
+function ClinicsMap({ clinics, selectedId, onSelect }) {
+  const containerRef = useRef(null);
+  const mapRef = useRef(null);
+  const markersRef = useRef(new Map());
+
+  useEffect(() => {
+    if (!containerRef.current || mapRef.current) return;
+    const map = L.map(containerRef.current, { center: [37.5665, 126.978], zoom: 11 });
+    L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
+      attribution: "© OpenStreetMap contributors © CARTO",
+      maxZoom: 19,
+    }).addTo(map);
+    mapRef.current = map;
+    return () => { map.remove(); mapRef.current = null; };
+  }, []);
+
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map) return;
+    markersRef.current.forEach((m) => m.remove());
+    markersRef.current.clear();
+
+    clinics.forEach((clinic) => {
+      const pos = (clinic.sentiment["긍정"] || 0) / Math.max(1, clinic.review_count);
+      const color = pos > 0.82 ? "#5c8c72" : pos > 0.5 ? "#6f97aa" : "#a07c70";
+      const r = Math.max(6, Math.min(20, 5 + clinic.review_count * 2));
+      const isSel = clinic.id === selectedId;
+
+      const m = L.circleMarker([clinic.lat, clinic.lng], {
+        radius: isSel ? r + 3 : r,
+        fillColor: color,
+        fillOpacity: isSel ? 1 : 0.78,
+        color: isSel ? "#1d2832" : "rgba(255,255,255,0.9)",
+        weight: isSel ? 2.5 : 1.5,
+      })
+        .addTo(map)
+        .bindTooltip(clinic.name, { direction: "top", offset: [0, -(r + 6)], className: "c-tooltip" })
+        .on("click", () => onSelect(clinic));
+
+      markersRef.current.set(clinic.id, m);
+    });
+  }, [clinics, selectedId]);
+
+  return <div ref={containerRef} className="clinics-map" />;
+}
+
+function MiniBar({ label, count, total, color }) {
+  const pct = total > 0 ? Math.round((count / total) * 100) : 0;
+  return (
+    <div className="mini-bar-row">
+      <span className="mini-bar-label">{label}</span>
+      <div className="mini-bar-track"><div className="mini-bar-fill" style={{ width: `${pct}%`, background: color }} /></div>
+      <span className="mini-bar-pct">{pct}%</span>
+    </div>
+  );
+}
+
+function ClinicsDetail({ clinic }) {
+  if (!clinic) {
+    return (
+      <aside className="clinics-detail glass-panel">
+        <div className="clinics-empty">
+          <p>지도에서<br />한의원을 클릭해보세요</p>
+          <small>리뷰 분석 결과를<br />여기서 확인할 수 있어요</small>
+        </div>
+      </aside>
+    );
+  }
+
+  const totalOutcome = Object.values(clinic.outcome).reduce((a, b) => a + b, 0);
+  const topParts = Object.entries(clinic.body_parts).sort((a, b) => b[1] - a[1]).slice(0, 6);
+  const topTreatments = Object.entries(clinic.treatments).sort((a, b) => b[1] - a[1]).slice(0, 5);
+
+  return (
+    <aside className="clinics-detail glass-panel">
+      <div className="detail-heading">
+        <span style={{ color: "#6f97aa" }}>한의원</span>
+        <h2>{clinic.name}</h2>
+        <p>{clinic.district} · {(clinic.address || "").replace("서울특별시 ", "").split(" ").slice(0, 3).join(" ")}</p>
+      </div>
+
+      <div className="jd-meta">
+        <span className="jd-count">리뷰 분석 {clinic.review_count}건</span>
+        {clinic.avg_rating && <span className="jd-rating">★ {clinic.avg_rating}</span>}
+      </div>
+
+      <div className="detail-section">
+        <h3>치료 결과</h3>
+        {OUTCOME_ORDER.filter((k) => clinic.outcome[k]).map((k) => (
+          <MiniBar key={k} label={k} count={clinic.outcome[k]} total={totalOutcome} color={OUTCOME_COLORS[k]} />
+        ))}
+      </div>
+
+      {topParts.length > 0 && (
+        <div className="detail-section">
+          <h3>주요 증상 부위</h3>
+          <div className="jd-pills">
+            {topParts.map(([part, cnt]) => (
+              <span key={part} className="jd-pill">{part} <em>{cnt}</em></span>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {topTreatments.length > 0 && (
+        <div className="detail-section">
+          <h3>주요 치료법</h3>
+          <div className="jd-pills">
+            {topTreatments.map(([tx, cnt]) => (
+              <span key={tx} className="jd-pill tx">{tx} <em>{cnt}</em></span>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <p className="disclaimer">리뷰 자동 분석 결과예요. 의학적 조언이 아닙니다.</p>
     </aside>
   );
 }

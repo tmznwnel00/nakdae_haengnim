@@ -1178,3 +1178,269 @@
 .steps button {
   font-size: 12px;
 }
+
+/* ===== Journal Page ===== */
+.clinics-page {
+  display: grid;
+  grid-template-columns: 260px 1fr 300px;
+  grid-template-areas: "jleft jmap jdetail";
+  gap: 16px;
+  width: min(100%, 1660px);
+  height: calc(100vh - 72px);
+  margin: 0 auto;
+  padding: 16px 32px 20px;
+}
+
+.clinics-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #8a98a3;
+}
+
+.clinics-left {
+  grid-area: jleft;
+  padding: 24px 20px;
+  border-radius: 24px;
+  overflow-y: auto;
+}
+
+.clinics-title {
+  margin: 4px 0 10px;
+  font-size: clamp(20px, 1.6vw, 26px);
+  font-weight: 400;
+  line-height: 1.45;
+  color: #1d2832;
+}
+
+.clinics-desc {
+  margin: 0 0 16px;
+  font-size: 12px;
+  line-height: 1.7;
+  color: #667581;
+}
+
+.clinics-section-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: #8a98a3;
+  margin: 0 0 8px;
+}
+
+.district-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.district-chip {
+  padding: 4px 10px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #4f5c66;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(160, 175, 188, 0.3);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.13s ease;
+}
+
+.district-chip:hover { background: rgba(255, 255, 255, 0.85); }
+
+.district-chip.active {
+  background: rgba(38, 70, 83, 0.88);
+  color: #fff;
+  border-color: transparent;
+}
+
+.clinics-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  font-size: 12px;
+  color: #5a6772;
+}
+
+.clinics-legend span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.clinics-legend i {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.legend-size-hint {
+  font-size: 11px !important;
+  color: #8a98a3 !important;
+  margin-top: 4px;
+}
+
+.clinics-map-wrap {
+  grid-area: jmap;
+  border-radius: 24px;
+  overflow: hidden;
+  position: relative;
+  padding: 0 !important;
+}
+
+.clinics-map {
+  width: 100%;
+  height: 100%;
+}
+
+/* Leaflet overrides */
+.clinics-map-wrap .leaflet-control-zoom {
+  border: none;
+  box-shadow: 0 4px 16px rgba(60, 80, 95, 0.15);
+  border-radius: 12px;
+  overflow: hidden;
+  margin: 14px;
+}
+
+.clinics-map-wrap .leaflet-control-zoom a {
+  background: rgba(255, 255, 255, 0.92);
+  color: #2d3a45;
+  line-height: 30px;
+  font-size: 16px;
+}
+
+.c-tooltip {
+  font-family: "Noto Sans KR", Inter, sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  background: rgba(255, 255, 255, 0.96) !important;
+  border: 1px solid rgba(200, 215, 225, 0.6) !important;
+  border-radius: 8px !important;
+  color: #26313b !important;
+  padding: 4px 10px !important;
+  box-shadow: 0 4px 14px rgba(60, 80, 95, 0.16) !important;
+  white-space: nowrap !important;
+}
+
+.c-tooltip::before { display: none !important; }
+
+.clinics-detail {
+  grid-area: jdetail;
+  padding: 24px 22px;
+  border-radius: 24px;
+  overflow-y: auto;
+}
+
+.clinics-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: 300px;
+  text-align: center;
+  gap: 12px;
+}
+
+.clinics-empty p {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 400;
+  color: #4f5c66;
+  line-height: 1.55;
+}
+
+.clinics-empty small {
+  font-size: 12px;
+  line-height: 1.65;
+  color: #8a98a3;
+}
+
+.jd-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 10px 0 4px;
+}
+
+.jd-count {
+  font-size: 12px;
+  font-weight: 700;
+  color: #3a4651;
+}
+
+.jd-rating {
+  font-size: 12px;
+  font-weight: 700;
+  color: #c09a60;
+}
+
+/* Mini bar chart */
+.mini-bar-row {
+  display: grid;
+  grid-template-columns: 52px 1fr 32px;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 7px;
+}
+
+.mini-bar-label {
+  font-size: 11.5px;
+  color: #4f5c66;
+  font-weight: 600;
+  text-align: right;
+}
+
+.mini-bar-track {
+  height: 8px;
+  background: rgba(160, 175, 188, 0.2);
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.mini-bar-fill {
+  height: 100%;
+  border-radius: 99px;
+  transition: width 0.4s ease;
+}
+
+.mini-bar-pct {
+  font-size: 11px;
+  color: #8a98a3;
+  font-weight: 600;
+}
+
+/* Pills */
+.jd-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.jd-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #3a4651;
+  background: rgba(111, 151, 170, 0.12);
+  border-radius: 12px;
+}
+
+.jd-pill.tx {
+  background: rgba(92, 140, 114, 0.12);
+  color: #2f5d45;
+}
+
+.jd-pill em {
+  font-style: normal;
+  font-size: 10.5px;
+  color: #8a98a3;
+  font-weight: 700;
+}
