@@ -1166,8 +1166,8 @@
   margin-left: -8px;
 }
 
-/* 우측 진단 패널 */
-.panel {
+/* 우측 진단 패널 (증상 선택 화면 전용) */
+.diagnosis .panel {
   padding: 32px 28px 28px;
   border-radius: 28px;
   display: flex;
@@ -1175,10 +1175,10 @@
   height: calc(100vh - 130px);
   overflow: hidden;
 }
-.panel h2 {
+.diagnosis .panel h2 {
   font-size: clamp(19px, 1.5vw, 25px);
 }
-.panel > p {
+.diagnosis .panel > p {
   font-size: 13px;
 }
 .progress-row {
