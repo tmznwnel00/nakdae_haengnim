@@ -383,7 +383,6 @@ function StartPage({ setView, onDiagnose }) {
               }}
             >
               <span />{part.label}
-              <small>{Number(part.count || 0).toLocaleString()}</small>
             </button>
           ))}
         </div>
