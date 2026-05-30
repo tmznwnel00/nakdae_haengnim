@@ -3,35 +3,35 @@
     "id": "head_skin",
     "label": "머리/얼굴/피부",
     "tag": { "x": 6, "y": 9 },
-    "zone": "ellipse(9% 7% at 50% 9%)",
-    "gradient": "radial-gradient(ellipse 30% 25% at 50% 9%, rgba(175,60,50,0.28), rgba(175,60,50,0.06) 60%, transparent 92%)"
+    "zone": "ellipse(13% 12% at 50% 7.5%)",
+    "gradient": "radial-gradient(ellipse 36% 30% at 50% 7.5%, rgba(175,60,50,0.16), rgba(175,60,50,0.03) 44%, transparent 72%)"
   },
   {
     "id": "neck_shoulder",
     "label": "목/어깨",
     "tag": { "x": 72, "y": 20 },
-    "zone": "ellipse(26% 4% at 50% 20%)",
-    "gradient": "radial-gradient(ellipse 32% 12% at 50% 20%, rgba(175,60,50,0.26), rgba(175,60,50,0.06) 60%, transparent 92%)"
+    "zone": "ellipse(26% 4% at 50% 18.5%)",
+    "gradient": "radial-gradient(ellipse 30% 10% at 50% 18.5%, rgba(175,60,50,0.20), rgba(175,60,50,0.03) 40%, transparent 70%)"
   },
   {
     "id": "digestive",
     "label": "소화기",
     "tag": { "x": 82, "y": 44 },
-    "zone": "ellipse(9% 8% at 50% 37%)",
-    "gradient": "radial-gradient(ellipse 28% 26% at 50% 37%, rgba(175,60,50,0.28), rgba(175,60,50,0.06) 60%, transparent 92%)"
+    "zone": "ellipse(9% 6% at 50% 34%)",
+    "gradient": "radial-gradient(ellipse 26% 18% at 50% 34%, rgba(175,60,50,0.20), rgba(175,60,50,0.02) 35%, transparent 58%)"
   },
   {
     "id": "waist",
     "label": "허리",
     "tag": { "x": 6, "y": 48 },
-    "zone": "ellipse(24% 3% at 50% 45%)",
-    "gradient": "radial-gradient(ellipse 32% 10% at 50% 45%, rgba(175,60,50,0.26), rgba(175,60,50,0.06) 60%, transparent 92%)"
+    "zone": "ellipse(24% 3% at 50% 39%)",
+    "gradient": "radial-gradient(ellipse 30% 8% at 50% 39%, rgba(175,60,50,0.20), rgba(175,60,50,0.03) 40%, transparent 70%)"
   },
   {
     "id": "leg_knee",
     "label": "다리/무릎",
     "tag": { "x": 82, "y": 72 },
-    "zone": "inset(58% 32% 18% 32%)",
-    "gradient": "radial-gradient(ellipse 28% 11% at 50% 70%, rgba(175,60,50,0.28), rgba(175,60,50,0.06) 62%, transparent 94%)"
+    "zone": "inset(55% 32% 21% 32%)",
+    "gradient": "radial-gradient(ellipse 28% 11% at 50% 67%, rgba(175,60,50,0.28), rgba(175,60,50,0.06) 62%, transparent 94%)"
   }
 ]
