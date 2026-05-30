@@ -1218,6 +1218,26 @@
 .intro {
   padding-bottom: 6vh;
 }
+.home-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+.start.outline {
+  background: rgba(255, 255, 255, 0.78);
+  color: #1e2d36;
+  border: 1px solid rgba(38, 70, 83, 0.12);
+}
+.home-meta {
+  margin-top: 18px;
+  padding: 18px 20px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.68);
+  color: #455b67;
+  font-size: 13px;
+  line-height: 1.7;
+}
 .intro .eyebrow {
   margin: 0 0 20px;
   font-size: 12px;
