@@ -713,7 +713,7 @@ h1 {
 
 .data-body-tag:hover,
 .data-body-tag.active {
-  transform: translate(-50%, -50%) scale(1.03);
+  transform: translate(-50%, -50%);
 }
 
 .data-body-tag small {

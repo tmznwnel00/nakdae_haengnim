@@ -285,6 +285,7 @@ function StartPage({ setView, onDiagnose }) {
   const [activeBodyTag, setActiveBodyTag] = useState(null);
   const [debugPos, setDebugPos] = useState(null);
   const bodyTags = useBodyTags();
+  const hoverTimer = useRef(null);
   const bodyDebug = new URLSearchParams(window.location.search).has("bodyDebug");
   const primary = selected || null;
   const goDiagnose = () => onDiagnose && onDiagnose(primary);
@@ -371,8 +372,8 @@ function StartPage({ setView, onDiagnose }) {
               className={`body-tag data-body-tag ${activeBodyTag === part.id ? "active" : ""}`}
               style={{ left: `${part.tag.x}%`, top: `${part.tag.y}%` }}
               type="button"
-              onMouseEnter={() => setActiveBodyTag(part.id)}
-              onMouseLeave={() => setActiveBodyTag(null)}
+              onMouseEnter={() => { clearTimeout(hoverTimer.current); setActiveBodyTag(part.id); }}
+              onMouseLeave={() => { hoverTimer.current = setTimeout(() => setActiveBodyTag(null), 80); }}
               onClick={() => {
                 const complaints = BODY_TAG_COMPLAINTS[part.id] || [];
                 setActiveBody(part.id);
