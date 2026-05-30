@@ -1027,15 +1027,28 @@ const OUTCOME_ORDER = ["호전", "진행중", "불명", "변화없음", "재발"
 function ClinicsPage({ clinics }) {
   const [selected, setSelected] = useState(null);
   const [district, setDistrict] = useState(null);
+  const [category, setCategory] = useState(null);
 
   const districts = useMemo(
     () => [...new Set(clinics.map((c) => c.district).filter(Boolean))].sort(),
     [clinics]
   );
-  const filtered = useMemo(
-    () => (district ? clinics.filter((c) => c.district === district) : clinics),
-    [clinics, district]
-  );
+
+  const allCategories = useMemo(() => {
+    const counter = {};
+    clinics.forEach((c) => Object.entries(c.categories || {}).forEach(([k, v]) => { counter[k] = (counter[k] || 0) + v; }));
+    return Object.entries(counter).sort((a, b) => b[1] - a[1]).map(([k]) => k);
+  }, [clinics]);
+
+  const filtered = useMemo(() => {
+    let result = clinics;
+    if (district) result = result.filter((c) => c.district === district);
+    if (category) result = result.filter((c) => (c.categories || {})[category] > 0);
+    return result;
+  }, [clinics, district, category]);
+
+  const handleSetDistrict = (d) => { setDistrict(d); setSelected(null); };
+  const handleSetCategory = (cat) => { setCategory(cat); setSelected(null); };
 
   if (!clinics.length) {
     return <section className="clinics-page"><div className="clinics-loading"><p>데이터를 불러오는 중…</p></div></section>;
@@ -1043,7 +1056,11 @@ function ClinicsPage({ clinics }) {
 
   return (
     <section className="clinics-page">
-      <ClinicsLeft districts={districts} district={district} setDistrict={setDistrict} total={clinics.length} shown={filtered.length} />
+      <ClinicsLeft
+        districts={districts} district={district} setDistrict={handleSetDistrict}
+        categories={allCategories} category={category} setCategory={handleSetCategory}
+        total={clinics.length}
+      />
       <div className="clinics-map-wrap glass-panel">
         <ClinicsMap clinics={filtered} selectedId={selected?.id} onSelect={setSelected} />
       </div>
@@ -1052,17 +1069,22 @@ function ClinicsPage({ clinics }) {
   );
 }
 
-function ClinicsLeft({ districts, district, setDistrict, total, shown }) {
+function ClinicsLeft({ districts, district, setDistrict, categories, category, setCategory, total }) {
   return (
     <aside className="clinics-left glass-panel">
       <p className="eyebrow" style={{ margin: "0 0 10px" }}>CLINICS</p>
       <h2 className="clinics-title">서울 한의원<br />리뷰 지도</h2>
-      <p className="clinics-desc">
-        {total}개 한의원 · {shown}개 표시 중<br />
-        마커 클릭 시 리뷰 분석을 확인해요
-      </p>
+      <p className="clinics-desc">{total}개 한의원</p>
 
-      <p className="clinics-section-label">구 필터</p>
+      <p className="clinics-section-label">진료과목</p>
+      <div className="district-chips">
+        <button type="button" className={`district-chip ${!category ? "active" : ""}`} onClick={() => setCategory(null)}>전체</button>
+        {categories.map((cat) => (
+          <button key={cat} type="button" className={`district-chip ${category === cat ? "active" : ""}`} onClick={() => setCategory(category === cat ? null : cat)}>{cat}</button>
+        ))}
+      </div>
+
+      <p className="clinics-section-label" style={{ marginTop: 16 }}>지역 (구)</p>
       <div className="district-chips">
         <button type="button" className={`district-chip ${!district ? "active" : ""}`} onClick={() => setDistrict(null)}>전체</button>
         {districts.map((d) => (
@@ -1070,7 +1092,7 @@ function ClinicsLeft({ districts, district, setDistrict, total, shown }) {
         ))}
       </div>
 
-      <p className="clinics-section-label" style={{ marginTop: 22 }}>마커 범례</p>
+      <p className="clinics-section-label" style={{ marginTop: 16 }}>마커 범례</p>
       <div className="clinics-legend">
         <span><i style={{ background: "#5c8c72" }} />긍정 리뷰 많음</span>
         <span><i style={{ background: "#6f97aa" }} />혼합</span>
