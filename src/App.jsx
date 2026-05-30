@@ -29,6 +29,7 @@ const dataFiles = {
   ucodes: "/data/ucodes.json",
   organs: "/data/organs.json",
   herbImages: "/data/herb_images.json",
+  commercialProducts: "/data/commercial-products.json",
 };
 
 const ICONS = {
@@ -40,6 +41,7 @@ function useKnowledgeData() {
     herbs: [], symptoms: [], prescriptions: [],
     edges: { herbSymptom: [], herbUcode: [], ucodeCategory: [] },
     categories: [], ucodes: [], organs: [], herbImages: {},
+    commercialProducts: [],
   });
 
   useEffect(() => {
@@ -62,6 +64,10 @@ function useClinicsData(active) {
     fetch("/data/clinic_journal.json").then((r) => r.json()).then(setClinics).catch(console.error);
   }, [active]);
   return clinics;
+}
+
+function normalizeIngredientName(name) {
+  return String(name || "").trim().replace(/^\s+|\s+$/g, "").replace(/^(생|숙)/, "").toLowerCase();
 }
 
 function App() {
@@ -100,7 +106,7 @@ function App() {
   return (
     <main className={`shell ${isAltView ? "library-shell" : ""}`}>
       <Header view={view} setView={setView} />
-      {view === "library" ? <HerbLibrary data={data} initialSelectedId={libTarget} onConsumeInitial={() => setLibTarget(null)} /> :
+      {view === "library" ? <HerbLibrary data={data} initialSelectedId={libTarget} onConsumeInitial={() => setLibTarget(null)} onNavigate={setView} /> :
        view === "clinics" ? <ClinicsPage clinics={clinicsData} /> :
        view === "sasang" ? <SasangPage setView={setView} /> :
        view === "diagnosis-result" && complaint ? <DiagnosisResult complaint={complaint} setView={setView} onOpenLibrary={openLibraryUcode} ucodeIds={ucodeIdSet} /> :
@@ -335,11 +341,15 @@ function StartPage({ setView, onDiagnose }) {
   );
 }
 
-function HerbLibrary({ data, initialSelectedId, onConsumeInitial }) {
-  const { herbs, symptoms, prescriptions, categories, ucodes, organs, herbImages } = data;
+const POPULAR_COMMERCIAL_PRODUCT_IDS = [
+  "comm_경옥고", "comm_공진단", "comm_쌍화탕", "comm_십전대보탕",
+];
+
+function HerbLibrary({ data, initialSelectedId, onConsumeInitial, onNavigate }) {
+  const { herbs, symptoms, prescriptions, categories, ucodes, organs, herbImages, commercialProducts } = data;
   const [viewMode, setViewMode] = useState("guide"); // 'guide' | 'organ' | 'prescription'
   const [activeCategoryId, setActiveCategoryId] = useState(null);
-  const [selectedId, setSelectedId] = useState(null); // herb_xxx | U### | sym_xxx
+  const [selectedId, setSelectedId] = useState(null); // herb_xxx | U### | sym_xxx | comm_...
   const [query, setQuery] = useState("");
 
   // initialize once data is loaded
@@ -384,7 +394,9 @@ function HerbLibrary({ data, initialSelectedId, onConsumeInitial }) {
         setQuery={setQuery}
         filteredHerbs={filteredHerbs}
         onPickHerb={(id) => setSelectedId(id)}
+        onPickProduct={(id) => { setSelectedId(id); setViewMode("guide"); }}
         herbs={herbs}
+        commercialProducts={commercialProducts}
       />
 
       <div className="library-center">
@@ -483,14 +495,17 @@ function HerbLibrary({ data, initialSelectedId, onConsumeInitial }) {
         organById={organById}
         herbImages={herbImages}
         prescriptions={prescriptions}
+        commercialProducts={commercialProducts}
         activeCategoryId={activeCategoryId}
+        onNavigate={onNavigate}
       />
     </section>
   );
 }
 
-function LibraryLeftPanel({ query, setQuery, filteredHerbs, onPickHerb, herbs }) {
+function LibraryLeftPanel({ query, setQuery, filteredHerbs, onPickHerb, onPickProduct, herbs, commercialProducts }) {
   const friendlyNames = ["생강", "계피", "인삼", "감초", "당귀"];
+  const popularProducts = (commercialProducts || []).filter((prod) => POPULAR_COMMERCIAL_PRODUCT_IDS.includes(prod.id));
   return (
     <div className="library-left glass-panel">
       <p className="eyebrow">HANYUL · 한방 재료 도감</p>
@@ -501,6 +516,20 @@ function LibraryLeftPanel({ query, setQuery, filteredHerbs, onPickHerb, herbs })
         <Search size={15} />
         <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="재료 이름이나 효능을 검색" />
       </label>
+
+      {!query && popularProducts.length > 0 && (
+        <div className="browse-block popular-products">
+          <h3>대표 상호명 한약</h3>
+          <div className="material-list">
+            {popularProducts.map((product) => (
+              <button key={product.id} type="button" onClick={() => onPickProduct(product.id)}>
+                {product.name}
+                <small>{product.tagline}</small>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
 
       {query ? (
         <div className="browse-block herb-results">
@@ -1031,8 +1060,9 @@ function OrganMap({ organs, herbs, categories, catById, organById, selectedId, s
   );
 }
 
-function DetailPanel({ selectedId, setSelectedId, herbById, symById, ucodeById, catById, organById, herbImages, prescriptions, activeCategoryId }) {
+function DetailPanel({ selectedId, setSelectedId, herbById, symById, ucodeById, catById, organById, herbImages, prescriptions, commercialProducts, activeCategoryId, onNavigate }) {
   const activeCat = catById[activeCategoryId];
+  const commById = useMemo(() => Object.fromEntries((commercialProducts || []).map((p) => [p.id, p])), [commercialProducts]);
   const accent = activeCat?.color || "#6f97aa";
 
   const rxById = useMemo(() => Object.fromEntries(prescriptions.map((r) => [r.id, r])), [prescriptions]);
@@ -1043,6 +1073,7 @@ function DetailPanel({ selectedId, setSelectedId, herbById, symById, ucodeById, 
   else if (selectedId?.startsWith("U")) kind = "ucode";
   else if (selectedId?.startsWith("sym_")) kind = "symptom";
   else if (selectedId?.startsWith("P")) kind = "prescription";
+  else if (selectedId?.startsWith("comm_")) kind = "commercial";
   else if (organById?.[selectedId]) kind = "organ";
 
   const herb = kind === "herb" ? herbById[selectedId] : null;
@@ -1148,6 +1179,81 @@ function DetailPanel({ selectedId, setSelectedId, herbById, symById, ucodeById, 
           </div>
         </div>
         <p className="disclaimer">대표 성분은 현대 분석 기반의 일부 정보예요. 의학적 진단·처방이 아닙니다.</p>
+      </aside>
+    );
+  }
+
+  if (kind === "commercial") {
+    const product = commById[selectedId];
+    const ingredients = (product?.ingredients || []).map((name) => ({
+      name,
+      herb: herbById[`herb_${name}`] || herbById[`herb_${name.replace(/^(생|숙)/, "")}`],
+    }));
+    const ingredientHerbIds = ingredients.filter((item) => item.herb).map((item) => item.herb.id);
+    const relatedRx = prescriptions
+      .map((rxItem) => {
+        const overlap = rxItem.herbs.filter((hid) => ingredientHerbIds.includes(hid));
+        return { rx: rxItem, score: overlap.length };
+      })
+      .filter((item) => item.score > 0)
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 5);
+
+    return (
+      <aside className="library-detail glass-panel">
+        <div className="detail-heading">
+          <span style={{ color: activeCat?.color || "#627d94" }}>대표 상호명 한약</span>
+          <h2>{product?.name} <small>{product?.nameHanja}</small></h2>
+          <p>{product?.tagline}</p>
+        </div>
+
+        {product?.summary && (
+          <div className="detail-section">
+            <h3>이 제품은?</h3>
+            <p style={{ fontSize: 13, lineHeight: 1.75, color: "#4a5a66" }}>{product.summary}</p>
+          </div>
+        )}
+
+        <div className="detail-section">
+          <h3>대표 구성 재료</h3>
+          <div className="herb-chip-list">
+            {ingredients.map((item) => (
+              item.herb ? (
+                <button key={item.name} type="button" onClick={() => setSelectedId(item.herb.id)}>
+                  {item.name} <small>{item.herb.nameHanja}</small>
+                </button>
+              ) : (
+                <span key={item.name} className="compound-pill" style={{ opacity: 0.55 }}>{item.name}</span>
+              )
+            ))}
+          </div>
+        </div>
+
+        {relatedRx.length > 0 && (
+          <div className="detail-section">
+            <h3>비슷한 한방 처방</h3>
+            <div className="rx-list">
+              {relatedRx.map(({ rx }) => (
+                <article key={rx.id}>
+                  <button type="button" onClick={() => setSelectedId(rx.id)} style={{ all: "unset", cursor: "pointer" }}>
+                    <strong>{rx.name}</strong>
+                  </button>
+                  <p>{rx.method}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        )}
+
+        <div className="detail-section">
+          <h3>다음 단계</h3>
+          <div className="pill-list">
+            <button type="button" className="pill-button" onClick={() => onNavigate?.("diagnosis")}>자가진단 페이지로 이동</button>
+            <button type="button" className="pill-button" onClick={() => onNavigate?.("sasang")}>사상 페이지로 이동</button>
+          </div>
+        </div>
+
+        <p className="disclaimer">대표 상업 제품 정보를 바탕으로 한 연결 정보입니다. 실제 한약 복용은 전문가 상담이 필요합니다.</p>
       </aside>
     );
   }
@@ -1301,6 +1407,29 @@ function DetailPanel({ selectedId, setSelectedId, herbById, symById, ucodeById, 
             <p className="plain-effects">{herb.effectsPlain.slice(0, 12).join(" · ")}</p>
           </div>
         )}
+
+        {(() => {
+          const herbNorm = normalizeIngredientName(herb.nameKo);
+          const matchedProducts = (commercialProducts || []).filter((prod) =>
+            prod.ingredients.some((ing) => normalizeIngredientName(ing) === herbNorm)
+          ).slice(0, 6);
+          return matchedProducts.length > 0 ? (
+            <div className="detail-section">
+              <h3>이 재료가 들어가는 대표 한약</h3>
+              <div className="rx-list">
+                {matchedProducts.map((product) => (
+                  <article key={product.id}>
+                    <strong>{product.name}</strong>
+                    <p>{product.tagline}</p>
+                  </article>
+                ))}
+              </div>
+              <p style={{ fontSize: 12, color: "#7c8894" }}>
+                해당 재료가 포함된 대표 처방·제품 예시입니다. 실제 처방은 전문가와 상담하세요.
+              </p>
+            </div>
+          ) : null;
+        })()}
 
         {linkedRx.length > 0 && (
           <div className="detail-section">
