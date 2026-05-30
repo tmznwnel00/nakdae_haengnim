@@ -24,13 +24,13 @@
     linear-gradient(135deg, #ede8f2 0%, #f8f6fa 48%, #e4dced 100%);
 }
 
-/* 내비게이션 — 밝고 중립적인 블루-그레이 */
+/* 홈 — 따뜻한 크림-세이지 */
 .navigation-shell {
   min-height: 100vh;
   background:
-    radial-gradient(circle at 70% 15%, rgba(255, 255, 255, 0.92), transparent 30%),
-    radial-gradient(circle at 18% 18%, rgba(220, 235, 242, 0.82), transparent 32%),
-    linear-gradient(135deg, #eaf0f4 0%, #f8f8f7 48%, #dce8ee 100%);
+    radial-gradient(circle at 72% 16%, rgba(255, 255, 255, 0.92), transparent 30%),
+    radial-gradient(circle at 16% 20%, rgba(238, 232, 218, 0.82), transparent 32%),
+    linear-gradient(135deg, #f0ece2 0%, #faf9f5 48%, #e8e4d8 100%);
 }
 
 .library-shell::before,

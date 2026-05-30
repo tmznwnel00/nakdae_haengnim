@@ -133,7 +133,7 @@ function App() {
   };
 
   const isAltView = view === "library" || view === "clinics" || view === "sasang";
-  const shellExtra = view === "library" ? "library-shell" : view === "clinics" ? "clinics-shell" : view === "sasang" ? "sasang-shell" : "navigation-shell";
+  const shellExtra = view === "library" ? "library-shell" : view === "clinics" ? "clinics-shell" : view === "sasang" ? "sasang-shell" : view === "start" ? "navigation-shell" : "";
   return (
     <main className={`shell ${shellExtra}`}>
       <Header view={view} setView={setView} />
