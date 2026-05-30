@@ -6,7 +6,27 @@
     linear-gradient(135deg, #e9f0f2 0%, #f8f8f6 48%, #dce8ea 100%);
 }
 
-.library-shell::before {
+/* 지도 느낌의 따뜻한 베이지-세이지 */
+.clinics-shell {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 72% 18%, rgba(255, 255, 255, 0.88), transparent 28%),
+    radial-gradient(circle at 20% 20%, rgba(232, 240, 220, 0.82), transparent 30%),
+    linear-gradient(135deg, #edf0e6 0%, #f8f7f2 48%, #e6ede0 100%);
+}
+
+/* 전통·신비로운 라벤더-보라 */
+.sasang-shell {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 75% 18%, rgba(255, 255, 255, 0.9), transparent 30%),
+    radial-gradient(circle at 16% 18%, rgba(230, 222, 245, 0.78), transparent 32%),
+    linear-gradient(135deg, #ede8f2 0%, #f8f6fa 48%, #e4dced 100%);
+}
+
+.library-shell::before,
+.clinics-shell::before,
+.sasang-shell::before {
   opacity: 0.42;
 }
 

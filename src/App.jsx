@@ -74,8 +74,10 @@ function App() {
   });
   const [complaint, setComplaint] = useState(null);
   const [libTarget, setLibTarget] = useState(null); // 진단→라이브러리 사전선택 U코드
+  const [libTarget, setLibTarget] = useState(null); // 진단→라이브러리 사전선택 U코드
   const data = useKnowledgeData();
   const clinicsData = useClinicsData(view === "clinics");
+  const ucodeIdSet = useMemo(() => new Set((data.ucodes || []).map((u) => u.id)), [data.ucodes]);
   const ucodeIdSet = useMemo(() => new Set((data.ucodes || []).map((u) => u.id)), [data.ucodes]);
 
   const setView = (nextView) => {
@@ -96,13 +98,21 @@ function App() {
     setView("library");
   };
 
+  // 진단 결과의 변증(U코드) → 라이브러리에서 연결 약재 보기
+  const openLibraryUcode = (uid) => {
+    setLibTarget(uid);
+    setView("library");
+  };
+
   const isAltView = view === "library" || view === "clinics" || view === "sasang";
   return (
     <main className={`shell ${isAltView ? "library-shell" : ""}`}>
       <Header view={view} setView={setView} />
       {view === "library" ? <HerbLibrary data={data} initialSelectedId={libTarget} onConsumeInitial={() => setLibTarget(null)} /> :
+      {view === "library" ? <HerbLibrary data={data} initialSelectedId={libTarget} onConsumeInitial={() => setLibTarget(null)} /> :
        view === "clinics" ? <ClinicsPage clinics={clinicsData} /> :
        view === "sasang" ? <SasangPage setView={setView} /> :
+       view === "diagnosis-result" && complaint ? <DiagnosisResult complaint={complaint} setView={setView} onOpenLibrary={openLibraryUcode} ucodeIds={ucodeIdSet} /> :
        view === "diagnosis-result" && complaint ? <DiagnosisResult complaint={complaint} setView={setView} onOpenLibrary={openLibraryUcode} ucodeIds={ucodeIdSet} /> :
        <StartPage setView={setView} onDiagnose={startDiagnosis} />}
     </main>
@@ -240,13 +250,57 @@ const ICON_BY_COMPLAINT = Object.fromEntries(SYMPTOMS.map(([, Icon, c]) => [c, I
 const labelOf = (c) => LABEL_BY_COMPLAINT[c] || c;
 const iconOf = (c) => ICON_BY_COMPLAINT[c] || Leaf;
 
+// 신체부위별 한방 호소 (루트 medvis app.js BODY_PARTS 이식)
+const BODY_PARTS = [
+  { part: "head", label: "머리/정신", complaints: ["두통 증상", "불면", "스트레스", "우울_불안", "공황", "만성피로", "탈모", "틱", "ADHD증상"] },
+  { part: "chest", label: "가슴", complaints: ["호흡기 증상", "공황", "축농증상", "가래"] },
+  { part: "shoulder", label: "어깨/허리", complaints: ["견비통", "경항통", "요통", "디스크증상", "근육통", "교통사고후유증", "좌상_타박", "손목통증"] },
+  { part: "digest", label: "소화기", complaints: ["소화 증상", "식욕부진"] },
+  { part: "lower", label: "하복부", complaints: ["월경통", "월경불순", "갱년기증상", "산후관리", "난임관련", "냉증", "야뇨"] },
+  { part: "leg", label: "다리/하체", complaints: ["슬통", "족통", "좌골신경통", "손발저림", "안면마비"] },
+];
+const BODY_BY_PART = Object.fromEntries(BODY_PARTS.map((b) => [b.part, b]));
+// 전체 호소 (순서 보존 중복 제거)
+const ALL_COMPLAINTS = [...new Set(BODY_PARTS.flatMap((b) => b.complaints))];
+// 친숙 라벨/아이콘 (8개 frequent만; 나머지는 enum 라벨 + 기본 아이콘)
+const LABEL_BY_COMPLAINT = Object.fromEntries(SYMPTOMS.map(([label, , c]) => [c, label]));
+const ICON_BY_COMPLAINT = Object.fromEntries(SYMPTOMS.map(([, Icon, c]) => [c, Icon]));
+const labelOf = (c) => LABEL_BY_COMPLAINT[c] || c;
+const iconOf = (c) => ICON_BY_COMPLAINT[c] || Leaf;
+
 function StartPage({ setView, onDiagnose }) {
   const [selected, setSelected] = useState(["만성피로"]); // 선택된 한방 호소(enum)
   const [activeBody, setActiveBody] = useState(null);     // 신체부위 필터
   const [showAll, setShowAll] = useState(false);          // 전체 증상 보기
   const [query, setQuery] = useState("");                 // 검색어
+  const [activeBody, setActiveBody] = useState(null);     // 신체부위 필터
+  const [showAll, setShowAll] = useState(false);          // 전체 증상 보기
+  const [query, setQuery] = useState("");                 // 검색어
   const primary = selected[0] || null;
   const goDiagnose = () => onDiagnose && onDiagnose(primary);
+
+  const toggleComplaint = (c) =>
+    setSelected((cur) => (cur.includes(c) ? cur.filter((x) => x !== c) : [...cur, c]));
+  const resetView = () => { setShowAll(false); setActiveBody(null); setQuery(""); };
+  const pickBody = (part) => { setQuery(""); setShowAll(false); setActiveBody((p) => (p === part ? null : part)); };
+
+  // 표시 목록 우선순위: 검색 > 전체 > 신체부위 > 자주 8
+  const q = query.trim();
+  let items, headerLabel;
+  if (q) {
+    items = ALL_COMPLAINTS.filter((c) => labelOf(c).includes(q) || c.includes(q));
+    headerLabel = `검색 결과 (${items.length})`;
+  } else if (showAll) {
+    items = ALL_COMPLAINTS;
+    headerLabel = `전체 증상 (${items.length})`;
+  } else if (activeBody && BODY_BY_PART[activeBody]) {
+    items = BODY_BY_PART[activeBody].complaints;
+    headerLabel = `${BODY_BY_PART[activeBody].label} 관련 증상`;
+  } else {
+    items = SYMPTOMS.map(([, , c]) => c);
+    headerLabel = "자주 선택한 증상";
+  }
+  const isFrequent = !q && !showAll && !activeBody;
 
   const toggleComplaint = (c) =>
     setSelected((cur) => (cur.includes(c) ? cur.filter((x) => x !== c) : [...cur, c]));
@@ -296,6 +350,20 @@ function StartPage({ setView, onDiagnose }) {
             </button>
           );
         })}
+      <div className="anatomy-stage">
+        <div className="orbit orbit-a" aria-hidden="true" /><div className="orbit orbit-b" aria-hidden="true" /><div className="orbit orbit-c" aria-hidden="true" />
+        <div className="spark s1" aria-hidden="true" /><div className="spark s2" aria-hidden="true" /><div className="spark s3" aria-hidden="true" />
+        {BODY_PARTS.map((b) => {
+          const on = activeBody === b.part;
+          const cnt = b.complaints.filter((c) => selected.includes(c)).length;
+          return (
+            <button key={b.part} data-part={b.part} type="button"
+              className={`body-tag ${on ? "active" : ""} ${cnt ? "has-selection" : ""}`}
+              aria-pressed={on} onClick={() => pickBody(b.part)}>
+              <span />{b.label} {cnt ? <span className="count">{cnt}</span> : <b>＋</b>}
+            </button>
+          );
+        })}
       </div>
 
       <aside className="diagnosis" aria-label="증상 선택">
@@ -324,7 +392,31 @@ function StartPage({ setView, onDiagnose }) {
                 );
               })
             )}
+          <label className="search"><Search size={18} /><input type="search" placeholder="증상을 검색해보세요" value={query} onChange={(e) => { setQuery(e.target.value); setShowAll(false); setActiveBody(null); }} /></label>
+          <p className="section-label">
+            <span>{headerLabel}</span>
+            {!isFrequent && <button type="button" className="clear" onClick={resetView}>← 자주 본 증상</button>}
+          </p>
+          <div className={`symptoms ${isFrequent ? "" : "expanded"}`}>
+            {items.length === 0 ? (
+              <p className="sym-empty">검색 결과가 없어요. 다른 키워드로 찾아보세요.</p>
+            ) : (
+              items.map((complaint) => {
+                const Icon = iconOf(complaint);
+                const isSelected = selected.includes(complaint);
+                return (
+                  <button key={complaint} className={`symptom ${isSelected ? "selected" : ""}`} type="button" onClick={() => toggleComplaint(complaint)}>
+                    {isSelected && <i className="check">✓</i>}
+                    <Icon className="sym-icon" />
+                    {labelOf(complaint)}
+                  </button>
+                );
+              })
+            )}
           </div>
+          <button className="all" type="button" onClick={() => { setShowAll((v) => !v); setActiveBody(null); setQuery(""); }}>
+            <span>{showAll ? "자주 본 증상만" : "전체 증상 보기"}</span><b>{showAll ? "－" : "＋"}</b>
+          </button>
           <button className="all" type="button" onClick={() => { setShowAll((v) => !v); setActiveBody(null); setQuery(""); }}>
             <span>{showAll ? "자주 본 증상만" : "전체 증상 보기"}</span><b>{showAll ? "－" : "＋"}</b>
           </button>
@@ -338,6 +430,7 @@ function StartPage({ setView, onDiagnose }) {
   );
 }
 
+function HerbLibrary({ data, initialSelectedId, onConsumeInitial }) {
 function HerbLibrary({ data, initialSelectedId, onConsumeInitial }) {
   const { herbs, symptoms, prescriptions, categories, ucodes, organs, herbImages } = data;
   const [viewMode, setViewMode] = useState("guide"); // 'guide' | 'organ' | 'prescription'
@@ -353,6 +446,16 @@ function HerbLibrary({ data, initialSelectedId, onConsumeInitial }) {
   const herbById = useMemo(() => Object.fromEntries(herbs.map((h) => [h.id, h])), [herbs]);
   const symById = useMemo(() => Object.fromEntries(symptoms.map((s) => [s.id, s])), [symptoms]);
   const ucodeById = useMemo(() => Object.fromEntries(ucodes.map((u) => [u.id, u])), [ucodes]);
+
+  // 진단 결과에서 넘어온 변증(U코드) 사전선택 적용 (1회 소비)
+  useEffect(() => {
+    if (!initialSelectedId) return;
+    setSelectedId(initialSelectedId);
+    const cat = ucodeById[initialSelectedId]?.category;
+    if (cat) setActiveCategoryId(cat);
+    setViewMode("guide");
+    if (onConsumeInitial) onConsumeInitial();
+  }, [initialSelectedId]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // 진단 결과에서 넘어온 변증(U코드) 사전선택 적용 (1회 소비)
   useEffect(() => {
