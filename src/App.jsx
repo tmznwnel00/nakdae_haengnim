@@ -184,7 +184,7 @@ function StartPage() {
 
 function HerbLibrary({ data }) {
   const { herbs, symptoms, prescriptions, categories, ucodes, organs, herbImages } = data;
-  const [viewMode, setViewMode] = useState("guide"); // 'guide' | 'browse'
+  const [viewMode, setViewMode] = useState("guide"); // 'guide' | 'organ' | 'prescription'
   const [activeCategoryId, setActiveCategoryId] = useState(null);
   const [selectedId, setSelectedId] = useState(null); // herb_xxx | U### | sym_xxx
   const [query, setQuery] = useState("");
@@ -232,6 +232,11 @@ function HerbLibrary({ data }) {
                 <h2>어떤 점이 불편하세요?</h2>
                 <p>불편한 영역을 고르고, 가까운 느낌을 따라가면 맞는 재료를 찾아드려요.</p>
               </>
+            ) : viewMode === "prescription" ? (
+              <>
+                <h2>처방 사전</h2>
+                <p>전통 한방 처방 {prescriptions.length}가지를 약재 구성과 적용 병증으로 살펴보세요.</p>
+              </>
             ) : (
               <>
                 <h2>약재들은 어떻게 연결될까요?</h2>
@@ -254,6 +259,13 @@ function HerbLibrary({ data }) {
             >
               <Sparkles size={15} /> 약재 유니버스
             </button>
+            <button
+              type="button"
+              className={viewMode === "prescription" ? "active" : ""}
+              onClick={() => { setViewMode("prescription"); setSelectedId(null); }}
+            >
+              <BookOpen size={15} /> 처방 사전
+            </button>
           </div>
         </div>
 
@@ -275,6 +287,15 @@ function HerbLibrary({ data }) {
                 ucodeById={ucodeById}
               />
             </>
+          ) : viewMode === "prescription" ? (
+            <PrescriptionView
+              prescriptions={prescriptions}
+              herbById={herbById}
+              categories={categories}
+              catById={catById}
+              selectedId={selectedId}
+              setSelectedId={setSelectedId}
+            />
           ) : (
             <OrganMap
               organs={organs}
@@ -753,17 +774,83 @@ function DetailPanel({ selectedId, setSelectedId, herbById, symById, ucodeById, 
   const activeCat = catById[activeCategoryId];
   const accent = activeCat?.color || "#6f97aa";
 
+  const rxById = useMemo(() => Object.fromEntries(prescriptions.map((r) => [r.id, r])), [prescriptions]);
+
   let kind = null;
   if (selectedId?.startsWith("herb_")) kind = "herb";
   else if (selectedId?.startsWith("cls:")) kind = "compound";
   else if (selectedId?.startsWith("U")) kind = "ucode";
   else if (selectedId?.startsWith("sym_")) kind = "symptom";
+  else if (selectedId?.startsWith("P")) kind = "prescription";
   else if (organById?.[selectedId]) kind = "organ";
 
   const herb = kind === "herb" ? herbById[selectedId] : null;
   const ucode = kind === "ucode" ? ucodeById[selectedId] : null;
   const symptom = kind === "symptom" ? symById[selectedId] : null;
   const organ = kind === "organ" ? organById[selectedId] : null;
+  const rx = kind === "prescription" ? rxById[selectedId] : null;
+
+  if (rx) {
+    const rxHerbs = rx.herbs.map((hid) => herbById[hid]).filter(Boolean);
+    const rxCats = (rx.categories || []).map((cid) => catById[cid]).filter(Boolean);
+    const match = rx.name.match(/^(.+?)\(([^)]+)\)/);
+    const nameKo = match ? match[1] : rx.name;
+    const nameHanja = match ? match[2] : "";
+    return (
+      <aside className="library-detail glass-panel">
+        <div className="detail-heading">
+          <span style={{ color: accent }}>전통 처방</span>
+          <h2>{nameKo} {nameHanja && <small>{nameHanja}</small>}</h2>
+          {rxCats.length > 0 && (
+            <div className="pill-list" style={{ marginTop: 6 }}>
+              {rxCats.map((c) => (
+                <span key={c.id} className="meridian-pill" style={{ background: `${c.color}18`, color: c.color }}>{c.name}</span>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {rx.diseasesRaw?.length > 0 && (
+          <div className="detail-section">
+            <h3>적용 병증</h3>
+            <div className="pill-list">
+              {rx.diseasesRaw.map((d) => <span key={d} className="compound-pill">{d}</span>)}
+            </div>
+          </div>
+        )}
+
+        <div className="detail-section">
+          <h3>구성 약재 ({rxHerbs.length})</h3>
+          <div className="herb-chip-list">
+            {rxHerbs.map((h) => (
+              <button key={h.id} type="button" onClick={() => setSelectedId(h.id)}>
+                {h.nameKo} <small>{h.nameHanja}</small>
+              </button>
+            ))}
+            {rx.herbs.filter((hid) => !herbById[hid]).map((hid) => (
+              <span key={hid} className="compound-pill" style={{ opacity: 0.5 }}>{hid.replace("herb_", "")}</span>
+            ))}
+          </div>
+        </div>
+
+        {rx.method && (
+          <div className="detail-section">
+            <h3>복용법</h3>
+            <p style={{ fontSize: 13, lineHeight: 1.75, color: "#4a5a66" }}>{rx.method}</p>
+          </div>
+        )}
+
+        {rx.sources?.length > 0 && (
+          <div className="detail-section">
+            <h3>출처</h3>
+            <p style={{ fontSize: 12, color: "#8a98a3", lineHeight: 1.6 }}>{rx.sources.join(" · ")}</p>
+          </div>
+        )}
+
+        <p className="disclaimer">전통 문헌의 기록을 정리한 정보예요. 의학적 처방이 아닙니다.</p>
+      </aside>
+    );
+  }
 
   if (kind === "compound") {
     const cls = selectedId.slice(4);
@@ -1257,6 +1344,86 @@ function ClinicsDetail({ clinic }) {
 
       <p className="disclaimer">리뷰 자동 분석 결과예요. 의학적 조언이 아닙니다.</p>
     </aside>
+  );
+}
+
+// ─────────────────────────────────────────────
+// 처방 사전
+// ─────────────────────────────────────────────
+
+function parsePrescriptionName(name) {
+  const m = name.match(/^(.+?)\(([^)]+)\)/);
+  return m ? { ko: m[1], hanja: m[2] } : { ko: name, hanja: "" };
+}
+
+function PrescriptionView({ prescriptions, herbById, categories, catById, selectedId, setSelectedId }) {
+  const hasCat = useMemo(
+    () => categories.filter((c) => prescriptions.some((rx) => (rx.categories || []).includes(c.id))),
+    [categories, prescriptions]
+  );
+  const [catFilter, setCatFilter] = useState(() => hasCat[0]?.id || null);
+  const [query, setQuery] = useState("");
+
+  const filtered = useMemo(() => {
+    if (!query.trim() && !catFilter) return [];
+    let result = prescriptions;
+    if (catFilter && !query.trim()) result = result.filter((rx) => (rx.categories || []).includes(catFilter));
+    if (query.trim()) {
+      const q = query.trim();
+      result = result.filter((rx) =>
+        rx.name.includes(q) ||
+        (rx.diseasesRaw || []).some((d) => d.includes(q)) ||
+        rx.herbs.some((hid) => herbById[hid]?.nameKo.includes(q))
+      );
+    }
+    return [...result].sort((a, b) => b.herbs.length - a.herbs.length);
+  }, [prescriptions, catFilter, query, herbById]);
+
+  return (
+    <div className="rx-view">
+      <div className="rx-filters">
+        <label className="library-search rx-search">
+          <Search size={14} />
+          <input value={query} onChange={(e) => { setQuery(e.target.value); if (e.target.value) setCatFilter(null); }} placeholder="처방명, 약재, 병증 검색" />
+        </label>
+        <div className="district-chips">
+          {hasCat.map((c) => (
+            <button key={c.id} type="button" className={`district-chip ${catFilter === c.id ? "active" : ""}`}
+              style={catFilter === c.id ? {} : { borderColor: `${c.color}60`, color: c.color }}
+              onClick={() => { setCatFilter(catFilter === c.id ? hasCat[0]?.id : c.id); setQuery(""); }}>
+              {c.name}
+            </button>
+          ))}
+        </div>
+        <p className="rx-count">{filtered.length}가지 처방</p>
+      </div>
+      <div className="rx-grid">
+        {filtered.map((rx) => {
+          const { ko, hanja } = parsePrescriptionName(rx.name);
+          const rxCats = (rx.categories || []).map((cid) => catById[cid]).filter(Boolean);
+          const herbNames = rx.herbs.slice(0, 4).map((hid) => herbById[hid]?.nameKo).filter(Boolean);
+          const isSelected = selectedId === rx.id;
+          return (
+            <button key={rx.id} type="button" className={`rx-card ${isSelected ? "selected" : ""}`}
+              onClick={() => setSelectedId(isSelected ? null : rx.id)}>
+              <div className="rx-card-head">
+                <span className="rx-name">{ko}</span>
+                {hanja && <span className="rx-hanja">{hanja}</span>}
+              </div>
+              {rxCats.length > 0 && (
+                <div className="rx-cats">
+                  {rxCats.map((c) => <span key={c.id} style={{ color: c.color, background: `${c.color}18` }}>{c.name}</span>)}
+                </div>
+              )}
+              <p className="rx-herbs-preview">
+                {herbNames.join(" · ")}{rx.herbs.length > 4 ? ` 외 ${rx.herbs.length - 4}` : ""}
+              </p>
+              {rx.diseasesRaw?.[0] && <p className="rx-disease">{rx.diseasesRaw[0]}</p>}
+            </button>
+          );
+        })}
+      </div>
+    </div>
   );
 }
 
