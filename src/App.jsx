@@ -216,8 +216,8 @@ const SYMPTOMS = [
 ];
 
 function StartPage({ setView, onDiagnose }) {
-  const [selected, setSelected] = useState(["만성피로"]); // 선택된 한방 호소(enum)
-  const primary = selected[0] || null;
+  const [selected, setSelected] = useState("만성피로"); // 선택된 한방 호소(enum)
+  const primary = selected || null;
   const goDiagnose = () => onDiagnose && onDiagnose(primary);
 
   return (
@@ -244,14 +244,14 @@ function StartPage({ setView, onDiagnose }) {
       <aside className="diagnosis" aria-label="증상 선택">
         <div className="panel">
           <h2>어떤 증상이 느껴지나요?</h2>
-          <p>해당하는 증상을 선택해주세요. (복수 선택 가능)</p>
+          <p>해당하는 증상을 선택해주세요.</p>
           <label className="search"><Search size={18} /><input type="search" placeholder="증상을 검색해보세요" /></label>
           <p className="section-label">자주 선택한 증상</p>
           <div className="symptoms">
             {SYMPTOMS.map(([label, Icon, complaint]) => {
-              const isSelected = selected.includes(complaint);
+              const isSelected = selected === complaint;
               return (
-                <button key={complaint} className={`symptom ${isSelected ? "selected" : ""}`} type="button" onClick={() => setSelected((current) => current.includes(complaint) ? current.filter((item) => item !== complaint) : [...current, complaint])}>
+                <button key={complaint} className={`symptom ${isSelected ? "selected" : ""}`} type="button" onClick={() => setSelected(complaint)}>
                   {isSelected && <i className="check">✓</i>}
                   <Icon className="sym-icon" />
                   {label}
@@ -260,7 +260,7 @@ function StartPage({ setView, onDiagnose }) {
             })}
           </div>
           <button className="all" type="button"><span>전체 증상 보기</span><b>＋</b></button>
-          <button className="complete" type="button" onClick={goDiagnose} disabled={!primary}><span>선택 완료</span><small>{selected.length}</small><b><ArrowRight size={20} /></b></button>
+          <button className="complete" type="button" onClick={goDiagnose} disabled={!primary}><span>선택 완료</span><b><ArrowRight size={20} /></b></button>
         </div>
       </aside>
 
