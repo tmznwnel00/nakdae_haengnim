@@ -69,6 +69,7 @@ function App() {
     const h = window.location.hash;
     if (h === "#library") return "library";
     if (h === "#clinics") return "clinics";
+    if (h === "#sasang") return "sasang";
     return "diagnosis";
   });
   const data = useKnowledgeData();
@@ -76,15 +77,16 @@ function App() {
 
   const setView = (nextView) => {
     setViewState(nextView);
-    window.location.hash = nextView === "library" ? "library" : nextView === "clinics" ? "clinics" : "";
+    window.location.hash = nextView === "library" ? "library" : nextView === "clinics" ? "clinics" : nextView === "sasang" ? "sasang" : "";
   };
 
-  const isAltView = view === "library" || view === "clinics";
+  const isAltView = view === "library" || view === "clinics" || view === "sasang";
   return (
     <main className={`shell ${isAltView ? "library-shell" : ""}`}>
       <Header view={view} setView={setView} />
       {view === "library" ? <HerbLibrary data={data} /> :
        view === "clinics" ? <ClinicsPage clinics={clinicsData} /> :
+       view === "sasang" ? <SasangPage setView={setView} /> :
        <StartPage />}
     </main>
   );
@@ -96,6 +98,7 @@ function Header({ view, setView }) {
     ["diagnosis", "SELF-DIAGNOSIS"],
     ["library", "HERB LIBRARY"],
     ["clinics", "CLINICS"],
+    ["sasang", "SASANG"],
     ["mypage", "MY PAGE"],
   ];
 
@@ -104,7 +107,7 @@ function Header({ view, setView }) {
       <button className="brand brand-button" type="button" onClick={() => setView("diagnosis")}>MEDVIS</button>
       <nav className="nav" aria-label="Primary">
         {items.map(([key, label]) => (
-          <button key={key} className={view === key ? "active" : ""} type="button" onClick={() => setView(["library", "clinics"].includes(key) ? key : "diagnosis")}>
+          <button key={key} className={view === key ? "active" : ""} type="button" onClick={() => setView(["library", "clinics", "sasang"].includes(key) ? key : "diagnosis")}>
             {label}
           </button>
         ))}
@@ -1254,6 +1257,283 @@ function ClinicsDetail({ clinic }) {
 
       <p className="disclaimer">리뷰 자동 분석 결과예요. 의학적 조언이 아닙니다.</p>
     </aside>
+  );
+}
+
+// ─────────────────────────────────────────────
+// SASANG 사상체질 진단
+// ─────────────────────────────────────────────
+
+const SASANG_DATA = {
+  태양인: {
+    color: "#6b8fa8",
+    desc: "독립적이고 사회적 정의감이 강한 리더형. 가장 드문 체질(1% 미만)로 창의적이고 혁신적인 사고가 특징입니다.",
+    strengths: ["독립심·리더십", "사회적 통찰력", "창의적 사고"],
+    weaknesses: ["하체·허리 약함", "소화기 주의", "무리하면 탈진"],
+    herbs: ["오매", "갈근", "행인", "오미자"],
+    foods: ["새우", "붕어", "모과", "포도"],
+    avoid: ["지방질 음식", "자극적 음식", "과음"],
+  },
+  태음인: {
+    color: "#5c8c72",
+    desc: "꾸준하고 인내력이 강한 대기만성형. 가장 많은 체질(약 50%)로 묵묵히 노력하며 성과를 쌓아갑니다.",
+    strengths: ["지구력·꾸준함", "안정감·신뢰감", "강한 체력"],
+    weaknesses: ["호흡기·피부 약함", "땀이 많음", "비만·고혈압 주의"],
+    herbs: ["황기", "갈근", "맥문동", "오미자", "녹용"],
+    foods: ["율무", "콩", "도라지", "배", "마"],
+    avoid: ["기름진 음식", "과식", "음주"],
+  },
+  소양인: {
+    color: "#c17f40",
+    desc: "활발하고 추진력이 넘치는 행동형. 두 번째로 많은 체질(약 30%)로 열정적이고 사교성이 좋습니다.",
+    strengths: ["추진력·행동력", "사교성·솔직함", "빠른 판단력"],
+    weaknesses: ["신장·하체 약함", "급한 성격", "신장·방광 주의"],
+    herbs: ["숙지황", "황금", "백복령", "백작약", "시호"],
+    foods: ["돼지고기", "오이", "수박", "생굴", "보리"],
+    avoid: ["맵고 뜨거운 음식", "과한 운동", "스트레스"],
+  },
+  소음인: {
+    color: "#7b6fa8",
+    desc: "꼼꼼하고 내면이 풍부한 완벽주의형. 세 번째로 많은 체질(약 20%)로 신중하고 정확성을 중시합니다.",
+    strengths: ["세밀함·꼼꼼함", "지적 호기심", "충성심·배려"],
+    weaknesses: ["소화기·냉증 약함", "걱정이 많음", "위장·냉대하 주의"],
+    herbs: ["인삼", "생강", "계피", "감초", "당귀"],
+    foods: ["닭고기", "사과", "생강차", "꿀", "멥쌀"],
+    avoid: ["찬 음식·냉수", "과로", "지나친 걱정"],
+  },
+};
+
+const SASANG_QUIZ = [
+  {
+    q: "체형에서 어느 부위가 가장 발달해 있나요?",
+    options: [
+      { label: "목·어깨가 발달, 허리·하체가 약한 편", scores: { 태양인:3, 태음인:0, 소양인:0, 소음인:0 } },
+      { label: "허리·뒷목이 굵고 하체가 탄탄한 편", scores: { 태양인:0, 태음인:3, 소양인:0, 소음인:0 } },
+      { label: "상체·가슴이 발달, 엉덩이·허리가 약한 편", scores: { 태양인:0, 태음인:0, 소양인:3, 소음인:0 } },
+      { label: "엉덩이·하체가 발달, 상체가 약한 편", scores: { 태양인:0, 태음인:0, 소양인:0, 소음인:3 } },
+    ],
+  },
+  {
+    q: "평소 소화는 어떤 편인가요?",
+    options: [
+      { label: "구역감이 잘 생기고 음식 조절이 중요하다", scores: { 태양인:2, 태음인:0, 소양인:1, 소음인:0 } },
+      { label: "식욕이 왕성하고 소화가 잘 된다 (과식 주의)", scores: { 태양인:0, 태음인:3, 소양인:0, 소음인:0 } },
+      { label: "음식을 빨리 먹고 소화도 빠른 편이다", scores: { 태양인:0, 태음인:0, 소양인:3, 소음인:0 } },
+      { label: "소화기가 약해 잘 체하거나 배탈이 잦다", scores: { 태양인:0, 태음인:0, 소양인:0, 소음인:3 } },
+    ],
+  },
+  {
+    q: "땀과 체온 반응은 어떤가요?",
+    options: [
+      { label: "땀이 거의 없고 더위·추위 모두 예민하다", scores: { 태양인:3, 태음인:0, 소양인:0, 소음인:1 } },
+      { label: "땀이 많고 더위를 유독 많이 탄다", scores: { 태양인:0, 태음인:3, 소양인:0, 소음인:0 } },
+      { label: "더위를 타고 땀이 나지만 금방 개운해진다", scores: { 태양인:0, 태음인:0, 소양인:3, 소음인:0 } },
+      { label: "추위를 많이 타고 몸이 늘 차가운 편이다", scores: { 태양인:0, 태음인:0, 소양인:0, 소음인:3 } },
+    ],
+  },
+  {
+    q: "성격·행동 방식에서 가장 가까운 것은?",
+    options: [
+      { label: "독립적·개혁적, 규칙보다 신념을 따른다", scores: { 태양인:3, 태음인:0, 소양인:0, 소음인:0 } },
+      { label: "신중·꾸준, 한 번 결정하면 끝까지 밀어붙인다", scores: { 태양인:0, 태음인:3, 소양인:0, 소음인:0 } },
+      { label: "외향적·추진력이 강하고 빠른 결정을 내린다", scores: { 태양인:0, 태음인:0, 소양인:3, 소음인:0 } },
+      { label: "꼼꼼·계획적, 안정과 정확성을 중시한다", scores: { 태양인:0, 태음인:0, 소양인:0, 소음인:3 } },
+    ],
+  },
+  {
+    q: "감정 표현 방식은?",
+    options: [
+      { label: "감정보다 원칙·사회 정의를 중시한다", scores: { 태양인:3, 태음인:0, 소양인:0, 소음인:0 } },
+      { label: "감정을 잘 드러내지 않고 묵묵히 일한다", scores: { 태양인:0, 태음인:3, 소양인:0, 소음인:0 } },
+      { label: "감정이 풍부하고 솔직하며 정이 많다", scores: { 태양인:0, 태음인:0, 소양인:3, 소음인:0 } },
+      { label: "감수성이 예민하고 걱정·불안이 많은 편이다", scores: { 태양인:0, 태음인:0, 소양인:0, 소음인:3 } },
+    ],
+  },
+  {
+    q: "에너지 패턴이 어떤가요?",
+    options: [
+      { label: "에너지가 위로 집중되고 하체에 힘이 부족하다", scores: { 태양인:3, 태음인:0, 소양인:0, 소음인:0 } },
+      { label: "오래 일할 수 있지만 땀을 많이 흘린다", scores: { 태양인:0, 태음인:3, 소양인:0, 소음인:0 } },
+      { label: "활동할 때 에너지가 넘치고 행동이 빠르다", scores: { 태양인:0, 태음인:0, 소양인:3, 소음인:0 } },
+      { label: "꼼꼼하게 일하지만 금방 지치고 쉬어야 충전된다", scores: { 태양인:0, 태음인:0, 소양인:0, 소음인:3 } },
+    ],
+  },
+  {
+    q: "선호하는 기후·온도는?",
+    options: [
+      { label: "서늘하고 맑은 날씨가 좋다", scores: { 태양인:2, 태음인:0, 소양인:1, 소음인:0 } },
+      { label: "시원한 환경을 선호, 더운 여름이 힘들다", scores: { 태양인:0, 태음인:3, 소양인:0, 소음인:0 } },
+      { label: "시원하고 상쾌한 환경이 좋다, 더위도 잘 버틴다", scores: { 태양인:0, 태음인:0, 소양인:3, 소음인:0 } },
+      { label: "따뜻한 환경을 선호, 추위를 매우 많이 탄다", scores: { 태양인:0, 태음인:0, 소양인:0, 소음인:3 } },
+    ],
+  },
+  {
+    q: "선호하는 음식 스타일은?",
+    options: [
+      { label: "담백하고 묽은 음식, 특별히 가리지 않는다", scores: { 태양인:3, 태음인:0, 소양인:0, 소음인:0 } },
+      { label: "육류·기름진 음식을 즐기고 식욕이 왕성하다", scores: { 태양인:0, 태음인:3, 소양인:0, 소음인:0 } },
+      { label: "차갑고 시원한 음식, 채소·과일이 잘 맞는다", scores: { 태양인:0, 태음인:0, 소양인:3, 소음인:0 } },
+      { label: "따뜻하고 구수한 음식, 닭고기·생강이 잘 맞는다", scores: { 태양인:0, 태음인:0, 소양인:0, 소음인:3 } },
+    ],
+  },
+  {
+    q: "수면 패턴은 어떤가요?",
+    options: [
+      { label: "잠을 잘 못 자거나 수면이 불규칙하다", scores: { 태양인:2, 태음인:0, 소양인:1, 소음인:0 } },
+      { label: "잠드는 편이고 깊이 자는 편이다", scores: { 태양인:0, 태음인:3, 소양인:0, 소음인:0 } },
+      { label: "잠드는 데 시간이 걸리지만 일어나면 개운하다", scores: { 태양인:0, 태음인:0, 소양인:2, 소음인:1 } },
+      { label: "잠들기 어렵고 작은 소리에도 잘 깬다", scores: { 태양인:0, 태음인:0, 소양인:0, 소음인:3 } },
+    ],
+  },
+  {
+    q: "자주 생기는 건강 문제는?",
+    options: [
+      { label: "다리 힘 약함·요도·소변 관련 불편", scores: { 태양인:3, 태음인:0, 소양인:0, 소음인:0 } },
+      { label: "호흡기(기침·가래)나 피부 트러블", scores: { 태양인:0, 태음인:3, 소양인:0, 소음인:0 } },
+      { label: "허리 아래·신장·방광이 자주 약하다", scores: { 태양인:0, 태음인:0, 소양인:3, 소음인:0 } },
+      { label: "소화불량·복통·설사 등 속 문제", scores: { 태양인:0, 태음인:0, 소양인:0, 소음인:3 } },
+    ],
+  },
+];
+
+function SasangPage({ setView }) {
+  const [step, setStep] = useState(-1);
+  const [answers, setAnswers] = useState([]);
+  const [result, setResult] = useState(null);
+
+  const handleAnswer = (scores) => {
+    const newAnswers = [...answers, scores];
+    if (step < SASANG_QUIZ.length - 1) {
+      setAnswers(newAnswers);
+      setStep(step + 1);
+    } else {
+      const totals = { 태양인: 0, 태음인: 0, 소양인: 0, 소음인: 0 };
+      newAnswers.forEach((s) => Object.entries(s).forEach(([k, v]) => { totals[k] += v; }));
+      const winner = Object.entries(totals).sort((a, b) => b[1] - a[1])[0][0];
+      setResult({ type: winner, totals });
+      setStep("done");
+    }
+  };
+
+  const reset = () => { setStep(-1); setAnswers([]); setResult(null); };
+
+  if (step === "done" && result) {
+    return <SasangResult result={result} onReset={reset} setView={setView} />;
+  }
+
+  if (step === -1) {
+    return (
+      <section className="sasang-page">
+        <div className="sasang-card glass-panel">
+          <p className="eyebrow">SASANG · 사상체질</p>
+          <h1 className="sasang-main-title">나는 어떤<br />체질일까요?</h1>
+          <p className="sasang-intro">
+            조선 시대 이제마(李濟馬) 선생이 체계화한 사상의학은 사람을 네 가지 체질로 분류합니다.
+            10가지 질문으로 내 체질을 알아보고, 어울리는 약재와 생활 조언을 확인해보세요.
+          </p>
+          <div className="sasang-type-preview">
+            {Object.entries(SASANG_DATA).map(([type, d]) => (
+              <div key={type} className="sas-preview-chip" style={{ background: `${d.color}18`, borderColor: `${d.color}40`, color: d.color }}>
+                {type}
+              </div>
+            ))}
+          </div>
+          <button type="button" className="start" onClick={() => setStep(0)}>
+            <span>진단 시작하기</span><span className="arrow"><ArrowRight size={22} /></span>
+          </button>
+        </div>
+      </section>
+    );
+  }
+
+  const question = SASANG_QUIZ[step];
+  return (
+    <section className="sasang-page">
+      <div className="sasang-card glass-panel">
+        <div className="sasang-progress-wrap">
+          <div className="sasang-progress-bar" style={{ width: `${((step + 1) / SASANG_QUIZ.length) * 100}%` }} />
+        </div>
+        <p className="sasang-step-label">{step + 1} / {SASANG_QUIZ.length}</p>
+        <h2 className="sasang-q">{question.q}</h2>
+        <div className="sasang-options">
+          {question.options.map((opt, i) => (
+            <button key={i} type="button" className="sasang-option" onClick={() => handleAnswer(opt.scores)}>
+              {opt.label}
+            </button>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function SasangResult({ result, onReset, setView }) {
+  const data = SASANG_DATA[result.type];
+  const totalScore = Object.values(result.totals).reduce((a, b) => a + b, 0);
+
+  return (
+    <section className="sasang-page">
+      <div className="sasang-result glass-panel">
+        <div className="sas-result-head" style={{ background: `${data.color}0e`, borderColor: `${data.color}30` }}>
+          <p className="eyebrow">체질 진단 결과</p>
+          <div className="sas-type-badge" style={{ color: data.color, borderColor: `${data.color}50`, background: `${data.color}14` }}>
+            {result.type}
+          </div>
+          <p className="sas-desc">{data.desc}</p>
+        </div>
+
+        <div className="sas-score-bars">
+          {Object.entries(result.totals).sort((a, b) => b[1] - a[1]).map(([type, score]) => {
+            const d2 = SASANG_DATA[type];
+            const pct = totalScore > 0 ? Math.round((score / totalScore) * 100) : 0;
+            return (
+              <div key={type} className="sas-score-row">
+                <span className="sas-score-label" style={{ color: d2.color }}>{type}</span>
+                <div className="sas-score-track">
+                  <div className="sas-score-fill" style={{ width: `${pct}%`, background: d2.color }} />
+                </div>
+                <span className="sas-score-pct">{pct}%</span>
+              </div>
+            );
+          })}
+        </div>
+
+        <div className="sas-two-col">
+          <div className="sas-section">
+            <h3>강점</h3>
+            <div className="jd-pills">{data.strengths.map((s) => <span key={s} className="jd-pill">{s}</span>)}</div>
+          </div>
+          <div className="sas-section">
+            <h3>주의 경향</h3>
+            <div className="jd-pills">{data.weaknesses.map((w) => <span key={w} className="jd-pill complaint">{w}</span>)}</div>
+          </div>
+        </div>
+
+        <div className="sas-section sas-section-center">
+          <h3>어울리는 약재</h3>
+          <p className="sas-hint">클릭하면 Herb Library에서 자세히 볼 수 있어요</p>
+          <div className="jd-pills">
+            {data.herbs.map((h) => (
+              <button key={h} type="button" className="jd-pill tx" onClick={() => setView("library")}>{h}</button>
+            ))}
+          </div>
+        </div>
+
+        <div className="sas-two-col">
+          <div className="sas-section">
+            <h3>좋은 음식</h3>
+            <div className="jd-pills">{data.foods.map((f) => <span key={f} className="jd-pill">{f}</span>)}</div>
+          </div>
+          <div className="sas-section">
+            <h3>피할 것</h3>
+            <div className="jd-pills">{data.avoid.map((a) => <span key={a} className="jd-pill complaint">{a}</span>)}</div>
+          </div>
+        </div>
+
+        <button type="button" className="sas-reset-btn" onClick={onReset}>다시 진단하기</button>
+        <p className="disclaimer">참고용 진단이에요. 정확한 체질 진단은 한의사와 상담하세요.</p>
+      </div>
+    </section>
   );
 }
 

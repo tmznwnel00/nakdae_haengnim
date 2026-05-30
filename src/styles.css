@@ -1473,3 +1473,249 @@
   border-radius: 999px;
   letter-spacing: 0.2px;
 }
+
+/* ─────────────────────────────────────────────
+   SASANG 사상체질 진단
+───────────────────────────────────────────── */
+
+.sasang-page {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 32px 24px 40px;
+  min-height: calc(100vh - 72px);
+  overflow-y: auto;
+}
+
+.sasang-card {
+  width: 100%;
+  max-width: 560px;
+  padding: 40px 44px;
+  border-radius: 28px;
+}
+
+.sasang-result {
+  width: 100%;
+  max-width: 680px;
+  padding: 0;
+  border-radius: 28px;
+  overflow: hidden;
+}
+
+.sasang-main-title {
+  font-size: clamp(28px, 3vw, 40px);
+  font-weight: 300;
+  line-height: 1.35;
+  color: #1d2832;
+  margin: 8px 0 16px;
+}
+
+.sasang-intro {
+  font-size: 13.5px;
+  line-height: 1.75;
+  color: #667581;
+  margin: 0 0 24px;
+}
+
+.sasang-type-preview {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+
+.sas-preview-chip {
+  padding: 6px 16px;
+  border-radius: 999px;
+  border: 1px solid;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+/* Quiz */
+.sasang-progress-wrap {
+  height: 3px;
+  background: rgba(160, 175, 188, 0.2);
+  border-radius: 99px;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.sasang-progress-bar {
+  height: 100%;
+  background: #5c8c72;
+  border-radius: 99px;
+  transition: width 0.3s ease;
+}
+
+.sasang-step-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: #8a98a3;
+  text-transform: uppercase;
+  margin: 0 0 16px;
+}
+
+.sasang-q {
+  font-size: clamp(16px, 1.6vw, 20px);
+  font-weight: 400;
+  line-height: 1.5;
+  color: #1d2832;
+  margin: 0 0 28px;
+}
+
+.sasang-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sasang-option {
+  text-align: left;
+  padding: 14px 20px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: #2a3640;
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(160, 175, 188, 0.35);
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.14s ease;
+}
+
+.sasang-option:hover {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(92, 140, 114, 0.5);
+  color: #1d2832;
+  transform: translateX(3px);
+}
+
+/* Result */
+.sas-result-head {
+  padding: 32px 36px 28px;
+  border-bottom: 1px solid;
+}
+
+.sas-type-badge {
+  display: inline-block;
+  padding: 6px 22px;
+  border-radius: 999px;
+  border: 1.5px solid;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin: 10px 0 16px;
+}
+
+.sas-desc {
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: #4a5a66;
+  margin: 0;
+}
+
+.sas-score-bars {
+  padding: 24px 36px;
+  border-bottom: 1px solid rgba(160, 175, 188, 0.18);
+}
+
+.sas-score-row {
+  display: grid;
+  grid-template-columns: 56px 1fr 36px;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.sas-score-row:last-child { margin-bottom: 0; }
+
+.sas-score-label {
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.sas-score-track {
+  height: 7px;
+  background: rgba(160, 175, 188, 0.18);
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.sas-score-fill {
+  height: 100%;
+  border-radius: 99px;
+  transition: width 0.6s ease;
+}
+
+.sas-score-pct {
+  font-size: 11px;
+  color: #8a98a3;
+  text-align: right;
+}
+
+.sas-two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border-bottom: 1px solid rgba(160, 175, 188, 0.18);
+}
+
+.sas-two-col > .sas-section:first-child {
+  border-right: 1px solid rgba(160, 175, 188, 0.18);
+}
+
+.sas-section {
+  padding: 20px 36px;
+}
+
+.sas-two-col .sas-section {
+  padding: 20px 28px;
+}
+
+.sas-section h3 {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: #8a98a3;
+  margin: 0 0 10px;
+}
+
+.sas-hint {
+  font-size: 11.5px;
+  color: #8a98a3;
+  margin: -4px 0 10px;
+}
+
+.sas-section-center {
+  text-align: center;
+}
+
+.sas-section-center .jd-pills {
+  justify-content: center;
+}
+
+.sas-reset-btn {
+  display: block;
+  margin: 24px 36px 8px;
+  padding: 11px 28px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #2a3640;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(160, 175, 188, 0.4);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.14s ease;
+}
+
+.sas-reset-btn:hover {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.sasang-result .disclaimer {
+  padding: 0 36px 28px;
+  margin: 0;
+}
