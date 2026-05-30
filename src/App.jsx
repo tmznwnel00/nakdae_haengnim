@@ -262,6 +262,15 @@ const BODY_PARTS = [
 const BODY_BY_PART = Object.fromEntries(BODY_PARTS.map((b) => [b.part, b]));
 // 전체 호소 (순서 보존 중복 제거)
 const ALL_COMPLAINTS = [...new Set(BODY_PARTS.flatMap((b) => b.complaints))];
+// 인체 레이어 body tag → 관련 증상 매핑
+const BODY_TAG_COMPLAINTS = {
+  head_skin:    ["두통 증상", "불면", "스트레스", "만성피로", "탈모", "ADHD증상"],
+  neck_shoulder:["견비통", "경항통", "요통", "디스크증상", "근육통", "손목통증"],
+  whole:        ALL_COMPLAINTS,
+  digestive:    ["소화 증상", "식욕부진"],
+  waist:        ["요통", "디스크증상", "근육통", "교통사고후유증", "좌상_타박"],
+  leg_knee:     ["슬통", "족통", "좌골신경통", "손발저림"],
+};
 // 친숙 라벨/아이콘 (8개 frequent만; 나머지는 enum 라벨 + 기본 아이콘)
 const LABEL_BY_COMPLAINT = Object.fromEntries(SYMPTOMS.map(([label, , c]) => [c, label]));
 const ICON_BY_COMPLAINT = Object.fromEntries(SYMPTOMS.map(([, Icon, c]) => [c, Icon]));
@@ -301,6 +310,10 @@ function StartPage({ setView, onDiagnose }) {
   } else if (showAll) {
     items = ALL_COMPLAINTS;
     headerLabel = `전체 증상 (${items.length})`;
+  } else if (activeBody && BODY_TAG_COMPLAINTS[activeBody]) {
+    items = BODY_TAG_COMPLAINTS[activeBody];
+    const tagLabel = bodyTags.find((t) => t.id === activeBody)?.label || activeBody;
+    headerLabel = `${tagLabel} 관련 증상`;
   } else if (activeBody && BODY_BY_PART[activeBody]) {
     items = BODY_BY_PART[activeBody].complaints;
     headerLabel = `${BODY_BY_PART[activeBody].label} 관련 증상`;
@@ -308,7 +321,7 @@ function StartPage({ setView, onDiagnose }) {
     items = SYMPTOMS.map(([, , c]) => c);
     headerLabel = "자주 선택한 증상";
   }
-  const isFrequent = !q && !showAll && !activeBody;
+  const isFrequent = !q && !showAll && !activeBody && !activeBodyTag;
 
   return (
     <>
@@ -360,6 +373,13 @@ function StartPage({ setView, onDiagnose }) {
               type="button"
               onMouseEnter={() => setActiveBodyTag(part.id)}
               onMouseLeave={() => setActiveBodyTag(null)}
+              onClick={() => {
+                const complaints = BODY_TAG_COMPLAINTS[part.id] || [];
+                setActiveBody(part.id);
+                setShowAll(false);
+                setQuery("");
+                if (complaints.length > 0) setSelected(complaints[0]);
+              }}
             >
               <span />{part.label}
               <small>{Number(part.count || 0).toLocaleString()}</small>
