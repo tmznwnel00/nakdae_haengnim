@@ -70,7 +70,8 @@ function App() {
     if (h === "#library") return "library";
     if (h === "#clinics") return "clinics";
     if (h === "#sasang") return "sasang";
-    return "diagnosis";
+    if (h === "#diagnosis") return "diagnosis";
+    return "navigation";
   });
   const [complaint, setComplaint] = useState(null);
   const [libTarget, setLibTarget] = useState(null); // 진단→라이브러리 사전선택 U코드
@@ -80,7 +81,8 @@ function App() {
 
   const setView = (nextView) => {
     setViewState(nextView);
-    window.location.hash = nextView === "library" ? "library" : nextView === "clinics" ? "clinics" : nextView === "sasang" ? "sasang" : "";
+    const hashMap = { library: "library", clinics: "clinics", sasang: "sasang", diagnosis: "diagnosis" };
+    window.location.hash = hashMap[nextView] || "";
   };
 
   // 증상 선택 → 진단 결과 화면 열기
@@ -97,10 +99,12 @@ function App() {
   };
 
   const isAltView = view === "library" || view === "clinics" || view === "sasang";
+  const shellExtra = view === "library" ? "library-shell" : view === "clinics" ? "clinics-shell" : view === "sasang" ? "sasang-shell" : view === "navigation" ? "navigation-shell" : "";
   return (
-    <main className={`shell ${isAltView ? "library-shell" : ""}`}>
+    <main className={`shell ${shellExtra}`}>
       <Header view={view} setView={setView} />
-      {view === "library" ? <HerbLibrary data={data} initialSelectedId={libTarget} onConsumeInitial={() => setLibTarget(null)} /> :
+      {view === "navigation" ? <PersonaGuide setView={setView} /> :
+       view === "library" ? <HerbLibrary data={data} initialSelectedId={libTarget} onConsumeInitial={() => setLibTarget(null)} /> :
        view === "clinics" ? <ClinicsPage clinics={clinicsData} /> :
        view === "sasang" ? <SasangPage setView={setView} /> :
        view === "diagnosis-result" && complaint ? <DiagnosisResult complaint={complaint} setView={setView} onOpenLibrary={openLibraryUcode} ucodeIds={ucodeIdSet} /> :
@@ -111,6 +115,7 @@ function App() {
 
 function Header({ view, setView }) {
   const items = [
+    ["navigation", "NAVIGATION"],
     ["diagnosis", "SELF-DIAGNOSIS"],
     ["library", "HERB LIBRARY"],
     ["clinics", "CLINICS"],
@@ -119,10 +124,10 @@ function Header({ view, setView }) {
 
   return (
     <header className="topbar">
-      <button className="brand brand-button" type="button" onClick={() => setView("diagnosis")}>MEDVIS</button>
+      <button className="brand brand-button" type="button" onClick={() => setView("navigation")}>MEDVIS</button>
       <nav className="nav" aria-label="Primary">
         {items.map(([key, label]) => (
-          <button key={key} className={view === key ? "active" : ""} type="button" onClick={() => setView(["library", "clinics", "sasang"].includes(key) ? key : "diagnosis")}>
+          <button key={key} className={view === key ? "active" : ""} type="button" onClick={() => setView(key)}>
             {label}
           </button>
         ))}
@@ -173,37 +178,40 @@ function PersonaGuide({ setView }) {
   const active = PERSONAS.find((p) => p.id === persona) || PERSONAS[0];
   return (
     <section className="persona-guide" aria-label="사용 안내">
-      <p className="eyebrow">START HERE</p>
-      <h2 className="persona-title">어디서부터 보면 좋을까요?</h2>
-      <p className="persona-lead">당신이 누구냐에 따라, 이 사이트를 어떻게 쓰면 좋을지 안내해드려요.</p>
-      <div className="persona-cards" role="tablist">
-        {PERSONAS.map((p) => {
-          const Icon = p.icon;
-          const on = p.id === persona;
-          return (
-            <button key={p.id} type="button" role="tab" aria-selected={on}
-              className={`persona-card ${on ? "active" : ""}`}
-              onClick={() => setPersona(p.id)}>
-              <span className="persona-card-icon"><Icon size={22} /></span>
-              <span className="persona-card-body">
-                <strong>{p.title}</strong>
-                <small>{p.subtitle}</small>
-              </span>
-            </button>
-          );
-        })}
+      <div className="persona-left">
+        <h2 className="persona-title">어디서부터 보면 좋을까요?</h2>
+        <p className="persona-lead">당신이 누구냐에 따라, 이 사이트를 어떻게 쓰면 좋을지 안내해드려요.</p>
+        <div className="persona-guide-detail">
+          <p className="persona-blurb">{active.blurb}</p>
+          <div className="persona-path">
+            {active.steps.map((s, i) => (
+              <Fragment key={s.label}>
+                {i > 0 && <span className="persona-arrow" aria-hidden="true"><ArrowRight size={16} /></span>}
+                <button type="button" className="persona-step" onClick={() => setView(s.view)}>
+                  <em>{String(i + 1).padStart(2, "0")}</em>{s.label}
+                </button>
+              </Fragment>
+            ))}
+          </div>
+        </div>
       </div>
-      <div className="persona-guide-detail">
-        <p className="persona-blurb">{active.blurb}</p>
-        <div className="persona-path">
-          {active.steps.map((s, i) => (
-            <Fragment key={s.label}>
-              {i > 0 && <span className="persona-arrow" aria-hidden="true"><ArrowRight size={16} /></span>}
-              <button type="button" className="persona-step" onClick={() => setView(s.view)}>
-                <em>{String(i + 1).padStart(2, "0")}</em>{s.label}
+      <div className="persona-right">
+        <div className="persona-cards" role="tablist">
+          {PERSONAS.map((p) => {
+            const Icon = p.icon;
+            const on = p.id === persona;
+            return (
+              <button key={p.id} type="button" role="tab" aria-selected={on}
+                className={`persona-card ${on ? "active" : ""}`}
+                onClick={() => setPersona(p.id)}>
+                <span className="persona-card-icon"><Icon size={22} /></span>
+                <span className="persona-card-body">
+                  <strong>{p.title}</strong>
+                  <small>{p.subtitle}</small>
+                </span>
               </button>
-            </Fragment>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
@@ -273,7 +281,6 @@ function StartPage({ setView, onDiagnose }) {
 
   return (
     <>
-      <PersonaGuide setView={setView} />
       <section className="hero" aria-label="Self diagnosis">
       <div className="intro">
         <p className="eyebrow">SELF-DIAGNOSIS</p>
