@@ -476,9 +476,9 @@ h1 {
 
 .body-heat-zone {
   opacity: 0;
-  filter: blur(2px);
+  filter: blur(6px);
   mix-blend-mode: multiply;
-  transition: opacity 0.28s ease;
+  transition: opacity 0.4s ease;
 }
 
 .body-heat-zone.active {

@@ -1172,7 +1172,8 @@
   border-radius: 28px;
   display: flex;
   flex-direction: column;
-  max-height: calc(100vh - 120px);
+  height: calc(100vh - 130px);
+  overflow: hidden;
 }
 .panel h2 {
   font-size: clamp(19px, 1.5vw, 25px);
@@ -1192,6 +1193,10 @@
   font-size: 13px;
 }
 .section-label {
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
   margin-bottom: 14px !important;
   font-size: 12.5px !important;
 }
@@ -1225,6 +1230,7 @@
   padding-right: 4px;
 }
 .symptoms.expanded .symptom {
+  display: flex !important;
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;

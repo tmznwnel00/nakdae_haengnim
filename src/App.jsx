@@ -36,12 +36,11 @@ const ICONS = {
 };
 
 const DEFAULT_BODY_TAGS = [
-  { id: "head_skin",    label: "머리/얼굴/피부", count: 2858, tag: { x: 6,  y:  9 }, zone: "ellipse(10% 8%  at 50% 11%)", gradient: "radial-gradient(ellipse 62% 78% at 50% 11%, rgba(185,70,60,0.54), transparent 72%)" },
-  { id: "neck_shoulder",label: "목/어깨",        count: 1628, tag: { x: 72, y: 20 }, zone: "ellipse(30% 5%  at 50% 22%)", gradient: "radial-gradient(ellipse 92% 44% at 50% 22%, rgba(185,70,60,0.48), transparent 70%)" },
-  { id: "whole",        label: "전신",           count: 2560, tag: { x: 82, y: 32 }, zone: "inset(0% 0% 0% 0%)",           gradient: "radial-gradient(ellipse 80% 90% at 50% 50%, rgba(185,70,60,0.28), transparent 72%)" },
-  { id: "digestive",    label: "소화기",         count:  297, tag: { x: 82, y: 44 }, zone: "ellipse(10% 9%  at 50% 39%)", gradient: "radial-gradient(ellipse 55% 84% at 50% 39%, rgba(185,70,60,0.52), transparent 72%)" },
-  { id: "waist",        label: "허리",           count:  909, tag: { x: 6,  y: 48 }, zone: "ellipse(28% 4%  at 50% 47%)", gradient: "radial-gradient(ellipse 92% 42% at 50% 47%, rgba(185,70,60,0.50), transparent 68%)" },
-  { id: "leg_knee",     label: "다리/무릎",      count:  390, tag: { x: 82, y: 72 }, zone: "inset(60% 32% 16% 32%)",      gradient: "radial-gradient(ellipse 32% 13% at 50% 72%, rgba(185,70,60,0.54), transparent 90%)" },
+  { id: "head_skin",    label: "머리/얼굴/피부", tag: { x: 6,  y:  9 }, zone: "ellipse(9%  7%  at 50%  9%)", gradient: "radial-gradient(ellipse 30% 25% at 50%  9%, rgba(175,60,50,0.28), rgba(175,60,50,0.06) 60%, transparent 92%)" },
+  { id: "neck_shoulder",label: "목/어깨",        tag: { x: 72, y: 20 }, zone: "ellipse(26% 4%  at 50% 20%)", gradient: "radial-gradient(ellipse 32% 12% at 50% 20%, rgba(175,60,50,0.26), rgba(175,60,50,0.06) 60%, transparent 92%)" },
+  { id: "digestive",    label: "소화기",         tag: { x: 82, y: 44 }, zone: "ellipse(9%  8%  at 50% 37%)", gradient: "radial-gradient(ellipse 28% 26% at 50% 37%, rgba(175,60,50,0.28), rgba(175,60,50,0.06) 60%, transparent 92%)" },
+  { id: "waist",        label: "허리",           tag: { x: 6,  y: 48 }, zone: "ellipse(24% 3%  at 50% 45%)", gradient: "radial-gradient(ellipse 32% 10% at 50% 45%, rgba(175,60,50,0.26), rgba(175,60,50,0.06) 60%, transparent 92%)" },
+  { id: "leg_knee",     label: "다리/무릎",      tag: { x: 82, y: 72 }, zone: "inset(58% 32% 18% 32%)",      gradient: "radial-gradient(ellipse 28% 11% at 50% 70%, rgba(175,60,50,0.28), rgba(175,60,50,0.06) 62%, transparent 94%)" },
 ];
 
 function useBodyTags() {
@@ -266,7 +265,6 @@ const ALL_COMPLAINTS = [...new Set(BODY_PARTS.flatMap((b) => b.complaints))];
 const BODY_TAG_COMPLAINTS = {
   head_skin:    ["두통 증상", "불면", "스트레스", "만성피로", "탈모", "ADHD증상"],
   neck_shoulder:["견비통", "경항통", "요통", "디스크증상", "근육통", "손목통증"],
-  whole:        ALL_COMPLAINTS,
   digestive:    ["소화 증상", "식욕부진"],
   waist:        ["요통", "디스크증상", "근육통", "교통사고후유증", "좌상_타박"],
   leg_knee:     ["슬통", "족통", "좌골신경통", "손발저림"],
@@ -286,7 +284,17 @@ function StartPage({ setView, onDiagnose }) {
   const [debugPos, setDebugPos] = useState(null);
   const bodyTags = useBodyTags();
   const hoverTimer = useRef(null);
+  const dragRef = useRef(null);
   const bodyDebug = new URLSearchParams(window.location.search).has("bodyDebug");
+
+  const onSymptomsMouseDown = (e) => {
+    const el = e.currentTarget;
+    dragRef.current = { y: e.clientY, top: el.scrollTop };
+    const onMove = (mv) => { el.scrollTop = dragRef.current.top - (mv.clientY - dragRef.current.y); };
+    const onUp = () => { window.removeEventListener("mousemove", onMove); window.removeEventListener("mouseup", onUp); };
+    window.addEventListener("mousemove", onMove);
+    window.addEventListener("mouseup", onUp);
+  };
   const primary = selected || null;
   const goDiagnose = () => onDiagnose && onDiagnose(primary);
 
@@ -397,7 +405,7 @@ function StartPage({ setView, onDiagnose }) {
             <span>{headerLabel}</span>
             {!isFrequent && <button type="button" className="clear" onClick={resetView}>← 자주 본 증상</button>}
           </p>
-          <div className={`symptoms ${isFrequent ? "" : "expanded"}`}>
+          <div className={`symptoms ${isFrequent ? "" : "expanded"}`} onMouseDown={onSymptomsMouseDown} style={{ cursor: "grab" }}>
             {items.length === 0 ? (
               <p className="sym-empty">검색 결과가 없어요. 다른 키워드로 찾아보세요.</p>
             ) : (
