@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { Fragment, useEffect, useMemo, useRef, useState } from "react";
 import {
   Activity,
   ArrowRight,
@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import { forceSimulation, forceLink, forceManyBody, forceCenter, forceCollide, forceX, forceY } from "d3";
 import L from "leaflet";
+import DiagnosisResult from "./DiagnosisResult.jsx";
 
 const dataFiles = {
   herbs: "/data/herbs.json",
@@ -71,6 +72,7 @@ function App() {
     if (h === "#sasang") return "sasang";
     return "diagnosis";
   });
+  const [complaint, setComplaint] = useState(null);
   const data = useKnowledgeData();
   const clinicsData = useClinicsData(view === "clinics");
 
@@ -79,6 +81,14 @@ function App() {
     window.location.hash = nextView === "library" ? "library" : nextView === "clinics" ? "clinics" : nextView === "sasang" ? "sasang" : "";
   };
 
+  // 증상 선택 → 진단 결과 화면 열기
+  const startDiagnosis = (c) => {
+    if (!c) return;
+    setComplaint(c);
+    setView("diagnosis-result");
+  };
+
+  const isAltView = view === "library" || view === "clinics" || view === "sasang";
   const shellExtra = view === "library" ? "library-shell" : view === "clinics" ? "clinics-shell" : view === "sasang" ? "sasang-shell" : "";
   return (
     <main className={`shell ${shellExtra}`}>
@@ -86,7 +96,8 @@ function App() {
       {view === "library" ? <HerbLibrary data={data} /> :
        view === "clinics" ? <ClinicsPage clinics={clinicsData} /> :
        view === "sasang" ? <SasangPage setView={setView} /> :
-       <StartPage />}
+       view === "diagnosis-result" && complaint ? <DiagnosisResult complaint={complaint} setView={setView} /> :
+       <StartPage setView={setView} onDiagnose={startDiagnosis} />}
     </main>
   );
 }
@@ -114,26 +125,110 @@ function Header({ view, setView }) {
   );
 }
 
-function StartPage() {
-  const [selected, setSelected] = useState(["피로감"]);
-  const symptoms = [
-    ["피로감", Activity],
-    ["소화불량", Waves],
-    ["수면장애", Moon],
-    ["두통", Brain],
-    ["어깨 결림", CircleDot],
-    ["손발 차가움", Sparkles],
-    ["생리통", CircleDot],
-    ["스트레스", Sprout],
-  ];
+// 랜딩 페르소나 가이드 — 방문자 유형별 추천 사용 경로
+const PERSONAS = [
+  {
+    id: "general",
+    icon: Activity,
+    title: "증상이 있어요",
+    subtitle: "일반 · 환자",
+    blurb: "지금 몸이 보내는 신호를 먼저 확인하고, 필요하면 가까운 한의원까지 이어서 찾아보세요.",
+    steps: [
+      { label: "증상 자가 체크", view: "diagnosis" },
+      { label: "가까운 한의원 찾기", view: "clinics" },
+    ],
+  },
+  {
+    id: "constitution",
+    icon: Sprout,
+    title: "내 체질이 궁금해요",
+    subtitle: "사상체질",
+    blurb: "10가지 질문으로 사상체질을 알아보고, 체질에 맞는 약재와 음식을 확인해 보세요.",
+    steps: [
+      { label: "사상체질 진단", view: "sasang" },
+      { label: "맞는 약재 살펴보기", view: "library" },
+    ],
+  },
+  {
+    id: "clinic",
+    icon: Compass,
+    title: "한의원을 찾아요",
+    subtitle: "후기 · 지도",
+    blurb: "지역과 진료과목으로 한의원을 찾고, 환자 후기를 모은 치료 결과를 비교해 보세요.",
+    steps: [
+      { label: "한의원 지도 보기", view: "clinics" },
+    ],
+  },
+];
+
+function PersonaGuide({ setView }) {
+  const [persona, setPersona] = useState(PERSONAS[0].id);
+  const active = PERSONAS.find((p) => p.id === persona) || PERSONAS[0];
+  return (
+    <section className="persona-guide" aria-label="사용 안내">
+      <p className="eyebrow">START HERE</p>
+      <h2 className="persona-title">어디서부터 보면 좋을까요?</h2>
+      <p className="persona-lead">당신이 누구냐에 따라, 이 사이트를 어떻게 쓰면 좋을지 안내해드려요.</p>
+      <div className="persona-cards" role="tablist">
+        {PERSONAS.map((p) => {
+          const Icon = p.icon;
+          const on = p.id === persona;
+          return (
+            <button key={p.id} type="button" role="tab" aria-selected={on}
+              className={`persona-card ${on ? "active" : ""}`}
+              onClick={() => setPersona(p.id)}>
+              <span className="persona-card-icon"><Icon size={22} /></span>
+              <span className="persona-card-body">
+                <strong>{p.title}</strong>
+                <small>{p.subtitle}</small>
+              </span>
+            </button>
+          );
+        })}
+      </div>
+      <div className="persona-guide-detail">
+        <p className="persona-blurb">{active.blurb}</p>
+        <div className="persona-path">
+          {active.steps.map((s, i) => (
+            <Fragment key={s.label}>
+              {i > 0 && <span className="persona-arrow" aria-hidden="true"><ArrowRight size={16} /></span>}
+              <button type="button" className="persona-step" onClick={() => setView(s.view)}>
+                <em>{String(i + 1).padStart(2, "0")}</em>{s.label}
+              </button>
+            </Fragment>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// UI 라벨 → DB 한방 호소 enum (루트 medvis app.js FREQUENT 매핑 이식)
+const SYMPTOMS = [
+  ["피로감", Activity, "만성피로"],
+  ["소화불량", Waves, "소화 증상"],
+  ["수면장애", Moon, "불면"],
+  ["두통", Brain, "두통 증상"],
+  ["어깨 결림", CircleDot, "견비통"],
+  ["손발 차가움", Sparkles, "냉증"],
+  ["생리통", CircleDot, "월경통"],
+  ["스트레스", Sprout, "스트레스"],
+];
+
+function StartPage({ setView, onDiagnose }) {
+  const [selected, setSelected] = useState(["만성피로"]); // 선택된 한방 호소(enum)
+  const primary = selected[0] || null;
+  const goDiagnose = () => onDiagnose && onDiagnose(primary);
 
   return (
-    <section className="hero" aria-label="Self diagnosis">
+    <>
+      <PersonaGuide setView={setView} />
+      <section className="hero" aria-label="Self diagnosis">
       <div className="intro">
         <p className="eyebrow">SELF-DIAGNOSIS</p>
         <h1>당신의 몸은 지금,<br />어떤 신호를<br />보내고 있나요?</h1>
         <p className="copy">몸이 보내는 작은 신호들을 놓치지 마세요.<br />AI가 당신의 컨디션을 분석하고, 균형 회복을 위한<br />맞춤 솔루션을 제안해드려요.</p>
-        <button className="start" type="button"><span>진단 시작하기</span><span className="arrow"><ArrowRight size={22} /></span></button>
+        <button className="start" type="button" onClick={goDiagnose} disabled={!primary}><span>진단 시작하기</span><span className="arrow"><ArrowRight size={22} /></span></button>
       </div>
 
       <div className="anatomy-stage" aria-hidden="true">
@@ -155,10 +250,10 @@ function StartPage() {
           <label className="search"><Search size={18} /><input type="search" placeholder="증상을 검색해보세요" /></label>
           <p className="section-label">자주 선택한 증상</p>
           <div className="symptoms">
-            {symptoms.map(([label, Icon]) => {
-              const isSelected = selected.includes(label);
+            {SYMPTOMS.map(([label, Icon, complaint]) => {
+              const isSelected = selected.includes(complaint);
               return (
-                <button key={label} className={`symptom ${isSelected ? "selected" : ""}`} type="button" onClick={() => setSelected((current) => current.includes(label) ? current.filter((item) => item !== label) : [...current, label])}>
+                <button key={complaint} className={`symptom ${isSelected ? "selected" : ""}`} type="button" onClick={() => setSelected((current) => current.includes(complaint) ? current.filter((item) => item !== complaint) : [...current, complaint])}>
                   {isSelected && <i className="check">✓</i>}
                   <Icon className="sym-icon" />
                   {label}
@@ -167,12 +262,13 @@ function StartPage() {
             })}
           </div>
           <button className="all" type="button"><span>전체 증상 보기</span><b>＋</b></button>
-          <button className="complete" type="button"><span>선택 완료</span><small>{selected.length}</small><b><ArrowRight size={20} /></b></button>
+          <button className="complete" type="button" onClick={goDiagnose} disabled={!primary}><span>선택 완료</span><small>{selected.length}</small><b><ArrowRight size={20} /></b></button>
         </div>
       </aside>
 
       <div className="steps"><button className="current" type="button">01 증상 선택</button><button type="button">02 문진</button><button type="button">03 분석 중</button><button type="button">04 결과 확인</button></div>
-    </section>
+      </section>
+    </>
   );
 }
 
@@ -569,6 +665,7 @@ function OrganMap({ organs, herbs, categories, catById, organById, selectedId, s
   const W = 1140, H = 800, CX = W / 2, CY = H / 2;
   const [lens, setLens] = useState("organ");
   const [hoverId, setHoverId] = useState(null);
+  const [connectedOnly, setConnectedOnly] = useState(true);   // 연결만 보기(기본) ↔ 전체 보기
   const [, setFrame] = useState(0);
   const dispRef = useRef({});   // id → {x,y} 화면상 위치(애니메이션)
   const rafRef = useRef(0);
@@ -663,20 +760,43 @@ function OrganMap({ organs, herbs, categories, catById, organById, selectedId, s
   const px = (n) => (P[n.id] ? P[n.id].x : n.x);
   const py = (n) => (P[n.id] ? P[n.id].y : n.y);
 
-  const focusId = hoverId || (byId[selectedId] ? selectedId : null);
-  const neighbors = useMemo(() => {
-    if (!focusId) return null;
-    const set = new Set([focusId]);
+  // 1-홉 이웃 집합 계산 헬퍼 (id + 직접 연결된 노드)
+  const oneHop = (id) => {
+    const set = new Set([id]);
     links.forEach((l) => {
       const s = typeof l.source === "object" ? l.source.id : l.source;
       const t = typeof l.target === "object" ? l.target.id : l.target;
-      if (s === focusId) set.add(t);
-      if (t === focusId) set.add(s);
+      if (s === id) set.add(t);
+      if (t === id) set.add(s);
     });
     return set;
-  }, [focusId, links]);
+  };
+
+  const selId = byId[selectedId] ? selectedId : null;
+  const focusId = hoverId || selId;
+  // 하이라이트(hover/선택)용 이웃 — 진하게 표시할 노드
+  const neighbors = useMemo(() => (focusId ? oneHop(focusId) : null), [focusId, links]); // eslint-disable-line react-hooks/exhaustive-deps
+  // "연결만 보기" scope — 선택된 노드와 1-홉만 화면에 남김(선택이 있을 때만 작동)
+  const scopeSet = useMemo(
+    () => (connectedOnly && selId ? oneHop(selId) : null),
+    [connectedOnly, selId, links] // eslint-disable-line react-hooks/exhaustive-deps
+  );
   const focusAnchor = focusId && byId[focusId]?.type === "anchor" ? byId[focusId] : null;
-  const isLit = (id) => !neighbors || neighbors.has(id);
+
+  // 노드/엣지 불투명도 모델 (scope 밖 → 거의 숨김, hover 비이웃 → 흐리게)
+  const OUT = 0.08, DIM = 0.15;
+  const nodeOpacity = (id) => {
+    if (scopeSet && !scopeSet.has(id)) return OUT;
+    if (neighbors) return neighbors.has(id) ? 1 : DIM;
+    return 1;
+  };
+  const inScope = (id) => !scopeSet || scopeSet.has(id);
+  const linkOpacity = (s, t) => {
+    if (scopeSet && !(scopeSet.has(s) && scopeSet.has(t))) return 0.04;
+    const lit = !neighbors || (neighbors.has(s) && neighbors.has(t));
+    if (!lit) return 0.05;
+    return focusId ? 0.85 : 0.28;
+  };
 
   const selMissingHerb = selectedId?.startsWith("herb_") && !byId[selectedId]
     ? herbs.find((h) => h.id === selectedId) : null;
@@ -690,10 +810,43 @@ function OrganMap({ organs, herbs, categories, catById, organById, selectedId, s
             <button type="button" className={lens === "organ" ? "on" : ""} onClick={() => setLens("organ")}>작용 장부</button>
             <button type="button" className={lens === "compound" ? "on" : ""} onClick={() => setLens("compound")}>성분 계열</button>
           </div>
+          <button
+            type="button"
+            className={`view-toggle ${connectedOnly ? "filtered" : ""}`}
+            onClick={() => setConnectedOnly((v) => !v)}
+            title={connectedOnly ? "선택한 장부와 직접 연결된 노드만 표시 중 — 클릭하면 전체 그래프" : "전체 그래프 표시 중 — 클릭하면 연결만 보기"}
+          >
+            {connectedOnly ? "연결만 보기" : "전체 보기"}
+          </button>
           <span className="lg-divider" />
           {categories.map((c) => (
             <span key={c.id} className="lg-item"><i style={{ background: c.color }} />{c.name}</span>
           ))}
+        </div>
+        <div className="legend-encoding" aria-label="시각 인코딩 설명">
+          <span className="enc">
+            <svg width="26" height="14" viewBox="0 0 26 14" aria-hidden="true">
+              <circle cx="6" cy="7" r="3.5" fill="#9aa7b1" />
+              <circle cx="18" cy="7" r="6" fill="#9aa7b1" />
+            </svg>
+            원 크기 = {lens === "organ"
+              ? "연결된 약재 수(장부) · 작용 장부 수(약재)"
+              : "연결된 재료 수(성분) · 성분 계열 수(약재)"}
+          </span>
+          <span className="enc">
+            <svg width="22" height="8" viewBox="0 0 22 8" aria-hidden="true">
+              <line x1="1" y1="4" x2="21" y2="4" stroke="#8c9eaa" strokeWidth="1.6" />
+            </svg>
+            실선 = {lens === "organ" ? "약재 귀경(歸經) 연결" : "재료–성분 연결"}
+          </span>
+          {lens === "organ" && (
+            <span className="enc">
+              <svg width="22" height="8" viewBox="0 0 22 8" aria-hidden="true">
+                <line x1="1" y1="4" x2="21" y2="4" stroke="#96a5b2" strokeWidth="1.6" strokeDasharray="3,4" />
+              </svg>
+              점선 = 장부 음양 짝(표리·表裏)
+            </span>
+          )}
         </div>
         <p className="organ-hint">
           {selMissingHerb
@@ -715,23 +868,22 @@ function OrganMap({ organs, herbs, categories, catById, organById, selectedId, s
           if (!s || !t) return null;
           const lit = !neighbors || (neighbors.has(s.id) && neighbors.has(t.id));
           return (
-            <line key={i} x1={px(s)} y1={py(s)} x2={px(t)} y2={py(t)}
-              stroke={l.pair ? "rgba(150,165,178,0.4)" : "rgba(140,158,170,0.55)"}
-              strokeWidth={focusId && lit ? 2.2 : (l.pair ? 1 : 0.8)}
+            <line key={i} className="uni-link" x1={px(s)} y1={py(s)} x2={px(t)} y2={py(t)}
+              stroke={l.pair ? "rgba(150,165,178,0.45)" : "rgba(140,158,170,0.6)"}
+              strokeWidth={focusId && lit ? 2 : 1}
               strokeDasharray={l.pair ? "3,4" : undefined}
-              style={{ opacity: lit ? (focusId ? 0.85 : 0.28) : 0.05 }} />
+              style={{ opacity: linkOpacity(s.id, t.id) }} />
           );
         })}
 
         {nodes.filter((n) => n.type === "herb").map((n) => {
-          const lit = isLit(n.id);
           const color = catById[n.primaryCategory]?.color || "#9aa7b1";
           const sel = selectedId === n.id;
           return (
-            <g key={n.id} transform={`translate(${px(n)},${py(n)})`}
-               onMouseEnter={() => setHoverId(n.id)} onMouseLeave={() => setHoverId(null)}
-               onClick={(e) => { e.stopPropagation(); setSelectedId(selectedId === n.id ? null : n.id); }}
-               style={{ cursor: "pointer", opacity: lit ? 1 : 0.12 }}>
+            <g key={n.id} className="uni-node" transform={`translate(${px(n)},${py(n)})`}
+               onPointerEnter={() => setHoverId(n.id)} onPointerLeave={() => setHoverId((h) => (h === n.id ? null : h))}
+               onClick={(e) => { e.stopPropagation(); setHoverId(n.id); setSelectedId(selectedId === n.id ? null : n.id); }}
+               style={{ cursor: "pointer", opacity: nodeOpacity(n.id), pointerEvents: inScope(n.id) ? "auto" : "none" }}>
               <circle r={n.r} fill={color} stroke="#fff" strokeWidth={sel ? 2.5 : 1.5}
                 style={sel || hoverId === n.id ? { filter: `drop-shadow(0 0 7px ${color})` } : {}} />
               <text textAnchor="middle" dy="3.5" fontSize={n.nameKo.length > 2 ? 10 : 11.5}
@@ -741,13 +893,12 @@ function OrganMap({ organs, herbs, categories, catById, organById, selectedId, s
         })}
 
         {nodes.filter((n) => n.type === "anchor").map((n) => {
-          const lit = isLit(n.id);
           const isFocus = focusId === n.id;
           return (
-            <g key={n.id} transform={`translate(${px(n)},${py(n)})`}
-               onMouseEnter={() => setHoverId(n.id)} onMouseLeave={() => setHoverId(null)}
-               onClick={(e) => { e.stopPropagation(); setSelectedId(selectedId === n.id ? null : n.id); }}
-               style={{ cursor: "pointer", opacity: lit ? 1 : 0.2 }}>
+            <g key={n.id} className="uni-node" transform={`translate(${px(n)},${py(n)})`}
+               onPointerEnter={() => setHoverId(n.id)} onPointerLeave={() => setHoverId((h) => (h === n.id ? null : h))}
+               onClick={(e) => { e.stopPropagation(); setHoverId(n.id); setSelectedId(selectedId === n.id ? null : n.id); }}
+               style={{ cursor: "pointer", opacity: nodeOpacity(n.id), pointerEvents: inScope(n.id) ? "auto" : "none" }}>
               <circle r={n.r}
                 fill={n.kind === "compound" ? "rgba(47,93,69,0.95)" : (n.isJang ? "rgba(54,70,82,0.96)" : "rgba(248,251,252,0.97)")}
                 stroke={isFocus ? "#1d2832" : (n.kind === "compound" ? "#2f5d45" : (n.isJang ? "#364652" : "rgba(120,140,155,0.8)"))}
@@ -759,6 +910,49 @@ function OrganMap({ organs, herbs, categories, catById, organById, selectedId, s
             </g>
           );
         })}
+
+        {(() => {
+          const n = hoverId ? byId[hoverId] : null;
+          if (!n) return null;
+          const [vbX, , vbW] = layout.vb.split(" ").map(Number);
+          const W_TIP = 190;
+          const flip = px(n) + n.r + 12 + W_TIP > vbX + vbW;        // 오른쪽 경계 넘으면 좌측 배치
+          const tx = flip ? px(n) - n.r - 12 - W_TIP : px(n) + n.r + 12;
+          const ty = py(n) - 18;
+          let body;
+          if (n.type === "herb") {
+            const cat = catById[n.primaryCategory];
+            const organs = (n.meridians || []).filter((m) => organById[m]);
+            body = (
+              <>
+                <div className="tip-name">{n.nameKo}{n.nameHanja ? <small>{n.nameHanja}</small> : null}</div>
+                {cat ? <div className="tip-cat"><i style={{ background: cat.color }} />{cat.name}</div> : null}
+                {organs.length ? <div className="tip-organs">연결 장부 <b>{organs.join(" · ")}</b></div> : null}
+              </>
+            );
+          } else if (n.kind === "organ") {
+            body = (
+              <>
+                <div className="tip-name">{n.id}{n.hanja ? <small>{n.hanja}</small> : null}</div>
+                {n.plain ? <div className="tip-organs">{n.plain}</div> : null}
+                <div className="tip-organs">연결된 재료 <b>{n.count}종</b></div>
+              </>
+            );
+          } else {
+            body = (
+              <>
+                <div className="tip-name">{n.fullLabel || n.label}</div>
+                <div className="tip-organs">이 성분군 재료 <b>{n.count}종</b></div>
+              </>
+            );
+          }
+          return (
+            <foreignObject x={tx} y={ty} width={W_TIP} height={150}
+              style={{ pointerEvents: "none", overflow: "visible" }}>
+              <div className="uni-tip" xmlns="http://www.w3.org/1999/xhtml">{body}</div>
+            </foreignObject>
+          );
+        })()}
       </svg>
     </div>
   );
