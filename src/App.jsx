@@ -36,6 +36,25 @@ const ICONS = {
   Activity, Brain, Waves, Sparkles, Sprout, Moon, CircleDot, Leaf,
 };
 
+const DEFAULT_BODY_TAGS = [
+  { id: "head_skin",    label: "머리/얼굴/피부", tag: { x: 6,  y:  9 }, zone: "ellipse(9%  7%  at 50%  9%)", gradient: "radial-gradient(ellipse 30% 25% at 50%  9%, rgba(175,60,50,0.28), rgba(175,60,50,0.06) 60%, transparent 92%)" },
+  { id: "neck_shoulder",label: "목/어깨",        tag: { x: 72, y: 20 }, zone: "ellipse(26% 4%  at 50% 20%)", gradient: "radial-gradient(ellipse 32% 12% at 50% 20%, rgba(175,60,50,0.26), rgba(175,60,50,0.06) 60%, transparent 92%)" },
+  { id: "digestive",    label: "소화기",         tag: { x: 82, y: 44 }, zone: "ellipse(9%  8%  at 50% 37%)", gradient: "radial-gradient(ellipse 28% 26% at 50% 37%, rgba(175,60,50,0.28), rgba(175,60,50,0.06) 60%, transparent 92%)" },
+  { id: "waist",        label: "허리",           tag: { x: 6,  y: 48 }, zone: "ellipse(24% 3%  at 50% 45%)", gradient: "radial-gradient(ellipse 32% 10% at 50% 45%, rgba(175,60,50,0.26), rgba(175,60,50,0.06) 60%, transparent 92%)" },
+  { id: "leg_knee",     label: "다리/무릎",      tag: { x: 82, y: 72 }, zone: "inset(58% 32% 18% 32%)",      gradient: "radial-gradient(ellipse 28% 11% at 50% 70%, rgba(175,60,50,0.28), rgba(175,60,50,0.06) 62%, transparent 94%)" },
+];
+
+function useBodyTags() {
+  const [bodyTags, setBodyTags] = useState(DEFAULT_BODY_TAGS);
+  useEffect(() => {
+    fetch("/data/body_tags.json")
+      .then((res) => res.json())
+      .then(setBodyTags)
+      .catch(() => {});
+  }, []);
+  return bodyTags;
+}
+
 function useKnowledgeData() {
   const [data, setData] = useState({
     herbs: [], symptoms: [], prescriptions: [],
@@ -76,7 +95,8 @@ function App() {
     if (h === "#library") return "library";
     if (h === "#clinics") return "clinics";
     if (h === "#sasang") return "sasang";
-    return "diagnosis";
+    if (h === "#diagnosis") return "diagnosis";
+    return "navigation";
   });
   const [complaint, setComplaint] = useState(null);
   const [libTarget, setLibTarget] = useState(null); // 진단→라이브러리 사전선택 U코드
@@ -86,7 +106,8 @@ function App() {
 
   const setView = (nextView) => {
     setViewState(nextView);
-    window.location.hash = nextView === "library" ? "library" : nextView === "clinics" ? "clinics" : nextView === "sasang" ? "sasang" : "";
+    const hashMap = { library: "library", clinics: "clinics", sasang: "sasang", diagnosis: "diagnosis" };
+    window.location.hash = hashMap[nextView] || "";
   };
 
   // 증상 선택 → 진단 결과 화면 열기
@@ -103,10 +124,12 @@ function App() {
   };
 
   const isAltView = view === "library" || view === "clinics" || view === "sasang";
+  const shellExtra = view === "library" ? "library-shell" : view === "clinics" ? "clinics-shell" : view === "sasang" ? "sasang-shell" : view === "navigation" ? "navigation-shell" : "";
   return (
-    <main className={`shell ${isAltView ? "library-shell" : ""}`}>
+    <main className={`shell ${shellExtra}`}>
       <Header view={view} setView={setView} />
-      {view === "library" ? <HerbLibrary data={data} initialSelectedId={libTarget} onConsumeInitial={() => setLibTarget(null)} onNavigate={setView} /> :
+      {view === "navigation" ? <PersonaGuide setView={setView} /> :
+       view === "library" ? <HerbLibrary data={data} initialSelectedId={libTarget} onConsumeInitial={() => setLibTarget(null)} /> :
        view === "clinics" ? <ClinicsPage clinics={clinicsData} /> :
        view === "sasang" ? <SasangPage setView={setView} /> :
        view === "diagnosis-result" && complaint ? <DiagnosisResult complaint={complaint} setView={setView} onOpenLibrary={openLibraryUcode} ucodeIds={ucodeIdSet} /> :
@@ -117,6 +140,7 @@ function App() {
 
 function Header({ view, setView }) {
   const items = [
+    ["navigation", "NAVIGATION"],
     ["diagnosis", "SELF-DIAGNOSIS"],
     ["library", "HERB LIBRARY"],
     ["clinics", "CLINICS"],
@@ -125,10 +149,10 @@ function Header({ view, setView }) {
 
   return (
     <header className="topbar">
-      <button className="brand brand-button" type="button" onClick={() => setView("diagnosis")}>MEDVIS</button>
+      <button className="brand brand-button" type="button" onClick={() => setView("navigation")}>MEDVIS</button>
       <nav className="nav" aria-label="Primary">
         {items.map(([key, label]) => (
-          <button key={key} className={view === key ? "active" : ""} type="button" onClick={() => setView(["library", "clinics", "sasang"].includes(key) ? key : "diagnosis")}>
+          <button key={key} className={view === key ? "active" : ""} type="button" onClick={() => setView(key)}>
             {label}
           </button>
         ))}
@@ -179,37 +203,40 @@ function PersonaGuide({ setView }) {
   const active = PERSONAS.find((p) => p.id === persona) || PERSONAS[0];
   return (
     <section className="persona-guide" aria-label="사용 안내">
-      <p className="eyebrow">START HERE</p>
-      <h2 className="persona-title">어디서부터 보면 좋을까요?</h2>
-      <p className="persona-lead">당신이 누구냐에 따라, 이 사이트를 어떻게 쓰면 좋을지 안내해드려요.</p>
-      <div className="persona-cards" role="tablist">
-        {PERSONAS.map((p) => {
-          const Icon = p.icon;
-          const on = p.id === persona;
-          return (
-            <button key={p.id} type="button" role="tab" aria-selected={on}
-              className={`persona-card ${on ? "active" : ""}`}
-              onClick={() => setPersona(p.id)}>
-              <span className="persona-card-icon"><Icon size={22} /></span>
-              <span className="persona-card-body">
-                <strong>{p.title}</strong>
-                <small>{p.subtitle}</small>
-              </span>
-            </button>
-          );
-        })}
+      <div className="persona-left">
+        <h2 className="persona-title">어디서부터 보면 좋을까요?</h2>
+        <p className="persona-lead">당신이 누구냐에 따라, 이 사이트를 어떻게 쓰면 좋을지 안내해드려요.</p>
+        <div className="persona-guide-detail">
+          <p className="persona-blurb">{active.blurb}</p>
+          <div className="persona-path">
+            {active.steps.map((s, i) => (
+              <Fragment key={s.label}>
+                {i > 0 && <span className="persona-arrow" aria-hidden="true"><ArrowRight size={16} /></span>}
+                <button type="button" className="persona-step" onClick={() => setView(s.view)}>
+                  <em>{String(i + 1).padStart(2, "0")}</em>{s.label}
+                </button>
+              </Fragment>
+            ))}
+          </div>
+        </div>
       </div>
-      <div className="persona-guide-detail">
-        <p className="persona-blurb">{active.blurb}</p>
-        <div className="persona-path">
-          {active.steps.map((s, i) => (
-            <Fragment key={s.label}>
-              {i > 0 && <span className="persona-arrow" aria-hidden="true"><ArrowRight size={16} /></span>}
-              <button type="button" className="persona-step" onClick={() => setView(s.view)}>
-                <em>{String(i + 1).padStart(2, "0")}</em>{s.label}
+      <div className="persona-right">
+        <div className="persona-cards" role="tablist">
+          {PERSONAS.map((p) => {
+            const Icon = p.icon;
+            const on = p.id === persona;
+            return (
+              <button key={p.id} type="button" role="tab" aria-selected={on}
+                className={`persona-card ${on ? "active" : ""}`}
+                onClick={() => setPersona(p.id)}>
+                <span className="persona-card-icon"><Icon size={22} /></span>
+                <span className="persona-card-body">
+                  <strong>{p.title}</strong>
+                  <small>{p.subtitle}</small>
+                </span>
               </button>
-            </Fragment>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
@@ -240,6 +267,14 @@ const BODY_PARTS = [
 const BODY_BY_PART = Object.fromEntries(BODY_PARTS.map((b) => [b.part, b]));
 // 전체 호소 (순서 보존 중복 제거)
 const ALL_COMPLAINTS = [...new Set(BODY_PARTS.flatMap((b) => b.complaints))];
+// 인체 레이어 body tag → 관련 증상 매핑
+const BODY_TAG_COMPLAINTS = {
+  head_skin:    ["두통 증상", "불면", "스트레스", "만성피로", "탈모", "ADHD증상"],
+  neck_shoulder:["견비통", "경항통", "요통", "디스크증상", "근육통", "손목통증"],
+  digestive:    ["소화 증상", "식욕부진"],
+  waist:        ["요통", "디스크증상", "근육통", "교통사고후유증", "좌상_타박"],
+  leg_knee:     ["슬통", "족통", "좌골신경통", "손발저림"],
+};
 // 친숙 라벨/아이콘 (8개 frequent만; 나머지는 enum 라벨 + 기본 아이콘)
 const LABEL_BY_COMPLAINT = Object.fromEntries(SYMPTOMS.map(([label, , c]) => [c, label]));
 const ICON_BY_COMPLAINT = Object.fromEntries(SYMPTOMS.map(([, Icon, c]) => [c, Icon]));
@@ -247,15 +282,37 @@ const labelOf = (c) => LABEL_BY_COMPLAINT[c] || c;
 const iconOf = (c) => ICON_BY_COMPLAINT[c] || Leaf;
 
 function StartPage({ setView, onDiagnose }) {
-  const [selected, setSelected] = useState(["만성피로"]); // 선택된 한방 호소(enum)
+  const [selected, setSelected] = useState("만성피로"); // 선택된 한방 호소(enum)
   const [activeBody, setActiveBody] = useState(null);     // 신체부위 필터
   const [showAll, setShowAll] = useState(false);          // 전체 증상 보기
   const [query, setQuery] = useState("");                 // 검색어
-  const primary = selected[0] || null;
+  const [activeBodyTag, setActiveBodyTag] = useState(null);
+  const [debugPos, setDebugPos] = useState(null);
+  const bodyTags = useBodyTags();
+  const hoverTimer = useRef(null);
+  const dragRef = useRef(null);
+  const bodyDebug = new URLSearchParams(window.location.search).has("bodyDebug");
+
+  const onSymptomsMouseDown = (e) => {
+    const el = e.currentTarget;
+    dragRef.current = { y: e.clientY, top: el.scrollTop };
+    const onMove = (mv) => { el.scrollTop = dragRef.current.top - (mv.clientY - dragRef.current.y); };
+    const onUp = () => { window.removeEventListener("mousemove", onMove); window.removeEventListener("mouseup", onUp); };
+    window.addEventListener("mousemove", onMove);
+    window.addEventListener("mouseup", onUp);
+  };
+  const primary = selected || null;
   const goDiagnose = () => onDiagnose && onDiagnose(primary);
 
-  const toggleComplaint = (c) =>
-    setSelected((cur) => (cur.includes(c) ? cur.filter((x) => x !== c) : [...cur, c]));
+  const handleFigureMouseMove = bodyDebug ? (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = Math.round((e.clientX - rect.left) / rect.width * 100);
+    const y = Math.round((e.clientY - rect.top) / rect.height * 100);
+    setDebugPos({ x, y });
+  } : undefined;
+  const handleFigureMouseLeave = bodyDebug ? () => setDebugPos(null) : undefined;
+
+  const toggleComplaint = (c) => setSelected((cur) => cur === c ? null : c);
   const resetView = () => { setShowAll(false); setActiveBody(null); setQuery(""); };
   const pickBody = (part) => { setQuery(""); setShowAll(false); setActiveBody((p) => (p === part ? null : part)); };
 
@@ -268,6 +325,10 @@ function StartPage({ setView, onDiagnose }) {
   } else if (showAll) {
     items = ALL_COMPLAINTS;
     headerLabel = `전체 증상 (${items.length})`;
+  } else if (activeBody && BODY_TAG_COMPLAINTS[activeBody]) {
+    items = BODY_TAG_COMPLAINTS[activeBody];
+    const tagLabel = bodyTags.find((t) => t.id === activeBody)?.label || activeBody;
+    headerLabel = `${tagLabel} 관련 증상`;
   } else if (activeBody && BODY_BY_PART[activeBody]) {
     items = BODY_BY_PART[activeBody].complaints;
     headerLabel = `${BODY_BY_PART[activeBody].label} 관련 증상`;
@@ -275,11 +336,10 @@ function StartPage({ setView, onDiagnose }) {
     items = SYMPTOMS.map(([, , c]) => c);
     headerLabel = "자주 선택한 증상";
   }
-  const isFrequent = !q && !showAll && !activeBody;
+  const isFrequent = !q && !showAll && !activeBody && !activeBodyTag;
 
   return (
     <>
-      <PersonaGuide setView={setView} />
       <section className="hero" aria-label="Self diagnosis">
       <div className="intro">
         <p className="eyebrow">SELF-DIAGNOSIS</p>
@@ -287,20 +347,59 @@ function StartPage({ setView, onDiagnose }) {
         <p className="copy">몸이 보내는 작은 신호들을 놓치지 마세요.<br />AI가 당신의 컨디션을 분석하고, 균형 회복을 위한<br />맞춤 솔루션을 제안해드려요.</p>
       </div>
 
-      <div className="anatomy-stage">
+      <div className="anatomy-stage" aria-label="신체 부위">
         <div className="orbit orbit-a" aria-hidden="true" /><div className="orbit orbit-b" aria-hidden="true" /><div className="orbit orbit-c" aria-hidden="true" />
         <div className="spark s1" aria-hidden="true" /><div className="spark s2" aria-hidden="true" /><div className="spark s3" aria-hidden="true" />
-        {BODY_PARTS.map((b) => {
-          const on = activeBody === b.part;
-          const cnt = b.complaints.filter((c) => selected.includes(c)).length;
-          return (
-            <button key={b.part} data-part={b.part} type="button"
-              className={`body-tag ${on ? "active" : ""} ${cnt ? "has-selection" : ""}`}
-              aria-pressed={on} onClick={() => pickBody(b.part)}>
-              <span />{b.label} {cnt ? <span className="count">{cnt}</span> : <b>＋</b>}
+        <div className={`figure-wrap ${bodyDebug ? "debug" : ""}`}
+          onMouseMove={handleFigureMouseMove}
+          onMouseLeave={handleFigureMouseLeave}
+        >
+          <img className="human-figure" src="/assets/images/human-figure-cropped.png" alt="" />
+          <div className="body-heat-layer">
+            {bodyTags.map((part) => (
+              <div key={`${part.id}-heat`}
+                className={`body-heat-zone ${activeBodyTag === part.id ? "active" : ""}`}
+                style={{ clipPath: part.zone, WebkitClipPath: part.zone, background: part.gradient }}
+              />
+            ))}
+          </div>
+          <div className="body-zone-debug" aria-hidden="true">
+            {bodyTags.map((part) => (
+              <div key={`${part.id}-debug`} className="body-zone-guide"
+                style={{ clipPath: part.zone, WebkitClipPath: part.zone }} />
+            ))}
+          </div>
+          {bodyDebug && debugPos && (
+            <>
+              <div className="debug-crosshair-v" style={{ left: `${debugPos.x}%` }} />
+              <div className="debug-crosshair-h" style={{ top: `${debugPos.y}%` }} />
+              <div className="debug-pos-label" style={{
+                left: debugPos.x > 60 ? "auto" : `${debugPos.x}%`,
+                right: debugPos.x > 60 ? `${100 - debugPos.x}%` : "auto",
+                top: debugPos.y > 80 ? "auto" : `${debugPos.y}%`,
+                bottom: debugPos.y > 80 ? `${100 - debugPos.y}%` : "auto",
+              }}>x:{debugPos.x} y:{debugPos.y}</div>
+            </>
+          )}
+          {bodyTags.map((part) => (
+            <button key={part.id}
+              className={`body-tag data-body-tag ${activeBodyTag === part.id ? "active" : ""}`}
+              style={{ left: `${part.tag.x}%`, top: `${part.tag.y}%` }}
+              type="button"
+              onMouseEnter={() => { clearTimeout(hoverTimer.current); setActiveBodyTag(part.id); }}
+              onMouseLeave={() => { hoverTimer.current = setTimeout(() => setActiveBodyTag(null), 80); }}
+              onClick={() => {
+                const complaints = BODY_TAG_COMPLAINTS[part.id] || [];
+                setActiveBody(part.id);
+                setShowAll(false);
+                setQuery("");
+                if (complaints.length > 0) setSelected(complaints[0]);
+              }}
+            >
+              <span />{part.label}
             </button>
-          );
-        })}
+          ))}
+        </div>
       </div>
 
       <aside className="diagnosis" aria-label="증상 선택">
@@ -312,13 +411,13 @@ function StartPage({ setView, onDiagnose }) {
             <span>{headerLabel}</span>
             {!isFrequent && <button type="button" className="clear" onClick={resetView}>← 자주 본 증상</button>}
           </p>
-          <div className={`symptoms ${isFrequent ? "" : "expanded"}`}>
+          <div className={`symptoms ${isFrequent ? "" : "expanded"}`} onMouseDown={onSymptomsMouseDown} style={{ cursor: "grab" }}>
             {items.length === 0 ? (
               <p className="sym-empty">검색 결과가 없어요. 다른 키워드로 찾아보세요.</p>
             ) : (
               items.map((complaint) => {
                 const Icon = iconOf(complaint);
-                const isSelected = selected.includes(complaint);
+                const isSelected = selected === complaint;
                 return (
                   <button key={complaint} className={`symptom ${isSelected ? "selected" : ""}`} type="button" onClick={() => toggleComplaint(complaint)}>
                     {isSelected && <i className="check">✓</i>}
@@ -332,7 +431,7 @@ function StartPage({ setView, onDiagnose }) {
           <button className="all" type="button" onClick={() => { setShowAll((v) => !v); setActiveBody(null); setQuery(""); }}>
             <span>{showAll ? "자주 본 증상만" : "전체 증상 보기"}</span><b>{showAll ? "－" : "＋"}</b>
           </button>
-          <button className="complete" type="button" onClick={goDiagnose} disabled={!primary}><span>선택 완료</span><small>{selected.length}</small><b><ArrowRight size={20} /></b></button>
+          <button className="complete" type="button" onClick={goDiagnose} disabled={!primary}><span>선택 완료</span><b><ArrowRight size={20} /></b></button>
         </div>
       </aside>
 
