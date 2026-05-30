@@ -73,8 +73,10 @@ function App() {
     return "diagnosis";
   });
   const [complaint, setComplaint] = useState(null);
+  const [libTarget, setLibTarget] = useState(null); // 진단→라이브러리 사전선택 U코드
   const data = useKnowledgeData();
   const clinicsData = useClinicsData(view === "clinics");
+  const ucodeIdSet = useMemo(() => new Set((data.ucodes || []).map((u) => u.id)), [data.ucodes]);
 
   const setView = (nextView) => {
     setViewState(nextView);
@@ -88,14 +90,20 @@ function App() {
     setView("diagnosis-result");
   };
 
+  // 진단 결과의 변증(U코드) → 라이브러리에서 연결 약재 보기
+  const openLibraryUcode = (uid) => {
+    setLibTarget(uid);
+    setView("library");
+  };
+
   const isAltView = view === "library" || view === "clinics" || view === "sasang";
   return (
     <main className={`shell ${isAltView ? "library-shell" : ""}`}>
       <Header view={view} setView={setView} />
-      {view === "library" ? <HerbLibrary data={data} /> :
+      {view === "library" ? <HerbLibrary data={data} initialSelectedId={libTarget} onConsumeInitial={() => setLibTarget(null)} /> :
        view === "clinics" ? <ClinicsPage clinics={clinicsData} /> :
        view === "sasang" ? <SasangPage setView={setView} /> :
-       view === "diagnosis-result" && complaint ? <DiagnosisResult complaint={complaint} setView={setView} /> :
+       view === "diagnosis-result" && complaint ? <DiagnosisResult complaint={complaint} setView={setView} onOpenLibrary={openLibraryUcode} ucodeIds={ucodeIdSet} /> :
        <StartPage setView={setView} onDiagnose={startDiagnosis} />}
     </main>
   );
@@ -271,7 +279,7 @@ function StartPage({ setView, onDiagnose }) {
   );
 }
 
-function HerbLibrary({ data }) {
+function HerbLibrary({ data, initialSelectedId, onConsumeInitial }) {
   const { herbs, symptoms, prescriptions, categories, ucodes, organs, herbImages } = data;
   const [viewMode, setViewMode] = useState("guide"); // 'guide' | 'organ' | 'prescription'
   const [activeCategoryId, setActiveCategoryId] = useState(null);
@@ -286,6 +294,16 @@ function HerbLibrary({ data }) {
   const herbById = useMemo(() => Object.fromEntries(herbs.map((h) => [h.id, h])), [herbs]);
   const symById = useMemo(() => Object.fromEntries(symptoms.map((s) => [s.id, s])), [symptoms]);
   const ucodeById = useMemo(() => Object.fromEntries(ucodes.map((u) => [u.id, u])), [ucodes]);
+
+  // 진단 결과에서 넘어온 변증(U코드) 사전선택 적용 (1회 소비)
+  useEffect(() => {
+    if (!initialSelectedId) return;
+    setSelectedId(initialSelectedId);
+    const cat = ucodeById[initialSelectedId]?.category;
+    if (cat) setActiveCategoryId(cat);
+    setViewMode("guide");
+    if (onConsumeInitial) onConsumeInitial();
+  }, [initialSelectedId]); // eslint-disable-line react-hooks/exhaustive-deps
   const catById = useMemo(() => Object.fromEntries(categories.map((c) => [c.id, c])), [categories]);
   const organById = useMemo(() => Object.fromEntries(organs.map((o) => [o.id, o])), [organs]);
 

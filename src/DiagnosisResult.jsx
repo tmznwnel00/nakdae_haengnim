@@ -157,7 +157,8 @@ function drawBridge(root, svg, topKcd, topU, links) {
 }
 
 // ============ 컴포넌트 ============
-export default function DiagnosisResult({ complaint, setView }) {
+export default function DiagnosisResult({ complaint, setView, onOpenLibrary, ucodeIds }) {
+  const canLink = (uc) => !!(onOpenLibrary && ucodeIds && ucodeIds.has(uc));
   const [state, setState] = useState({ status: "loading", error: null, kcdRows: [], uRows: [], links: [], extracted: [], samples: [] });
   const [expanded, setExpanded] = useState(() => new Set());
   const bridgeRef = useRef(null);
@@ -241,6 +242,11 @@ export default function DiagnosisResult({ complaint, setView }) {
           <p className="lede">
             한의원 후기 9,700건을 LLM으로 추출한 데이터셋에서, 환자가 직접 호소한 한방 증상을 양방 진단·한의 변증 코드와 연결하고 실제 경과를 집계합니다.
           </p>
+          {topU.some((r) => canLink(r.u_code)) && (
+            <button type="button" className="lens-cta" onClick={() => onOpenLibrary(topU.find((r) => canLink(r.u_code)).u_code)}>
+              이 증상의 한방 약재 보기 <span aria-hidden="true">→</span>
+            </button>
+          )}
         </div>
         <div className="stats">
           <div className="stat">
@@ -295,15 +301,23 @@ export default function DiagnosisResult({ complaint, setView }) {
                     </div>
                     <div className="bridge-col">
                       <h3>한의 U코드</h3>
-                      {topU.map((r, i) => (
-                        <div className="item" id={`bc-u-${i}`} key={r.u_code} data-u={r.u_code}>
-                          <div className="label"><span className="code">{r.u_code}</span>{r.u_name_ko || ""}</div>
-                          <div className="meta">
-                            <span style={{ fontSize: "10.5px", color: "var(--l-muted)" }}>{r.u_name_en || ""}</span>
-                            <span className="w">{(+r.score).toFixed(2)}</span>
+                      {topU.map((r, i) => {
+                        const link = canLink(r.u_code);
+                        return (
+                          <div className={`item ${link ? "u-link" : ""}`} id={`bc-u-${i}`} key={r.u_code} data-u={r.u_code}
+                            role={link ? "button" : undefined} tabIndex={link ? 0 : undefined}
+                            title={link ? "이 변증에 쓰는 약재 보기" : undefined}
+                            onClick={link ? () => onOpenLibrary(r.u_code) : undefined}
+                            onKeyDown={link ? (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onOpenLibrary(r.u_code); } } : undefined}>
+                            <div className="label"><span className="code">{r.u_code}</span>{r.u_name_ko || ""}</div>
+                            <div className="meta">
+                              <span style={{ fontSize: "10.5px", color: "var(--l-muted)" }}>{r.u_name_en || ""}</span>
+                              <span className="w">{(+r.score).toFixed(2)}</span>
+                            </div>
+                            {link && <span className="u-go" aria-hidden="true">약재 보기 →</span>}
                           </div>
-                        </div>
-                      ))}
+                        );
+                      })}
                     </div>
                   </div>
                   <svg className="bridge-svg" ref={svgRef} aria-hidden="true" />
@@ -423,6 +437,24 @@ export default function DiagnosisResult({ complaint, setView }) {
               )}
             </div>
           </section>
+
+          {/* 다음 단계 — 한방 약재로 이어보기 */}
+          {topU.some((r) => canLink(r.u_code)) && (
+            <section className="panel lens-next" style={{ marginTop: 24 }}>
+              <div className="title">
+                <h2>다음 단계 — 한방 약재로 이어보기</h2>
+                <span className="n">변증 {topU.filter((r) => canLink(r.u_code)).length}</span>
+              </div>
+              <p className="lens-next-lede">‘{complaint}’과(와) 연결된 한의 변증입니다. 눌러서 라이브러리에서 해당 변증에 쓰는 약재를 확인하세요.</p>
+              <div className="lens-next-chips">
+                {topU.filter((r) => canLink(r.u_code)).map((r) => (
+                  <button key={r.u_code} type="button" className="chip" onClick={() => onOpenLibrary(r.u_code)}>
+                    <span className="code">{r.u_code}</span>{r.u_name_ko} <span aria-hidden="true">→</span>
+                  </button>
+                ))}
+              </div>
+            </section>
+          )}
 
           {/* 데이터 한계 · 출처 */}
           <section className="panel limits" style={{ marginTop: 24 }}>
