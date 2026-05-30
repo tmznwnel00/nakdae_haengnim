@@ -228,7 +228,6 @@ function StartPage({ setView, onDiagnose }) {
         <p className="eyebrow">SELF-DIAGNOSIS</p>
         <h1>당신의 몸은 지금,<br />어떤 신호를<br />보내고 있나요?</h1>
         <p className="copy">몸이 보내는 작은 신호들을 놓치지 마세요.<br />AI가 당신의 컨디션을 분석하고, 균형 회복을 위한<br />맞춤 솔루션을 제안해드려요.</p>
-        <button className="start" type="button" onClick={goDiagnose} disabled={!primary}><span>진단 시작하기</span><span className="arrow"><ArrowRight size={22} /></span></button>
       </div>
 
       <div className="anatomy-stage" aria-hidden="true">
@@ -243,7 +242,6 @@ function StartPage({ setView, onDiagnose }) {
       </div>
 
       <aside className="diagnosis" aria-label="증상 선택">
-        <div className="progress-row"><span>진단 진행률</span><div className="progress"><i /></div><strong>1/5</strong></div>
         <div className="panel">
           <h2>어떤 증상이 느껴지나요?</h2>
           <p>해당하는 증상을 선택해주세요. (복수 선택 가능)</p>
@@ -266,7 +264,6 @@ function StartPage({ setView, onDiagnose }) {
         </div>
       </aside>
 
-      <div className="steps"><button className="current" type="button">01 증상 선택</button><button type="button">02 문진</button><button type="button">03 분석 중</button><button type="button">04 결과 확인</button></div>
       </section>
     </>
   );
