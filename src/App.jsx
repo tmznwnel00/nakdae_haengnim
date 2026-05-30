@@ -10,7 +10,6 @@ import {
   Compass,
   Grid3x3,
   Leaf,
-  Menu,
   Moon,
   Search,
   Sparkles,
@@ -94,12 +93,10 @@ function App() {
 
 function Header({ view, setView }) {
   const items = [
-    ["about", "ABOUT"],
     ["diagnosis", "SELF-DIAGNOSIS"],
     ["library", "HERB LIBRARY"],
     ["clinics", "CLINICS"],
     ["sasang", "SASANG"],
-    ["mypage", "MY PAGE"],
   ];
 
   return (
@@ -112,10 +109,7 @@ function Header({ view, setView }) {
           </button>
         ))}
       </nav>
-      <div className="actions">
-        <button className="login" type="button">로그인</button>
-        <button className="icon-button" type="button" aria-label="메뉴 열기"><Menu size={20} /></button>
-      </div>
+      <div className="actions" />
     </header>
   );
 }
