@@ -1874,18 +1874,24 @@
   text-align: right;
 }
 
+.sas-sections-area {
+  padding: 16px 20px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 .sas-two-col {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0;
+  gap: 10px;
 }
 
 .sas-section {
-  padding: 20px 36px;
-}
-
-.sas-two-col .sas-section {
-  padding: 20px 28px;
+  padding: 16px 18px;
+  background: rgba(255, 255, 255, 0.35);
+  border: 1px solid rgba(160, 175, 188, 0.14);
+  border-radius: 14px;
 }
 
 .sas-section h3 {
@@ -1913,7 +1919,7 @@
 
 .sas-reset-btn {
   display: block;
-  margin: 24px 36px 8px;
+  margin: 16px 20px 8px;
   padding: 11px 28px;
   font-size: 13.5px;
   font-weight: 600;
@@ -1930,7 +1936,7 @@
 }
 
 .sasang-result .disclaimer {
-  padding: 0 36px 28px;
+  padding: 0 20px 24px;
   margin: 0;
 }
 

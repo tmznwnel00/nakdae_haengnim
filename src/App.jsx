@@ -2104,35 +2104,37 @@ function SasangResult({ result, onReset, setView }) {
           })}
         </div>
 
-        <div className="sas-two-col">
-          <div className="sas-section">
-            <h3>강점</h3>
-            <div className="jd-pills">{data.strengths.map((s) => <span key={s} className="jd-pill">{s}</span>)}</div>
+        <div className="sas-sections-area">
+          <div className="sas-two-col">
+            <div className="sas-section">
+              <h3>강점</h3>
+              <div className="jd-pills">{data.strengths.map((s) => <span key={s} className="jd-pill">{s}</span>)}</div>
+            </div>
+            <div className="sas-section">
+              <h3>주의 경향</h3>
+              <div className="jd-pills">{data.weaknesses.map((w) => <span key={w} className="jd-pill complaint">{w}</span>)}</div>
+            </div>
           </div>
-          <div className="sas-section">
-            <h3>주의 경향</h3>
-            <div className="jd-pills">{data.weaknesses.map((w) => <span key={w} className="jd-pill complaint">{w}</span>)}</div>
-          </div>
-        </div>
 
-        <div className="sas-section">
-          <h3>어울리는 약재</h3>
-          <p className="sas-hint">클릭하면 Herb Library에서 자세히 볼 수 있어요</p>
-          <div className="jd-pills">
-            {data.herbs.map((h) => (
-              <button key={h} type="button" className="jd-pill tx" onClick={() => setView("library")}>{h}</button>
-            ))}
+          <div className="sas-section">
+            <h3>어울리는 약재</h3>
+            <p className="sas-hint">클릭하면 Herb Library에서 자세히 볼 수 있어요</p>
+            <div className="jd-pills">
+              {data.herbs.map((h) => (
+                <button key={h} type="button" className="jd-pill tx" onClick={() => setView("library")}>{h}</button>
+              ))}
+            </div>
           </div>
-        </div>
 
-        <div className="sas-two-col">
-          <div className="sas-section">
-            <h3>좋은 음식</h3>
-            <div className="jd-pills">{data.foods.map((f) => <span key={f} className="jd-pill">{f}</span>)}</div>
-          </div>
-          <div className="sas-section">
-            <h3>피할 것</h3>
-            <div className="jd-pills">{data.avoid.map((a) => <span key={a} className="jd-pill complaint">{a}</span>)}</div>
+          <div className="sas-two-col">
+            <div className="sas-section">
+              <h3>좋은 음식</h3>
+              <div className="jd-pills">{data.foods.map((f) => <span key={f} className="jd-pill">{f}</span>)}</div>
+            </div>
+            <div className="sas-section">
+              <h3>피할 것</h3>
+              <div className="jd-pills">{data.avoid.map((a) => <span key={a} className="jd-pill complaint">{a}</span>)}</div>
+            </div>
           </div>
         </div>
 
