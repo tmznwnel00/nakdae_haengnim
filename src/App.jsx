@@ -97,8 +97,9 @@ function App() {
   };
 
   const isAltView = view === "library" || view === "clinics" || view === "sasang";
+  const shellExtra = view === "library" ? "library-shell" : view === "clinics" ? "clinics-shell" : view === "sasang" ? "sasang-shell" : "";
   return (
-    <main className={`shell ${isAltView ? "library-shell" : ""}`}>
+    <main className={`shell ${shellExtra}`}>
       <Header view={view} setView={setView} />
       {view === "library" ? <HerbLibrary data={data} initialSelectedId={libTarget} onConsumeInitial={() => setLibTarget(null)} /> :
        view === "clinics" ? <ClinicsPage clinics={clinicsData} /> :
@@ -223,8 +224,8 @@ const SYMPTOMS = [
 ];
 
 function StartPage({ setView, onDiagnose }) {
-  const [selected, setSelected] = useState(["만성피로"]); // 선택된 한방 호소(enum)
-  const primary = selected[0] || null;
+  const [selected, setSelected] = useState("만성피로"); // 선택된 한방 호소(enum)
+  const primary = selected || null;
   const goDiagnose = () => onDiagnose && onDiagnose(primary);
 
   return (
@@ -235,7 +236,6 @@ function StartPage({ setView, onDiagnose }) {
         <p className="eyebrow">SELF-DIAGNOSIS</p>
         <h1>당신의 몸은 지금,<br />어떤 신호를<br />보내고 있나요?</h1>
         <p className="copy">몸이 보내는 작은 신호들을 놓치지 마세요.<br />AI가 당신의 컨디션을 분석하고, 균형 회복을 위한<br />맞춤 솔루션을 제안해드려요.</p>
-        <button className="start" type="button" onClick={goDiagnose} disabled={!primary}><span>진단 시작하기</span><span className="arrow"><ArrowRight size={22} /></span></button>
       </div>
 
       <div className="anatomy-stage" aria-hidden="true">
@@ -250,17 +250,16 @@ function StartPage({ setView, onDiagnose }) {
       </div>
 
       <aside className="diagnosis" aria-label="증상 선택">
-        <div className="progress-row"><span>진단 진행률</span><div className="progress"><i /></div><strong>1/5</strong></div>
         <div className="panel">
           <h2>어떤 증상이 느껴지나요?</h2>
-          <p>해당하는 증상을 선택해주세요. (복수 선택 가능)</p>
+          <p>해당하는 증상을 선택해주세요.</p>
           <label className="search"><Search size={18} /><input type="search" placeholder="증상을 검색해보세요" /></label>
           <p className="section-label">자주 선택한 증상</p>
           <div className="symptoms">
             {SYMPTOMS.map(([label, Icon, complaint]) => {
-              const isSelected = selected.includes(complaint);
+              const isSelected = selected === complaint;
               return (
-                <button key={complaint} className={`symptom ${isSelected ? "selected" : ""}`} type="button" onClick={() => setSelected((current) => current.includes(complaint) ? current.filter((item) => item !== complaint) : [...current, complaint])}>
+                <button key={complaint} className={`symptom ${isSelected ? "selected" : ""}`} type="button" onClick={() => setSelected(complaint)}>
                   {isSelected && <i className="check">✓</i>}
                   <Icon className="sym-icon" />
                   {label}
@@ -269,11 +268,10 @@ function StartPage({ setView, onDiagnose }) {
             })}
           </div>
           <button className="all" type="button"><span>전체 증상 보기</span><b>＋</b></button>
-          <button className="complete" type="button" onClick={goDiagnose} disabled={!primary}><span>선택 완료</span><small>{selected.length}</small><b><ArrowRight size={20} /></b></button>
+          <button className="complete" type="button" onClick={goDiagnose} disabled={!primary}><span>선택 완료</span><b><ArrowRight size={20} /></b></button>
         </div>
       </aside>
 
-      <div className="steps"><button className="current" type="button">01 증상 선택</button><button type="button">02 문진</button><button type="button">03 분석 중</button><button type="button">04 결과 확인</button></div>
       </section>
     </>
   );
