@@ -1153,6 +1153,9 @@ function ClinicsDetail({ clinic }) {
   const totalOutcome = Object.values(clinic.outcome).reduce((a, b) => a + b, 0);
   const topParts = Object.entries(clinic.body_parts).sort((a, b) => b[1] - a[1]).slice(0, 6);
   const topTreatments = Object.entries(clinic.treatments).sort((a, b) => b[1] - a[1]).slice(0, 5);
+  const topComplaints = Object.entries(clinic.complaints || {}).sort((a, b) => b[1] - a[1]).slice(0, 6);
+  const topCategories = Object.entries(clinic.categories || {}).sort((a, b) => b[1] - a[1]);
+  const posRatio = Math.round(((clinic.sentiment["긍정"] || 0) / Math.max(1, clinic.review_count)) * 100);
 
   return (
     <aside className="clinics-detail glass-panel">
@@ -1165,7 +1168,18 @@ function ClinicsDetail({ clinic }) {
       <div className="jd-meta">
         <span className="jd-count">리뷰 분석 {clinic.review_count}건</span>
         {clinic.avg_rating && <span className="jd-rating">★ {clinic.avg_rating}</span>}
+        <span className="jd-pos-badge" style={{ background: posRatio >= 80 ? "rgba(92,140,114,0.14)" : "rgba(160,175,188,0.14)", color: posRatio >= 80 ? "#3a7a5c" : "#6b7885" }}>
+          긍정 {posRatio}%
+        </span>
       </div>
+
+      {topCategories.length > 0 && (
+        <div className="jd-category-row">
+          {topCategories.map(([cat]) => (
+            <span key={cat} className="jd-cat-badge">{cat}</span>
+          ))}
+        </div>
+      )}
 
       <div className="detail-section">
         <h3>치료 결과</h3>
@@ -1195,6 +1209,26 @@ function ClinicsDetail({ clinic }) {
           </div>
         </div>
       )}
+
+      {topComplaints.length > 0 && (
+        <div className="detail-section">
+          <h3>주요 호소 증상</h3>
+          <div className="jd-pills">
+            {topComplaints.map(([c, cnt]) => (
+              <span key={c} className="jd-pill complaint">{c} <em>{cnt}</em></span>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <div className="detail-section">
+        <h3>진료 만족도</h3>
+        <MiniBar label="긍정" count={clinic.sentiment["긍정"] || 0} total={clinic.review_count} color="#5c8c72" />
+        <MiniBar label="언급없음" count={clinic.sentiment["언급없음"] || 0} total={clinic.review_count} color="#a8b5be" />
+        {(clinic.sentiment["부정"] || 0) > 0 && (
+          <MiniBar label="부정" count={clinic.sentiment["부정"]} total={clinic.review_count} color="#b97070" />
+        )}
+      </div>
 
       <p className="disclaimer">리뷰 자동 분석 결과예요. 의학적 조언이 아닙니다.</p>
     </aside>
