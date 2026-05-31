@@ -1,0 +1,150 @@
+{
+  "meta": {
+    "title": "약재-처방약 상호작용 시각화용 시드 데이터",
+    "updated": "2026-05-31",
+    "status": "prototype_seed",
+    "note": "식약처/식의약데이터포털 DUR 품목정보와 식약처 계열 복약안내 자료로 교차 검증해 확장할 데이터셋입니다. 현재 항목은 시각화 구조 검증용이며 임상 판단에 쓰면 안 됩니다.",
+    "sources": [
+      {
+        "name": "식의약 데이터 포털 의약품안전사용서비스(DUR) 품목정보",
+        "url": "https://data.mfds.go.kr/"
+      },
+      {
+        "name": "공공데이터포털 식품의약품안전처 의약품안전사용서비스(DUR) 관련 API 안내",
+        "url": "https://www.data.go.kr/"
+      }
+    ]
+  },
+  "drugClasses": [
+    {
+      "id": "drug:anticoagulant",
+      "name": "항응고제",
+      "examples": ["와파린"],
+      "riskDomain": "출혈·응고"
+    },
+    {
+      "id": "drug:antiplatelet",
+      "name": "항혈소판제",
+      "examples": ["아스피린", "클로피도그렐"],
+      "riskDomain": "출혈"
+    },
+    {
+      "id": "drug:diuretic",
+      "name": "이뇨제",
+      "examples": ["푸로세미드", "히드로클로로티아지드"],
+      "riskDomain": "전해질"
+    },
+    {
+      "id": "drug:cardiac_glycoside",
+      "name": "강심배당체",
+      "examples": ["디곡신"],
+      "riskDomain": "부정맥"
+    },
+    {
+      "id": "drug:maoi",
+      "name": "MAO 억제제",
+      "examples": ["모클로베미드", "셀레길린"],
+      "riskDomain": "혈압·중추신경"
+    },
+    {
+      "id": "drug:sympathomimetic",
+      "name": "교감신경흥분제",
+      "examples": ["슈도에페드린", "페닐에프린"],
+      "riskDomain": "혈압·심박"
+    },
+    {
+      "id": "drug:antidiabetic",
+      "name": "당뇨병 치료제",
+      "examples": ["인슐린", "설포닐우레아", "메트포르민"],
+      "riskDomain": "혈당"
+    },
+    {
+      "id": "drug:sedative",
+      "name": "진정제",
+      "examples": ["벤조디아제핀계", "수면제"],
+      "riskDomain": "졸림·진정"
+    }
+  ],
+  "interactions": [
+    {
+      "herbId": "herb_감초",
+      "drugClassId": "drug:diuretic",
+      "severity": "high",
+      "mechanism": "저칼륨혈증 위험이 겹칠 수 있음",
+      "clinicalConcern": "근력저하, 심계항진, 전해질 이상 위험",
+      "recommendation": "복용 전 의사·약사와 상담하고 칼륨 수치와 증상을 확인"
+    },
+    {
+      "herbId": "herb_감초",
+      "drugClassId": "drug:cardiac_glycoside",
+      "severity": "high",
+      "mechanism": "저칼륨혈증이 디곡신 독성 위험을 높일 수 있음",
+      "clinicalConcern": "부정맥, 메스꺼움, 어지러움 위험",
+      "recommendation": "디곡신 복용자는 임의 병용을 피하고 전문가에게 확인"
+    },
+    {
+      "herbId": "herb_마황",
+      "drugClassId": "drug:maoi",
+      "severity": "critical",
+      "mechanism": "교감신경 자극이 과도해질 수 있음",
+      "clinicalConcern": "혈압 상승, 두근거림, 불안, 두통 위험",
+      "recommendation": "병용 금기 수준으로 보고 반드시 처방자에게 확인"
+    },
+    {
+      "herbId": "herb_마황",
+      "drugClassId": "drug:sympathomimetic",
+      "severity": "high",
+      "mechanism": "혈압과 심박을 올리는 작용이 중첩될 수 있음",
+      "clinicalConcern": "고혈압, 빈맥, 불면 위험",
+      "recommendation": "감기약·비충혈제거제 포함 여부를 약사에게 확인"
+    },
+    {
+      "herbId": "herb_인삼",
+      "drugClassId": "drug:anticoagulant",
+      "severity": "moderate",
+      "mechanism": "항응고 효과 변동 가능성이 보고됨",
+      "clinicalConcern": "INR 변동, 출혈 또는 혈전 관리 실패 위험",
+      "recommendation": "와파린 복용자는 INR 변화와 병용 여부를 의료진과 확인"
+    },
+    {
+      "herbId": "herb_인삼",
+      "drugClassId": "drug:antidiabetic",
+      "severity": "moderate",
+      "mechanism": "혈당 강하 작용이 겹칠 수 있음",
+      "clinicalConcern": "저혈당 위험",
+      "recommendation": "혈당 자가측정값 변화를 관찰하고 용량 조절은 의료진과 상의"
+    },
+    {
+      "herbId": "herb_당귀",
+      "drugClassId": "drug:anticoagulant",
+      "severity": "high",
+      "mechanism": "출혈 위험 증가 가능성이 있음",
+      "clinicalConcern": "멍, 코피, 잇몸출혈, 위장관 출혈 위험",
+      "recommendation": "항응고제 복용 중이면 임의 병용하지 말고 상담"
+    },
+    {
+      "herbId": "herb_당귀",
+      "drugClassId": "drug:antiplatelet",
+      "severity": "moderate",
+      "mechanism": "항혈소판 효과와 출혈 위험이 중첩될 수 있음",
+      "clinicalConcern": "멍, 출혈 지속 위험",
+      "recommendation": "수술·시술 전 복용 사실을 의료진에게 알림"
+    },
+    {
+      "herbId": "herb_생강",
+      "drugClassId": "drug:anticoagulant",
+      "severity": "moderate",
+      "mechanism": "고용량 섭취 시 출혈 경향을 높일 수 있음",
+      "clinicalConcern": "INR 변동 또는 출혈 위험",
+      "recommendation": "농축 제제·고용량 복용은 전문가와 확인"
+    },
+    {
+      "herbId": "herb_홍화",
+      "drugClassId": "drug:anticoagulant",
+      "severity": "moderate",
+      "mechanism": "혈액응고 관련 작용이 겹칠 수 있음",
+      "clinicalConcern": "출혈 위험",
+      "recommendation": "와파린 등 항응고제 복용자는 전문가 상담"
+    }
+  ]
+}

@@ -30,6 +30,7 @@ const dataFiles = {
   organs: "/data/organs.json",
   herbImages: "/data/herb_images.json",
   commercialProducts: "/data/commercial-products.json",
+  herbDrugInteractions: "/data/herb-drug-interactions.json",
 };
 
 const ICONS = {
@@ -61,6 +62,7 @@ function useKnowledgeData() {
     edges: { herbSymptom: [], herbUcode: [], ucodeCategory: [] },
     categories: [], ucodes: [], organs: [], herbImages: {},
     commercialProducts: [],
+    herbDrugInteractions: { meta: {}, drugClasses: [], interactions: [] },
   });
 
   useEffect(() => {
@@ -265,6 +267,30 @@ function getFormKey(name) {
   return null;
 }
 
+const HIDDEN_HOME_PRODUCT_NAMES = new Set(["보중익기탕", "자음강화탕", "생맥산", "오적산", "가미소요산"]);
+const HOME_PRODUCT_ORDER = [
+  "쌍화탕",
+  "우황청심원",
+  "공진단",
+  "경옥고",
+  "갈근탕",
+  "십전대보탕",
+  "총명탕",
+  "사물탕",
+  "사군자탕",
+  "육미지황원",
+  "귀비탕",
+  "소시호탕",
+  "평위산",
+  "반하사심탕",
+  "곽향정기산",
+  "인삼패독산",
+  "안중산",
+  "향사평위산",
+  "소건중탕",
+];
+const HOME_PRODUCT_RANK = new Map(HOME_PRODUCT_ORDER.map((name, index) => [name, index]));
+
 function HomePage({ setView, onDiagnose, commercialProducts, onSelectProduct }) {
   const dragRef = useRef(null);
   const onCardScrollMouseDown = (e) => {
@@ -278,6 +304,8 @@ function HomePage({ setView, onDiagnose, commercialProducts, onSelectProduct }) 
 
   const cards = commercialProducts?.length > 0
     ? commercialProducts
+        .filter((product) => !HIDDEN_HOME_PRODUCT_NAMES.has(product.name))
+        .sort((a, b) => (HOME_PRODUCT_RANK.get(a.name) ?? 999) - (HOME_PRODUCT_RANK.get(b.name) ?? 999))
     : [];
 
   return (
@@ -300,21 +328,7 @@ function HomePage({ setView, onDiagnose, commercialProducts, onSelectProduct }) 
                     ? { background: FORM_STYLE[getFormKey(product.name)].bg }
                     : {}
                 }>
-                  {product.image
-                    ? <img src={product.image} alt={product.name} className="herb-news-img" />
-                    : (() => {
-                        const fk = getFormKey(product.name);
-                        const fs = fk ? FORM_STYLE[fk] : null;
-                        return (
-                          <div className="herb-news-img-placeholder">
-                            <span className="herb-placeholder-char" style={fs ? { color: fs.color } : {}}>
-                              {product.name.charAt(0)}
-                            </span>
-                            {fs && <span className="herb-placeholder-form" style={{ color: fs.color }}>{fs.label}</span>}
-                          </div>
-                        );
-                      })()
-                  }
+                  <ProductNewsImage product={product} />
                   <span className="herb-news-tag">{product.tagline}</span>
                 </div>
                 <div className="herb-news-card-body">
@@ -341,6 +355,57 @@ function HomePage({ setView, onDiagnose, commercialProducts, onSelectProduct }) 
         </section>
       )}
     </>
+  );
+}
+
+const PRODUCT_IMAGE_EXTENSIONS = ["svg", "png", "jpg", "jpeg", "webp", "gif"];
+
+function uniq(values) {
+  return [...new Set(values.filter(Boolean))];
+}
+
+function getProductImageCandidates(product) {
+  const names = uniq([
+    product.name,
+    product.name?.normalize("NFC"),
+    product.name?.normalize("NFD"),
+    `product-${product.name}`,
+    `product-${product.name?.normalize("NFC")}`,
+    `product-${product.name?.normalize("NFD")}`,
+  ]);
+  return uniq([
+    product.image,
+    ...names.flatMap((name) => PRODUCT_IMAGE_EXTENSIONS.map((ext) => `/images/${name}.${ext}`)),
+  ]);
+}
+
+function ProductNewsImage({ product }) {
+  const candidates = useMemo(() => getProductImageCandidates(product), [product]);
+  const [index, setIndex] = useState(0);
+  useEffect(() => setIndex(0), [product.id]);
+
+  const src = candidates[index];
+  if (src) {
+    const isSvg = src.toLowerCase().endsWith(".svg");
+    return (
+      <img
+        src={src}
+        alt={product.name}
+        className={`herb-news-img ${isSvg ? "vector" : "raster"}`}
+        onError={() => setIndex((next) => next + 1)}
+      />
+    );
+  }
+
+  const fk = getFormKey(product.name);
+  const fs = fk ? FORM_STYLE[fk] : null;
+  return (
+    <div className="herb-news-img-placeholder">
+      <span className="herb-placeholder-char" style={fs ? { color: fs.color } : {}}>
+        {product.name.charAt(0)}
+      </span>
+      {fs && <span className="herb-placeholder-form" style={{ color: fs.color }}>{fs.label}</span>}
+    </div>
   );
 }
 
@@ -546,8 +611,8 @@ const POPULAR_COMMERCIAL_PRODUCT_IDS = [
 ];
 
 function HerbLibrary({ data, initialSelectedId, onConsumeInitial, onNavigate }) {
-  const { herbs, symptoms, prescriptions, categories, ucodes, organs, herbImages, commercialProducts } = data;
-  const [viewMode, setViewMode] = useState("guide"); // 'guide' | 'organ' | 'prescription'
+  const { herbs, symptoms, prescriptions, categories, ucodes, organs, herbImages, commercialProducts, herbDrugInteractions } = data;
+  const [viewMode, setViewMode] = useState("guide"); // guide | organ | prescription | interaction
   const [activeCategoryId, setActiveCategoryId] = useState(null);
   const [selectedId, setSelectedId] = useState(null); // herb_xxx | U### | sym_xxx | comm_...
   const [query, setQuery] = useState("");
@@ -612,6 +677,11 @@ function HerbLibrary({ data, initialSelectedId, onConsumeInitial, onNavigate }) 
                 <h2>처방 사전</h2>
                 <p>전통 한방 처방 {prescriptions.length}가지를 약재 구성과 적용 병증으로 살펴보세요.</p>
               </>
+            ) : viewMode === "interaction" ? (
+              <>
+                <h2>처방약 상호작용</h2>
+                <p>약재와 일반 처방약 계열 사이의 주의 연결을 위험도별로 확인하세요.</p>
+              </>
             ) : (
               <>
                 <h2>약재들은 어떻게 연결될까요?</h2>
@@ -640,6 +710,13 @@ function HerbLibrary({ data, initialSelectedId, onConsumeInitial, onNavigate }) 
               onClick={() => { setViewMode("prescription"); setSelectedId(null); }}
             >
               <BookOpen size={15} /> 처방 사전
+            </button>
+            <button
+              type="button"
+              className={viewMode === "interaction" ? "active" : ""}
+              onClick={() => setViewMode("interaction")}
+            >
+              <Activity size={15} /> 상호작용
             </button>
           </div>
         </div>
@@ -671,6 +748,13 @@ function HerbLibrary({ data, initialSelectedId, onConsumeInitial, onNavigate }) 
               selectedId={selectedId}
               setSelectedId={setSelectedId}
             />
+          ) : viewMode === "interaction" ? (
+            <InteractionView
+              interactionsData={herbDrugInteractions}
+              herbById={herbById}
+              selectedId={selectedId}
+              setSelectedId={setSelectedId}
+            />
           ) : (
             <OrganMap
               organs={organs}
@@ -696,6 +780,7 @@ function HerbLibrary({ data, initialSelectedId, onConsumeInitial, onNavigate }) 
         herbImages={herbImages}
         prescriptions={prescriptions}
         commercialProducts={commercialProducts}
+        herbDrugInteractions={herbDrugInteractions}
         activeCategoryId={activeCategoryId}
         onNavigate={onNavigate}
       />
@@ -1260,7 +1345,120 @@ function OrganMap({ organs, herbs, categories, catById, organById, selectedId, s
   );
 }
 
-function DetailPanel({ selectedId, setSelectedId, herbById, symById, ucodeById, catById, organById, herbImages, prescriptions, commercialProducts, activeCategoryId, onNavigate }) {
+const SEVERITY_LABELS = {
+  critical: "매우 주의",
+  high: "높음",
+  moderate: "중간",
+  low: "낮음",
+};
+
+const SEVERITY_COLORS = {
+  critical: "#a94442",
+  high: "#c46a42",
+  moderate: "#b38b38",
+  low: "#6f97aa",
+};
+
+function buildInteractionRows(interactionsData, herbById) {
+  const drugById = Object.fromEntries((interactionsData?.drugClasses || []).map((d) => [d.id, d]));
+  return (interactionsData?.interactions || [])
+    .map((item) => ({
+      ...item,
+      herb: herbById[item.herbId],
+      drug: drugById[item.drugClassId],
+    }))
+    .filter((item) => item.herb && item.drug);
+}
+
+function InteractionView({ interactionsData, herbById, selectedId, setSelectedId }) {
+  const rows = useMemo(() => buildInteractionRows(interactionsData, herbById), [interactionsData, herbById]);
+  const drugIds = [...new Set(rows.map((row) => row.drugClassId))];
+  const herbs = [...new Map(rows.map((row) => [row.herbId, row.herb])).values()];
+  const countsBySeverity = rows.reduce((acc, row) => {
+    acc[row.severity] = (acc[row.severity] || 0) + 1;
+    return acc;
+  }, {});
+
+  return (
+    <div className="interaction-view">
+      <div className="interaction-summary">
+        <div>
+          <strong>{rows.length}</strong>
+          <span>주의 연결</span>
+        </div>
+        <div>
+          <strong>{herbs.length}</strong>
+          <span>약재</span>
+        </div>
+        <div>
+          <strong>{drugIds.length}</strong>
+          <span>처방약 계열</span>
+        </div>
+      </div>
+
+      <div className="severity-strip" aria-label="위험도 분포">
+        {["critical", "high", "moderate", "low"].map((severity) => (
+          <span key={severity} style={{ "--sev": SEVERITY_COLORS[severity], flex: countsBySeverity[severity] || 0.2 }}>
+            <i />{SEVERITY_LABELS[severity]} {countsBySeverity[severity] || 0}
+          </span>
+        ))}
+      </div>
+
+      <div className="risk-network">
+        <div className="risk-column">
+          <h3>약재</h3>
+          {herbs.map((herb) => {
+            const maxSeverity = rows.find((row) => row.herbId === herb.id)?.severity || "moderate";
+            return (
+              <button
+                key={herb.id}
+                type="button"
+                className={`risk-node herb ${selectedId === herb.id ? "selected" : ""}`}
+                onClick={() => setSelectedId(selectedId === herb.id ? null : herb.id)}
+                style={{ "--risk": SEVERITY_COLORS[maxSeverity] }}
+              >
+                <strong>{herb.nameKo}</strong>
+                <small>{rows.filter((row) => row.herbId === herb.id).length}개 연결</small>
+              </button>
+            );
+          })}
+        </div>
+
+        <div className="risk-links" aria-hidden="true">
+          {rows.map((row, index) => (
+            <span key={`${row.herbId}-${row.drugClassId}`} style={{ "--risk": SEVERITY_COLORS[row.severity], "--i": index }} />
+          ))}
+        </div>
+
+        <div className="risk-column">
+          <h3>처방약 계열</h3>
+          {drugIds.map((drugId) => {
+            const drug = rows.find((row) => row.drugClassId === drugId)?.drug;
+            const linked = rows.filter((row) => row.drugClassId === drugId);
+            return (
+              <button
+                key={drugId}
+                type="button"
+                className={`risk-node drug ${selectedId === drugId ? "selected" : ""}`}
+                onClick={() => setSelectedId(selectedId === drugId ? null : drugId)}
+                style={{ "--risk": SEVERITY_COLORS[linked[0]?.severity || "moderate"] }}
+              >
+                <strong>{drug.name}</strong>
+                <small>{drug.examples.join(" · ")}</small>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      <p className="interaction-footnote">
+        이 화면은 시각화 구조 검증용입니다. 실제 서비스에서는 식약처 DUR 품목정보와 허가사항 상호작용 문구를 원문 링크와 함께 붙여야 합니다.
+      </p>
+    </div>
+  );
+}
+
+function DetailPanel({ selectedId, setSelectedId, herbById, symById, ucodeById, catById, organById, herbImages, prescriptions, commercialProducts, herbDrugInteractions, activeCategoryId, onNavigate }) {
   const activeCat = catById[activeCategoryId];
   const commById = useMemo(() => Object.fromEntries((commercialProducts || []).map((p) => [p.id, p])), [commercialProducts]);
   const accent = activeCat?.color || "#6f97aa";
@@ -1274,6 +1472,7 @@ function DetailPanel({ selectedId, setSelectedId, herbById, symById, ucodeById, 
   else if (selectedId?.startsWith("sym_")) kind = "symptom";
   else if (selectedId?.startsWith("P")) kind = "prescription";
   else if (selectedId?.startsWith("comm_")) kind = "commercial";
+  else if (selectedId?.startsWith("drug:")) kind = "drug";
   else if (organById?.[selectedId]) kind = "organ";
 
   const herb = kind === "herb" ? herbById[selectedId] : null;
@@ -1281,6 +1480,12 @@ function DetailPanel({ selectedId, setSelectedId, herbById, symById, ucodeById, 
   const symptom = kind === "symptom" ? symById[selectedId] : null;
   const organ = kind === "organ" ? organById[selectedId] : null;
   const rx = kind === "prescription" ? rxById[selectedId] : null;
+  const interactionRows = useMemo(() => buildInteractionRows(herbDrugInteractions, herbById), [herbDrugInteractions, herbById]);
+  const drugById = useMemo(
+    () => Object.fromEntries((herbDrugInteractions?.drugClasses || []).map((d) => [d.id, d])),
+    [herbDrugInteractions]
+  );
+  const drug = kind === "drug" ? drugById[selectedId] : null;
 
   if (rx) {
     const rxHerbs = rx.herbs.map((hid) => herbById[hid]).filter(Boolean);
@@ -1485,6 +1690,35 @@ function DetailPanel({ selectedId, setSelectedId, herbById, symById, ucodeById, 
     );
   }
 
+  if (drug) {
+    const linked = interactionRows.filter((row) => row.drugClassId === drug.id);
+    return (
+      <aside className="library-detail glass-panel">
+        <div className="detail-heading">
+          <span style={{ color: "#a94442" }}>처방약 계열</span>
+          <h2>{drug.name}</h2>
+          <p>{drug.riskDomain} 관련 주의 · 예: {drug.examples.join(", ")}</p>
+        </div>
+        <div className="detail-section">
+          <h3>주의 연결 약재 ({linked.length})</h3>
+          <div className="interaction-list">
+            {linked.map((row) => (
+              <button key={row.herbId} type="button" onClick={() => setSelectedId(row.herbId)} style={{ "--risk": SEVERITY_COLORS[row.severity] }}>
+                <strong>{row.herb.nameKo}</strong>
+                <span>{SEVERITY_LABELS[row.severity]} · {row.clinicalConcern}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+        <div className="detail-section source-card compact-source">
+          <BookOpen size={16} />
+          <p><strong>데이터</strong> 식약처 DUR/허가사항 원문 연결을 위한 구조화 시드입니다.</p>
+        </div>
+        <p className="disclaimer">복용 중인 처방약이 있으면 한약·건기식·차 형태라도 의료진에게 알려야 합니다.</p>
+      </aside>
+    );
+  }
+
   if (!selectedId || (!herb && !ucode && !symptom)) {
     return (
       <aside className="library-detail glass-panel">
@@ -1503,6 +1737,7 @@ function DetailPanel({ selectedId, setSelectedId, herbById, symById, ucodeById, 
     const linkedRx = prescriptions
       .filter((rx) => rx.herbs.includes(herb.id))
       .slice(0, 5);
+    const herbInteractions = interactionRows.filter((row) => row.herbId === herb.id);
     // 성분 계열이 닮은 재료 (같은 화학 계열 공유)
     const myClasses = new Set((herb.compounds || []).map((c) => c.cls));
     const seenNames = new Set([herb.nameKo]);
@@ -1578,6 +1813,23 @@ function DetailPanel({ selectedId, setSelectedId, herbById, symById, ucodeById, 
                 <span key={m} className="meridian-pill">{m}</span>
               ))}
             </div>
+          </div>
+        )}
+
+        {herbInteractions.length > 0 && (
+          <div className="detail-section">
+            <h3>처방약 상호작용 주의</h3>
+            <div className="interaction-list">
+              {herbInteractions.map((row) => (
+                <button key={row.drugClassId} type="button" onClick={() => setSelectedId(row.drugClassId)} style={{ "--risk": SEVERITY_COLORS[row.severity] }}>
+                  <strong>{row.drug.name}</strong>
+                  <span>{SEVERITY_LABELS[row.severity]} · {row.clinicalConcern}</span>
+                </button>
+              ))}
+            </div>
+            <p style={{ fontSize: 12, color: "#7c8894", lineHeight: 1.55 }}>
+              식약처 DUR·허가사항 원문으로 검증해 확장할 시드 데이터입니다. 복용 판단에는 쓰지 마세요.
+            </p>
           </div>
         )}
 
