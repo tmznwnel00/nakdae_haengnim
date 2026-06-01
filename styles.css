@@ -1137,6 +1137,8 @@ h1 {
 
   .topbar {
     display: flex;
+    flex-wrap: wrap;
+    gap: 14px 18px;
     padding: 22px 18px 0;
   }
 
@@ -1144,9 +1146,36 @@ h1 {
     font-size: 20px;
   }
 
-  .nav,
   .login {
     display: none;
+  }
+
+  .nav {
+    order: 3;
+    display: flex;
+    justify-content: flex-start;
+    gap: 20px;
+    width: 100%;
+    min-width: 0;
+    overflow-x: auto;
+    padding: 2px 0 8px;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav button {
+    flex: 0 0 auto;
+    font-size: 12px;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+
+  .nav .active::after {
+    bottom: -8px;
   }
 
   .actions {
