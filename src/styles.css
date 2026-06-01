@@ -1009,6 +1009,11 @@
     grid-template-rows: 140px auto;
   }
 }
+
+/* ── 모바일 탭 (Clinics 전용, 데스크톱에서는 숨김) ── */
+.clinics-mobile-tabs {
+  display: none;
+}
 .lens-toggle.compound .lens-knob {
   transform: translateX(100%);
 }
@@ -2795,4 +2800,177 @@
   font-size: 12px;
   font-weight: 600;
   color: #4a6b7c;
+}
+
+/* ══════════════════════════════════════
+   모바일 최적화  (max-width: 768px)
+══════════════════════════════════════ */
+@media (max-width: 768px) {
+
+  /* ── 공통 유틸리티 ── */
+  .mobile-hidden { display: none !important; }
+
+  /* ── Topbar ── */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    padding: 0 12px;
+    height: 54px;
+  }
+  .brand-button { font-size: 13px; }
+  .nav {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 2px;
+  }
+  .nav::-webkit-scrollbar { display: none; }
+  .nav button {
+    font-size: 10px;
+    padding: 5px 8px;
+    white-space: nowrap;
+  }
+
+  /* ── Navigation 홈 ── */
+  .persona-guide {
+    padding: 20px 16px 12px;
+    gap: 20px;
+  }
+  .herb-cards-section {
+    padding: 16px 12px 32px;
+  }
+  .herb-card-scroll {
+    gap: 10px;
+    padding: 0 12px 12px;
+  }
+  .herb-news-card {
+    width: clamp(220px, 80vw, 300px);
+    flex-shrink: 0;
+  }
+
+  /* ── Self-Diagnosis (hero) ── */
+  .hero {
+    flex-direction: column;
+    padding: 20px 16px 24px;
+    min-height: unset;
+    gap: 20px;
+  }
+  .anatomy-stage { display: none; }
+  .intro { padding-bottom: 0; }
+  .diagnosis .panel {
+    height: auto;
+    max-height: 65vh;
+    overflow-y: auto;
+    border-radius: 20px;
+  }
+
+  /* ── Herb Library ── */
+  .library-page {
+    grid-template-columns: 1fr !important;
+    grid-template-areas:
+      "left"
+      "center"
+      "detail" !important;
+    padding: 12px 10px 24px;
+    gap: 12px;
+  }
+  .library-left {
+    max-height: 220px;
+    overflow-y: auto;
+    border-radius: 18px;
+  }
+  .library-detail {
+    border-radius: 18px;
+  }
+  .center-panel {
+    min-height: 380px;
+  }
+  .network svg { height: 420px; }
+
+  /* ── Clinics ── */
+  .clinics-page {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 54px);
+    padding: 0;
+    gap: 0;
+  }
+  .clinics-mobile-tabs {
+    display: flex;
+    flex-shrink: 0;
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(160, 175, 188, 0.2);
+    z-index: 10;
+  }
+  .clinics-mobile-tabs button {
+    flex: 1;
+    padding: 10px 0;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: #667581;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color 0.14s;
+  }
+  .clinics-mobile-tabs button.active {
+    color: #2a3640;
+    border-bottom: 2px solid #5c8c72;
+  }
+  .clinics-left {
+    flex: 1;
+    overflow-y: auto;
+    border-radius: 0;
+  }
+  .clinics-map-wrap {
+    flex: 1;
+    border-radius: 0;
+  }
+  .clinics-detail {
+    flex: 1;
+    overflow-y: auto;
+    border-radius: 0;
+  }
+
+  /* ── Sasang ── */
+  .sasang-page {
+    padding: 16px 10px 32px;
+  }
+  .sas-landing {
+    gap: 10px;
+  }
+  .sas-landing-header {
+    padding: 20px 20px 16px;
+    border-radius: 18px;
+  }
+  .sasang-main-title {
+    font-size: clamp(22px, 6vw, 32px);
+    margin: 6px 0 8px;
+  }
+  .sas-type-card-body {
+    padding: 10px 12px 12px;
+  }
+  .sas-type-name { font-size: 13px; }
+  .sas-compare-header,
+  .sas-compare-row {
+    grid-template-columns: 38px 1fr 1fr 1fr 1fr;
+    gap: 4px;
+  }
+  .sas-compare-col-head { font-size: 10px; }
+  .sas-compare-label { font-size: 10px; }
+  .sasang-card {
+    padding: 24px 20px;
+    border-radius: 20px;
+  }
+  .sasang-option {
+    padding: 11px 14px;
+  }
+  .sas-result-head { padding: 24px 20px 20px; }
+  .sas-score-bars { padding: 16px 20px 20px; }
+  .sas-sections-area { padding: 10px 12px 6px; gap: 8px; }
+  .sas-section { padding: 12px 14px; }
+  .sas-reset-btn { margin: 12px 12px 6px; }
+  .sasang-result .disclaimer { padding: 0 12px 20px; }
 }

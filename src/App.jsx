@@ -1960,6 +1960,7 @@ function ClinicsPage({ clinics }) {
   const [selected, setSelected] = useState(null);
   const [district, setDistrict] = useState(null);
   const [category, setCategory] = useState(null);
+  const [mapTab, setMapTab] = useState("map");
 
   const districts = useMemo(
     () => [...new Set(clinics.map((c) => c.district).filter(Boolean))].sort(),
@@ -1988,22 +1989,28 @@ function ClinicsPage({ clinics }) {
 
   return (
     <section className="clinics-page">
+      <div className="clinics-mobile-tabs">
+        <button className={mapTab === "filter" ? "active" : ""} onClick={() => setMapTab("filter")}>필터</button>
+        <button className={mapTab === "map" ? "active" : ""} onClick={() => setMapTab("map")}>지도</button>
+        <button className={mapTab === "detail" ? "active" : ""} onClick={() => setMapTab("detail")}>상세</button>
+      </div>
       <ClinicsLeft
         districts={districts} district={district} setDistrict={handleSetDistrict}
         categories={allCategories} category={category} setCategory={handleSetCategory}
         total={clinics.length}
+        className={mapTab !== "filter" ? "mobile-hidden" : ""}
       />
-      <div className="clinics-map-wrap glass-panel">
-        <ClinicsMap clinics={filtered} selectedId={selected?.id} onSelect={setSelected} />
+      <div className={`clinics-map-wrap glass-panel${mapTab !== "map" ? " mobile-hidden" : ""}`}>
+        <ClinicsMap clinics={filtered} selectedId={selected?.id} onSelect={(c) => { setSelected(c); setMapTab("detail"); }} />
       </div>
-      <ClinicsDetail clinic={selected} />
+      <ClinicsDetail clinic={selected} className={mapTab !== "detail" ? "mobile-hidden" : ""} />
     </section>
   );
 }
 
-function ClinicsLeft({ districts, district, setDistrict, categories, category, setCategory, total }) {
+function ClinicsLeft({ districts, district, setDistrict, categories, category, setCategory, total, className }) {
   return (
-    <aside className="clinics-left glass-panel">
+    <aside className={`clinics-left glass-panel${className ? " " + className : ""}`}>
       <p className="eyebrow" style={{ margin: "0 0 10px" }}>CLINICS</p>
       <h2 className="clinics-title">서울 한의원<br />리뷰 지도</h2>
       <p className="clinics-desc">{total}개 한의원</p>
@@ -2092,10 +2099,10 @@ function MiniBar({ label, count, total, color }) {
   );
 }
 
-function ClinicsDetail({ clinic }) {
+function ClinicsDetail({ clinic, className }) {
   if (!clinic) {
     return (
-      <aside className="clinics-detail glass-panel">
+      <aside className={`clinics-detail glass-panel${className ? " " + className : ""}`}>
         <div className="clinics-empty">
           <p>지도에서<br />한의원을 클릭해보세요</p>
           <small>리뷰 분석 결과를<br />여기서 확인할 수 있어요</small>
@@ -2112,7 +2119,7 @@ function ClinicsDetail({ clinic }) {
   const posRatio = Math.round(((clinic.sentiment["긍정"] || 0) / Math.max(1, clinic.review_count)) * 100);
 
   return (
-    <aside className="clinics-detail glass-panel">
+    <aside className={`clinics-detail glass-panel${className ? " " + className : ""}`}>
       <div className="detail-heading">
         <span style={{ color: "#6f97aa" }}>한의원</span>
         <h2>{clinic.name}</h2>
