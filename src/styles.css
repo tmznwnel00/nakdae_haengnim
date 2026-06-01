@@ -2856,7 +2856,44 @@
     min-height: unset;
     gap: 20px;
   }
-  .anatomy-stage { display: none; }
+  .anatomy-stage {
+    display: block;
+    order: 0;
+    width: 100%;
+    min-height: 430px;
+    margin: -4px 0 0;
+  }
+  .orbit-a {
+    width: 360px;
+    height: 360px;
+  }
+  .orbit-b {
+    width: 292px;
+    height: 292px;
+  }
+  .orbit-c {
+    width: 220px;
+    height: 220px;
+  }
+  .figure-wrap {
+    width: min(54vw, 220px);
+    top: 51%;
+  }
+  .body-tag {
+    min-width: 78px;
+    height: 32px;
+    gap: 6px;
+    padding: 0 9px 0 8px;
+    font-size: 11px;
+    border-radius: 999px;
+  }
+  .body-tag span {
+    width: 18px;
+    height: 18px;
+  }
+  .data-body-tag small {
+    display: none;
+  }
   .intro { padding-bottom: 0; }
   .diagnosis .panel {
     height: auto;
